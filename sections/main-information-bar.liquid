@@ -11,7 +11,7 @@
   }
 {% endstyle %}
 
-<div class="{% if  section.settings.animation_toggle %} div-card-list-info {%else%} dragscroll {%endif%}" style="border-top:{{section.settings.border_scale}}px {{section.settings.border_color}} solid; border-bottom:{{section.settings.border_scale}}px {{section.settings.border_color}} solid; padding: {{section.settings.border_height}}px 0; {% if section.settings.border_toggle %} border:none {%endif%}">
+<div class="{% if section.settings.animation_toggle %} div-card-list-info {%else%} dragscroll {%endif%}" style="border-top:{{section.settings.border_scale}}px {{section.settings.border_color}} solid; border-bottom:{{section.settings.border_scale}}px {{section.settings.border_color}} solid; padding: {{section.settings.border_height}}px 0; {% if section.settings.border_toggle %} border:none {%endif%}">
   <ul class="card-list-info" style="background-color:{{section.settings.bg_color_list}}; {% if section.settings.animation_toggle and section.blocks.size > 3%} animation: scroll {{section.settings.animation_time}}s linear infinite{%endif%}; {%if section.blocks.size < 4%} min-width: 100% {%else%} width: fit-content; {%endif%}">
     {% for item in section.blocks %}
       <li class="card-info" style="{% if  section.settings.animation_toggle or section.blocks.size < 4 %} cursor:default {%else%} cursor:ew-resize {%endif%}; background-color:{{section.settings.bg_color_card}}">

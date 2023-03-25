@@ -22,7 +22,7 @@
     height: auto;
    transition: transform var(--duration-long) ease;
 }
-.sub-banner-img:hover img {
+.sub-banner-block:hover img {
     -o-transform: scale(1.05);
     -moz-transform: scale(1.05);
     -ms-transform: scale(1.05);

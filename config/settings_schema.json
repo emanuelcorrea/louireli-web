@@ -4,8 +4,8 @@
     "theme_name": "Estelar",
     "theme_version": "1.0.0",
     "theme_author": "Astron Ecom",
-    "theme_documentation_url": "https://ajuda.astronecom.com/pt-br/",
-    "theme_support_url": "https://ajuda.astronecom.com/pt-br/"
+    "theme_documentation_url": "https:\/\/ajuda.astronecom.com\/pt-br\/",
+    "theme_support_url": "https:\/\/ajuda.astronecom.com\/pt-br\/"
   },
   {
     "name": "t:settings_schema.colors.name",
@@ -1413,7 +1413,7 @@
     "settings": [
       {
         "type": "paragraph",
-        "content": "Tema com todos os direitos reservados por Astron Ecom e licença única para uma loja. Processos judicias estão sujeitos em caso de pirataria! [Site Oficial](https://astronecom.com/)"
+        "content": "Tema com todos os direitos reservados por Astron Ecom e licença única para uma loja. Processos judicias estão sujeitos em caso de pirataria! [Site Oficial](https:\/\/astronecom.com\/)"
       },
       {
         "type": "text",
