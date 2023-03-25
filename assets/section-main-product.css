@@ -909,6 +909,14 @@ a.product__text {
 }
 
 @media screen and (max-width: 749px) {
+  .page-width.product-page {
+    padding: 0 !important;
+  }
+
+  .product__media-item--variant:first-child {
+    padding-right: 0;
+  }
+  
   .product-popup-modal__content table {
     display: block;
     max-width: fit-content;
