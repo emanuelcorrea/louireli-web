@@ -10,6 +10,12 @@
   text-decoration: none;
 }
 
+.card--product {
+  box-shadow: 0 2px 0.3rem rgba(0, 0, 0, 0.4);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
 .card:not(.ratio) {
   display: flex;
   flex-direction: column;
@@ -114,7 +120,8 @@
 @media screen and (min-width: 750px) {
   .card__information {
     padding-bottom: 1rem;
-    padding-top: 1.5rem;
+    padding-left: 1.3rem;
+    padding-top: 0.8rem;
   }
 }
 
@@ -441,7 +448,7 @@
         font-size: 12px;
     }
     .card__information {
-        padding: 0.5rem 0;
+        padding: 0.5rem 1rem;
     }
     .card-information>*:not(.visually-hidden:first-child)+*:not(.rating) {
         margin-top: 0.5rem;

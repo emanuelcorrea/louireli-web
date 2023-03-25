@@ -40,47 +40,5 @@
 
 
 //===================== For Countdown =======================//
-  
-  $(document).ready(function() {
-    if($('.product-page .timer-display').length > 0){
-
-    {% assign splitdate = end_date | split: "," %}
-    {% capture finaldate %}{{ splitdate[1] }},{{ splitdate[0] }},{{ splitdate[2] }}{% endcapture %}
-  
-        var deadline = new Date('{{- finaldate -}}').getTime(); 
-
-        var x = setInterval(function() { 
-        var now = new Date().getTime();
-        var t;
-        if(deadline > now){
-           t = now - deadline
-        } 
-        else {
-          var date1 = new Date();
-          date1.setHours(date1.getHours() -3);
-          var date2 = new  Date(new Date().setUTCHours(23,59,59,999));
-          var diff = new Date(date2.getTime() - date1.getTime());;
-
-          t=  diff;
-        }
-        var days = Math.floor(t / (1000 * 60 * 60 * 24)); 
-        var hours = Math.floor((t%(1000 * 60 * 60 * 24))/(1000 * 60 * 60)); 
-        var minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60)); 
-        var seconds = Math.floor((t % (1000 * 60)) / 1000); 
-        document.getElementById("day").innerHTML =days ; 
-        document.getElementById("hour").innerHTML =hours; 
-        document.getElementById("minute").innerHTML = minutes;  
-        document.getElementById("second").innerHTML =seconds;
-        if (t < 0) { 
-                clearInterval(x); 
-                document.getElementById("offer-date").innerHTML = "Tempo Esgotado"; 
-                document.getElementById("day").innerHTML ='0'; 
-                document.getElementById("hour").innerHTML ='0'; 
-                document.getElementById("minute").innerHTML ='0' ;  
-                document.getElementById("second").innerHTML = '0'; } 
-        }, 1000); 
-     }
-  });
-  
 </script>
 {% endif %}

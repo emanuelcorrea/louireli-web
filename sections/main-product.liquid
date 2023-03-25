@@ -151,7 +151,7 @@
   {%- endif -%}
 
   <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.gallery_layout }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
-    <div class="grid__item product__media-wrapper {% if section.settings.product_box_images %}astron-card-rounded-shadows{% endif %}">
+    <div class="grid__item product__media-wrapper">
       <media-gallery id="MediaGallery-{{ section.id }}" role="region" class="{% if section.settings.enable_sticky_info %} product__media-gallery{% endif %} {% if section.settings.thumbnail_postion == 'verticle' %}verticle_thumb verticle_{{ section.settings.verticle_position }} {% endif %}" aria-label="{{ 'products.product.media.gallery_viewer' | t }}" data-desktop-layout="{{ section.settings.gallery_layout }}">
         <div id="GalleryStatus-{{ section.id }}" class="visually-hidden" role="status"></div>
         <slider-component id="GalleryViewer-{{ section.id }}" class="slider-mobile-gutter mediaGalleryAstron">
@@ -329,7 +329,7 @@
         });
       </script>
     </div>
-    <div class="product__info-wrapper grid__item{% if settings.page_width > 1400 and section.settings.media_size == "small" %} product__info-wrapper--extra-padding{% endif %} {% if section.settings.product_box_price %}astron-card-rounded-shadows{% endif %}">
+    <div class="product__info-wrapper grid__item{% if settings.page_width > 1400 and section.settings.media_size == "small" %} product__info-wrapper--extra-padding{% endif %}">
       <div id="ProductInfo-{{ section.id }}" class="product__info-container{% if section.settings.enable_sticky_info %} product__info-container--sticky{% endif %}">
         {%- assign product_form_id = 'product-form-' | append: section.id -%}
           <div class="breadcrume">
@@ -399,7 +399,6 @@
 
           {%- when 'viewer_count' -%}
             {% if block.settings.viewer %}
-              <p>{% render 'icon-quickview'%} <b><span class="viwer_pro"></span></b><span style="margin-left:5px;">{{'general.zenon_text.viewer_text' | t}}</span></p>
             <script>
             setInterval(() => {
               $( ".viwer_pro" ).text(function(index) {
@@ -604,16 +603,6 @@
               .stock_line_enable { width: 10%; height: 5px; background: red; font-size: 0;}
             </style>
           {% endif %}
-        {%- when 'timer' -%}
-          <!-- ============ Deal Countdown ============ -->
-             {%- liquid
-                assign date_time = block.settings.time
-            -%}
-          {% if block.settings.timer_box == true %}
-              {% assign date =  date_time %}
-              {% include 'countdown', end_date: date %}
-          {% endif %}
-
 
           {%- when 'custom_liquid' -%}
             {{ block.settings.custom_liquid }}

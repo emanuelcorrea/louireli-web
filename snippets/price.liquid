@@ -177,16 +177,6 @@
     assign discount = compare_at_price | minus: product.selected_or_first_available_variant.price | money
   -%}
 
-  {% if section.settings.labels_disable == blank and compare_at_price != nil %}
-    <span class="price_sub_pix">
-    {% if section.settings.price_sub_pix_txt != blank %}
-      {{ section.settings.price_sub_pix_txt }}
-    {% endif %}
-      <span data-discount-price>
-        {{ discount }}
-      </span>
-    </span>
-  {% endif %}
   {% comment %} FIM DESCONTO EM REAIS {% endcomment %}
 
 {% endif %}

@@ -168,7 +168,7 @@
   .slider
   .multicolumn-card__image-wrapper
   + .multicolumn-card__info {
-  padding-left: 1.5rem;
+  padding-left: 0rem;
 }
 
 .background-none

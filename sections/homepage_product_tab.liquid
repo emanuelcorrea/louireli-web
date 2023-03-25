@@ -112,7 +112,7 @@
       </slider-component>
 
       {%- if section.settings.show_view_all == true -%}
-      <div class="center collection__view-all">
+      <div class="center collection__view-all" style="margin-top: 3rem">
         <a href="{{ block.settings.collection.url }}"
            class="{% if section.settings.view_all_style == 'link' %}link underlined-link{% elsif section.settings.view_all_style == 'solid' %}button{% else %}button button--secondary{% endif %}"
            aria-label="{{ 'sections.featured_collection.view_all_label' | t: collection_name: section.settings.collection.title }}"
