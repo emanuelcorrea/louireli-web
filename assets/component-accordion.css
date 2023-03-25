@@ -2,7 +2,9 @@
   display: flex;
   position: relative;
   line-height: 1;
-  padding: 1.5rem 0;
+  padding: 1.8rem 0 1.8rem 2rem;
+  border-radius: 20px;
+  transition: background-color 0.5s linear;
 }
 
 .accordion .summary__title {
@@ -21,9 +23,12 @@
 
 .accordion {
   margin-top: 2.5rem;
-  margin-bottom: 0;
-  border-top: 0.1rem solid rgba(var(--color-foreground), 0.08);
-  border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.08);
+  margin-bottom: 2rem;
+}
+
+.accordion details {
+  border: 1px solid #ddd;
+  border-radius: 20px;
 }
 
 .accordion__title {
@@ -32,6 +37,10 @@
   min-height: 1.6rem;
   margin: 0;
   word-break: break-word;
+  font-weight: 600;
+  font-size: 16px;
+  color: #2B2A28;
+  font-family: var(--font-body-family);
 }
 
 .accordion .icon-accordion {
@@ -50,9 +59,84 @@
   margin-bottom: 1.5rem;
   word-break: break-word;
   overflow-x: auto;
-  padding: 0 0.6rem;
+  padding: 1.5rem 2rem 0;
 }
 
 .accordion__content img {
   max-width: 100%;
+}
+
+/********* design collipsible tab css *****/
+.accordion  .coll-tab {
+    display: flex;
+    position: relative;
+    line-height: 1;
+    padding: 1.8rem 0;
+    cursor: pointer;
+}
+
+.product__accordion .accordion__content .tab-description {
+    margin-top: 10px;
+    padding: 0;
+}
+.product__accordion .accordion__content .tab-description .tab-info {
+    list-style: none;
+    margin-bottom: 8px;
+}
+.product__accordion .accordion__content .tab-description .tab-info .title {
+    font-weight: 600;
+    font-size: 14px;
+    color: #000000;
+    min-width: 70px;
+    display: inline-block;
+    margin: 0;
+}
+.product__accordion .accordion__content .tab-description .tab-info .desc {
+    font-weight: 400;
+    font-size: 14px;
+    margin-left: 10px;
+}
+.accordion .coll-tab .plus_minus {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 1.5rem;
+    top: calc(50% - 10px);
+    display: inline-block;
+}
+.accordion .coll-tab .plus_minus:before,.accordion .coll-tab .plus_minus:after {
+    position: absolute;
+    content: "";
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%,-50%) rotate(-90deg);
+    transform: translate(-50%,-50%) rotate(-90deg);
+    background-color: #000;
+}
+.accordion .coll-tab .plus_minus:before {
+    width: 12px;
+    height: 1px;
+}
+.accordion .coll-tab .plus_minus:after {
+    width: 1px;
+    height: 12px;
+}
+.accordion.active .coll-tab .plus_minus:before {
+    opacity: 0;
+}
+.accordion .coll-tab .icon-caret {
+    display: none;
+}
+
+@media screen and (max-width: 749px) {
+    .product__accordion.accordion {
+        margin-top: 0.5rem;
+        border-top: 0;
+    }
+    .accordion .coll-tab {
+        padding: 1.4rem 0;
+    }
+    .product__accordion.accordion .coll-tab {
+       padding: 1rem 0;
+    }
 }

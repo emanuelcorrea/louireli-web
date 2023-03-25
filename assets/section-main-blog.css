@@ -7,6 +7,13 @@
 
 .blog-articles .card-wrapper {
   width: 100%;
+  box-shadow: 0 4px 20px #00000014;
+  border-radius: var(--media-radius);
+  padding: 10px 10px 0;
+}
+.main-blog .title--primary {
+  text-align: center;
+  margin: 0 0 2rem;
 }
 
 @media screen and (min-width: 750px) {

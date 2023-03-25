@@ -1,0 +1,54 @@
+{% comment %}
+  Shopify Wishlist
+  Usage:
+    - Create a new page in the Shopify admin
+      - Admin > Online store > Pages > Add page
+    - Set the new page's template to: 'page.wishlist'
+    - Do NOT remove the `grid-wishlist` attribute
+  
+  Notes:
+  - The grid will be populated with product cards using Javascript
+  - Any content inside of the `[grid-wishlist]` element will be completely replaced by the product cards
+  
+  Tip:
+  - Place a loading element inside the `[grid-wishlist]` element and it will automatically be removed once the product cards have loaded
+  - Add any liquid code before/after the grid element
+{% endcomment %}
+
+{{ 'template-collection.css' | asset_url | stylesheet_tag }}
+{{ 'component-loading-overlay.css' | asset_url | stylesheet_tag }}
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+
+<link rel="preload" href="{{ 'component-rte.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+<script src="{{ 'ajaxinate.min.js' | asset_url }}"></script>
+
+{%- if settings.enable_quick_add -%}
+  <link rel="stylesheet" href="{{ 'quick-add.css' | asset_url }}" media="print" onload="this.media='all'">
+  <script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
+<noscript>{{ 'component-rte.css' | asset_url | stylesheet_tag }}</noscript>
+
+<div class="page-width">
+<ul class="wishlist__grid grid product-grid grid--{{ settings.columns_mobile }}-col-tablet-down
+              grid--{{ settings.columns_desktop }}-col-desktop" grid-wishlist>
+  {% comment %} Sample loading element {% endcomment %}
+  <p class="wishlist__loader full-width text-center">Loading...</p>
+</ul>
+<div class="wishlist-text">
+      <h3>{{ 'general.wishlist_text' | t }}</h3>
+      <a href="{{ routes.all_products_collection_url }}" class="underlined-link">{{ 'general.continue_shopping' | t }}</a>
+</div>
+</div>
+
+<style type="text/css">
+  .wishlist { margin-top: 50px; }
+</style>
+
+{% schema %}
+  {
+    "templates": ["page"]
+  }
+{% endschema %}

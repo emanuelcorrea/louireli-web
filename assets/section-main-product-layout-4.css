@@ -1,0 +1,80 @@
+
+/********* product tab *******/
+
+.product_tab_three {
+	margin: 90px 0 40px;
+    width: 100%;
+}
+.product_tab_three .product_tab_wrapper {
+	padding: 0;
+}
+.product_tab_three .product_tab_wrapper .tabs {
+	padding: 0;
+	text-align: center;
+	margin-bottom: -1px;
+    display: flex;
+    justify-content: center;
+    column-gap: 20px;
+}
+.product_tab_three .product_tab_wrapper .tabs li {
+	display: flex;
+}
+.product_tab_three .product_tab_wrapper .tabs li a {
+	padding: 10px 24px;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 22px;
+    background: none;
+    color: rgb(var(--color-base-text));
+    list-style: none;
+    text-decoration: none;
+    text-transform: uppercase;
+    border: 1px solid transparent;
+    border-radius: 5px 5px 0 0;
+}
+.product_tab_three .product_tab_wrapper .tabs li a.active,
+.product_tab_three .product_tab_wrapper .tabs li a:hover{
+	color: rgb(var(--color-base-text));
+    border-color: #ddd;
+    border-bottom-color: #fff;
+}
+.product_tab_three .product_tab_wrapper .tabs-content {
+	list-style: none;
+    border: 1px solid #ddd;
+    padding: 30px;
+    border-radius: 10px;
+    margin: 0;
+}
+.product_tab_three .product_tab_wrapper .tabs-content p {
+    margin: 0;
+}
+
+@media screen and (max-width: 989px) {
+    .product_tab_three .product_tab_wrapper .tabs {
+        flex-wrap: wrap;
+        column-gap: 10px;
+    }
+    .product_tab_three .product_tab_wrapper .tabs li a {
+        padding: 0px 10px 15px;
+        border: 0;
+    }
+    .product_tab_three .product_tab_wrapper .tabs li a.active {
+        font-weight: 700;
+    }
+}
+@media screen and (max-width: 749px) {
+    .product_tab_three .product_tab_wrapper .tabs-content {
+        padding: 20px;
+    }
+    .product_tab_three .product_tab_wrapper .tabs li a {
+        padding: 0px 5px 15px;
+        border: 0;
+    }
+   
+  .product .product__media-wrapper slider-component:not(.thumbnail-slider--no-slide) { margin-left:0; margin-right:0; }
+  .product .product__media-list { margin-left: 0; width: 100%; }
+  .product .product__media-list .product__media-item { margin-left:0; width: 100%; }   
+  
+}
+
+/********* End product tab *******/

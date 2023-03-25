@@ -1,0 +1,331 @@
+{% if section.settings.enable_section_newsletter %}
+  <style>
+    :root {
+        --color-primary-newsletter: {{ section.settings.newsletter_primary_color }};
+        --color-secondary-newsletter: {{ section.settings.newsletter_secondary_color }};
+        --color-primary-font-newsletter: {{ section.settings.newsletter_primary_font_color }};
+    }
+
+    .container-newsletter {
+        margin: 0 auto;
+        max-width: 1600px;
+    }
+
+    .footer-newsletter-wrapper {
+        background-color: var(--color-primary-newsletter);
+    }
+    .footer-newsletter {
+        display: flex;
+        gap: 1rem;
+        justify-content: space-between;
+        align-items: baseline;
+        padding: 18px 55px;
+        flex-direction: column;
+        {% if section.settings.newsletter_posicionamento == 'centralizado' %}align-items: center;{% endif %}
+        {% if section.settings.newsletter_posicionamento == 'direita' %}align-items: flex-end;{% endif %}
+    }
+    .footer-newsletter-left {
+        text-align: center;
+        font-size: 16px;
+        font-family: var(--font-heading-family);
+        color: var(--color-primary-font-newsletter);
+        font-weight: 600;
+    }
+    .footer-newsletter-right {
+        flex-grow: 0.5;
+    }
+    .footer-newsletter-input-group {
+        display: flex;
+        position: relative;
+        gap: 1rem;
+        align-items: center;
+        justify-content: space-around;
+        margin: 0;
+    }
+    .footer-newsletter-input {
+        flex-basis: 100%;
+        max-width: 500px;
+        outline: none;
+        font-size: 14px;
+        border: 1px solid #fff;
+        padding: 8px 12px;
+        background-color: #fff;
+        width: 300px;
+    }
+    .footer-newsletter-input:focus {
+        border-color: var(--color-secondary-newsletter);
+    }
+    .footer-newsletter-button {
+        width: max-content;
+        color: var( --color-primary-font-newsletter);
+        font-size: 14px;
+        text-transform: uppercase;
+        font-weight: 600;
+        padding: 9px 12px;
+        border: none;
+        background-color: var(--color-secondary-newsletter);
+        margin-left: -10px;
+        cursor: pointer;
+    }
+
+    .footer-newsletter-input-error {
+        border: 1px solid #d20000;
+        color: #d20000;
+        background-color: #fff8f8;
+    }
+    .footer-newsletter-input-error::placeholder {
+        color: #d20000;
+    }
+    .footer-newsletter-error-message {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin-top: 10px;
+        color: #fff8f8;
+    }
+    .footer-newsletter-success-message {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin-top: 10px;
+        color: #f9fffa;
+    }
+    .footer-newsletter-success-message .icon-mail {
+        fill: #51A559;
+    }
+    .footer-newsletter-error-message .icon-error {
+        fill: #d20000;
+    }
+
+    @media only screen and (max-width: 780px) {
+        .footer-newsletter, .footer-newsletter-input-group {
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .footer-newsletter-button, .footer-newsletter-button-wrapper {
+            width: 100%;
+        }
+        .footer-newsletter-input {
+          width: 100%;
+          max-width: 100%;
+        }
+        .footer-newsletter-button {
+          margin-left: 0;
+        }
+    }
+  </style>
+
+  <div class="footer-newsletter-wrapper">
+    <div class="footer-newsletter container-newsletter">
+      <div class="footer-newsletter-left">
+        {% if section.settings.newsletter_footer_title != blank %}
+          {{ section.settings.newsletter_footer_title | escape }}
+        {% endif %}
+      </div>
+      <div class="footer-newsletter-right">
+        {%- assign formId = 'Contact_' | append: section.id -%}
+        {% form 'customer', id: formId, novalidate: 'novalidate', class: 'footer-newsletter-form' %}
+          <div class="footer-newsletter-input-group">
+            <input type="hidden" name="contact[tags]" value="newsletter">
+
+            <input
+              type="text"
+              name="contact[name]"
+              id="{{ formId }}-name"
+              class="footer-newsletter-input {% if form.errors %} footer-newsletter-input-error {% endif %}"
+              value="{{ form.name }}"
+              placeholder="Nome"
+              aria-label="Nome"
+              aria-required="true"
+              autocorrect="off"
+              autocapitalize="off"
+              {% if form.errors %}
+                aria-invalid="true"
+                aria-describedby="{{ formId }}-name-error"
+                data-form-status
+              {% endif %}
+            >
+
+            <input
+              type="email"
+              name="contact[email]"
+              id="{{ formId }}-email"
+              class="footer-newsletter-input {% if form.errors %} footer-newsletter-input-error {% endif %}"
+              value="{{ form.email }}"
+              placeholder="{{ 'newsletter.label' | t }}"
+              aria-label="{{ 'newsletter.label' | t }}"
+              aria-required="true"
+              autocorrect="off"
+              autocapitalize="off"
+              {% if form.errors %}
+                aria-invalid="true"
+                aria-describedby="{{ formId }}-email-error"
+                data-form-status
+              {% endif %}
+            >
+            <span class="footer-newsletter-button-wrapper">
+              <button type="submit" class="footer-newsletter-button">
+                OK
+              </button>
+            </span>
+          </div>
+          {%- if form.errors contains 'email' -%}
+            <span id="{{ formId }}-email-error" class="footer-newsletter-error-message">
+              <span class="visually-hidden">{{ 'general.accessibility.error' | t }} </span>
+              {% include 'icon-error' %}
+              <span>
+                {{- form.errors.translated_fields.email | capitalize }}
+                {{ form.errors.messages.email }}.</span
+              >
+            </span>
+          {%- endif -%}
+
+          {%- if form.posted_successfully? -%}
+            <span class="footer-newsletter-success-message" tabindex="-1" data-form-status>
+              {% include 'icon-mail' %}
+              {{ 'general.newsletter_form.confirmation' | t }}
+            </span>
+          {%- endif -%}
+        {% endform %}
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Newsletter rodapé",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_section_newsletter",
+      "default": true,
+      "label": "Ativar"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_footer_title",
+      "label": "Título",
+      "default": "Cadastre-se e receba nossas ofertas"
+    },
+    {
+      "type": "header",
+      "content": "Cores"
+    },
+    {
+      "type": "color",
+      "id": "newsletter_primary_color",
+      "default": "#002693",
+      "label": "Cor primária da newsletter"
+    },
+    {
+      "type": "color",
+      "id": "newsletter_secondary_color",
+      "default": "#FF7D06",
+      "label": "Cor secundária da newsletter"
+    },
+    {
+      "type": "color",
+      "id": "newsletter_primary_font_color",
+      "default": "#fff",
+      "label": "Cor primária da fonte da newsletter"
+    },
+    {
+      "type": "paragraph",
+      "content": {
+        "cs": "Pro všechny zákazníky, kteří se zaregistrují, se v Shopify vytvoří účet. [Zobrazit zákazníky](/admin/customers?query=&accepts_marketing=1)",
+        "da": "Alle kunder, der tilmelder sig, får oprettet en konto i Shopify. [Se kunder](/admin/customers?query=&accepts_marketing=1)",
+        "de": "Für alle Kunden, die sich anmelden, wird in Shopify ein Konto erstellt. [Kunden ansehen](/admin/customers?query=&accepts_marketing=1)",
+        "en": "Any customers who sign up will have an account created for them in Shopify. [View customers](/admin/customers?query=&accepts_marketing=1)",
+        "es": "Todos los clientes que se registren tendrán una cuenta creada para ellos en Shopify. [Ver clientes](/admin/customers?query=&accepts_marketing=1)",
+        "fi": "Tilaaville asiakkaille luodaan tili Shopifyssa. [Näytä asiakkaat](/admin/customers?query=&accepts_marketing=1)",
+        "fr": "Un compte sera créé dans Shopify pour les abonnés qui s'inscrivent. [Afficher les abonnés](/admin/customers?query=&accepts_marketing=1)",
+        "it": "Qualsiasi cliente che si iscrive avrà un account creato appositamente per lui su Shopify. [Visualizza clienti](/admin/customers?query=&accepts_marketing=1)",
+        "ja": "サインアップしたお客様は、Shopifyでアカウントが作成されます。[お客様を表示する](/admin/customers?query=&accepts_marketing=1)",
+        "ko": "가입한 고객은 Shopify에서 생성된 계정을 보유하게 됩니다. [고객 보기](/admin/customers?query=&accepts_marketing=1)",
+        "nb": "Alle kunder som melder seg på, vil få opprettet en konto i Shopify. [Se kunder](/admin/customers?query=&accepts_marketing=1)",
+        "nl": "Voor alle klanten die zich aanmelden, wordt een Shopify-account gemaakt. [Bekijk klanten](/admin/customers?query=&accepts_marketing=1)",
+        "pl": "Dla wszystkich klientów, którzy się zarejestrują, utworzone zostaną konta w Shopify. [Wyświetl klientów](/admin/customers?query=&accepts_marketing=1)",
+        "pt-BR": "Todos os clientes que se inscreverem terão uma conta criada para eles na Shopify. [Visualizar clientes](/admin/customers?query=&accepts_marketing=1)",
+        "pt-PT": "Será criada uma conta na Shopify para todos os clientes que se registarem. [Ver clientes](/admin/customers?query=&accepts_marketing=1)",
+        "sv": "Alla kunder som registrerar sig kommer att få ett konto skapat i Shopify. [Visa kunder](/admin/customers?query=&accepts_marketing=1)",
+        "th": "ระบบจะสร้างบัญชีผู้ใช้ใน Shopify ให้แก่ลูกค้ารายที่ลงทะเบียนแล้ว [ดูลูกค้า](/admin/customers?query=&accepts_marketing=1)",
+        "tr": "Kaydolan tüm müşteriler için Shopify'da bir hesap oluşturulur. [Müşterileri görüntüleyin](/admin/customers?query=&accepts_marketing=1)",
+        "vi": "Bất kỳ khách hàng nào đăng ký đều sẽ được tạo tài khoản trong Shopify. [Xem khách hàng](/admin/customers?query=&accepts_marketing=1)",
+        "zh-CN": "任何注册用户都将在 Shopify 中拥有一个为他们创建的账户。[查看客户](/admin/customers?query=&accepts_marketing=1)",
+        "zh-TW": "顧客註冊後就可以擁有 Shopify 帳號。[查看顧客](/admin/customers?query=&accepts_marketing=1)"
+      }
+    },
+    {
+      "type": "select",
+      "id": "newsletter_posicionamento",
+      "options": [
+        {
+          "value": "esquerda",
+          "label": "Esquerda"
+        },
+        {
+          "value": "centralizado",
+          "label": "Centralizado"
+        },
+        {
+          "value": "direita",
+          "label": "Direita"
+        }
+      ],
+      "default": "esquerda",
+      "label": "Alinhamento dos itens"
+    }
+  ],
+  "presets": [
+    {
+      "name": {
+        "cs": "Novinky",
+        "da": "Nyhedsbrev",
+        "de": "Newsletter",
+        "en": "Newsletter",
+        "es": "Boletín",
+        "fi": "Uutiskirje",
+        "fr": "Newsletter",
+        "it": "Newsletter",
+        "ja": "ニュースレター",
+        "ko": "뉴스레터",
+        "nb": "Nyhetsbrev",
+        "nl": "Nieuwsbrief",
+        "pl": "Newsletter",
+        "pt-BR": "Newsletter",
+        "pt-PT": "Newsletter rodapé",
+        "sv": "Nyhetsbrev",
+        "th": "จดหมายข่าว",
+        "tr": "Bülten",
+        "vi": "Bản tin",
+        "zh-CN": "新闻通讯",
+        "zh-TW": "電子報"
+      },
+      "category": {
+        "cs": "Propagace",
+        "da": "Kampagne",
+        "de": "Promotional",
+        "en": "Promotional",
+        "es": "Promocional",
+        "fi": "Mainonnallinen",
+        "fr": "Promotionnel",
+        "it": "Promozionale",
+        "ja": "プロモーション用",
+        "ko": "프로모션",
+        "nb": "Kampanjer",
+        "nl": "Promotioneel",
+        "pl": "Promocyjne",
+        "pt-BR": "Promocional",
+        "pt-PT": "Promocional",
+        "sv": "Kampanjer",
+        "th": "ส่งเสริมการขาย",
+        "tr": "Promosyon",
+        "vi": "Khuyến mãi",
+        "zh-CN": "促销",
+        "zh-TW": "宣傳活動"
+      }
+    }
+  ]
+}
+{% endschema %}

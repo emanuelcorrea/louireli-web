@@ -1,0 +1,42 @@
+<script>
+    $(function(){
+
+        {% if template contains "collection" %}
+        $("body").delegate(".four_columns", "click", function(e) {
+            e.preventDefault();
+            $(".collection #product-grid").removeClass("grid--2-col-desktop grid--3-col-desktop grid--5-col-desktop");
+            $(".collection #product-grid").addClass("grid--4-col-desktop");
+            $(this).addClass('active');
+            $(".btn-group .two_columns,.btn-group .three_columns,.btn-group .five_columns").removeClass('active');
+        })
+        $("body").delegate(".three_columns", "click", function(e) {
+            e.preventDefault();
+            $(".collection #product-grid").removeClass("grid--2-col-desktop grid--4-col-desktop grid--5-col-desktop");
+            $(".collection #product-grid").addClass("grid--3-col-desktop");
+            $(this).addClass('active');
+            $(".btn-group .two_columns,.btn-group .four_columns,.btn-group .five_columns").removeClass('active');
+        });
+        $("body").delegate(".two_columns", "click", function(e) {
+            e.preventDefault();
+            $(".collection #product-grid").removeClass("grid--3-col-desktop grid--4-col-desktop grid--5-col-desktop");
+            $(".collection #product-grid").addClass("grid--2-col-desktop");
+            $(this).addClass('active');
+            $(".btn-group .three_columns,.btn-group .four_columns,.btn-group .five_columns").removeClass('active');
+        });
+        {% endif %}
+
+        {% if template contains "product" %}
+        var issizeguide = document.getElementsByClassName('size-popup');
+        if (issizeguide.length > 0) {
+            $('.wish-comp').removeClass('wish-comp-full');
+        }
+        else{
+            $('.wish-comp').addClass('wish-comp-full');
+        }
+
+        $(".wish-comp").prependTo(".size-popup");
+        {% endif %}
+
+
+    });
+</script>

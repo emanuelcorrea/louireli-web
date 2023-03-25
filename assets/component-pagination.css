@@ -11,7 +11,7 @@
 .pagination__list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-end;
 }
 
 .pagination__list > li {
@@ -24,7 +24,8 @@
 }
 
 .pagination__item {
-  color: rgb(var(--color-foreground));
+  color: var(--gradient-base-background-1);
+  background: var(--gradient-base-accent-1);
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -33,6 +34,7 @@
   width: 100%;
   padding: 0;
   text-decoration: none;
+  border-radius: 5px;
 }
 
 a.pagination__item:hover::after {
@@ -50,8 +52,6 @@ a.pagination__item:hover::after {
 .pagination__item--current::after,
 .pagination__item:hover::after {
   content: '';
-  display: block;
-  width: 2rem;
   position: absolute;
   bottom: 8px;
   left: 50%;

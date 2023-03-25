@@ -2,6 +2,7 @@
   display: flex;
   position: relative;
   flex-direction: column;
+  margin: 50px 0;
 }
 
 .banner__box {
@@ -55,7 +56,7 @@
   }
 
   .banner--medium:not(.banner--mobile-bottom):not(.banner--adapt) .banner__content {
-    min-height: 34rem;
+    min-height: 50rem;
   }
 
   .banner--large:not(.banner--mobile-bottom):not(.banner--adapt) .banner__content {
@@ -73,7 +74,7 @@
   }
 
   .banner--medium:not(.banner--adapt) {
-    min-height: 56rem;
+    min-height: 40rem;
   }
 
   .banner--large:not(.banner--adapt) {
@@ -125,7 +126,11 @@
     justify-content: flex-end;
   }
 }
-
+@media screen and (min-width: 990px) {
+   .banner--medium:not(.banner--adapt) {
+      min-height: 56rem;
+  }
+}
 @media screen and (max-width: 749px) {
   .banner:not(.banner--stacked) {
     flex-direction: row;
@@ -189,12 +194,12 @@
     height: auto;
   }
 
-  .banner:not(.banner--mobile-bottom):not(.email-signup-banner) .banner__box {
+/*   .banner:not(.banner--mobile-bottom):not(.email-signup-banner) .banner__box {
     background: transparent;
     --color-foreground: 255, 255, 255;
     --color-button: 255, 255, 255;
     --color-button-text: 0, 0, 0;
-  }
+  } */
 
   .banner:not(.banner--mobile-bottom) .banner__box {
     border: none;
@@ -240,7 +245,6 @@
   width: 100%;
   align-items: center;
   justify-content: center;
-  z-index: 2;
 }
 
 @media screen and (min-width: 750px) {
@@ -312,9 +316,13 @@
   text-align: center;
   width: 100%;
   word-wrap: break-word;
-  z-index: 1;
+  z-index: 2;
+  padding-left: 0;
+  padding-right: 11%;
 }
-
+.banner__box.gradient {
+    padding: 3rem;
+}
 @media screen and (min-width: 750px) {
   .banner--desktop-transparent .banner__box {
     background: transparent;
@@ -342,6 +350,9 @@
   .banner--mobile-bottom::after,
   .banner--mobile-bottom .banner__media::after {
     display: none;
+  }
+  .banner__box.gradient {
+      padding: 2rem;
   }
 }
 
@@ -384,19 +395,38 @@
 @media screen and (min-width: 750px) {
   .banner__box {
     width: auto;
-    max-width: 71rem;
+    max-width: 45rem;
     min-width: 45rem;
   }
 }
-
+@media screen and (min-width: 990px) {
+  .banner__box {
+    width: auto;
+    max-width: 50rem;
+    min-width: 50rem;
+  }
+}
 @media screen and (min-width: 1400px) {
   .banner__box {
-    max-width: 90rem;
+    max-width: 59rem;
+    min-width: auto;
+    padding-left: 0;
+    padding-right: 11%;
   }
+}
+.banner__heading.h1{
+   font-size: 40px;
+   line-height: 45px;
 }
 
 .banner__heading {
   margin-bottom: 0;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.slideshow__text.color-transparent .banner__heading {
+    color: #000;
 }
 
 .banner__box .banner__heading + * {
@@ -420,6 +450,9 @@
     flex-grow: 1;
     min-width: 22rem;
   }
+  .banner .desktop-image.banner__media {
+      display: none;
+  }
 }
 
 @media screen and (min-width: 750px) {
@@ -431,24 +464,62 @@
   .banner--content-align-right .banner__buttons--multiple {
     justify-content: flex-end;
   }
+  .banner .mobile-image.banner__media {
+      display: none;
+  }
 }
 
 .banner__box > * + .banner__buttons {
-  margin-top: 2rem;
+  margin-top: 4rem;
 }
 
-@media screen and (max-width: 749px) {
-  .banner:not(.slideshow) .rte a,
-  .banner:not(.slideshow) .inline-richtext a:hover,
-  .banner:not(.slideshow) .rte a:hover {
-    color: currentColor;
-  }
+.page-width.banner-inner {
+    position: relative;
 }
 
-@media screen and (min-width: 750px) {
-  .banner--desktop-transparent .rte a,
-  .banner--desktop-transparent .inline-richtext a:hover,
-  .banner--desktop-transparent .rte a:hover {
-    color: currentColor;
-  }
+@media screen and (max-width: 1269px) {
+    .banner__box>*+.banner__buttons {
+        margin-top: 3rem;
+    }
+    .banner__heading.h1 {
+        font-size: 35px;
+        line-height: 40px;
+    }
 }
+@media screen and (max-width: 989px) {
+    .banner__box>*+.banner__buttons {
+        margin-top: 2rem;
+    }
+    .banner {
+        margin: 25px 0;
+    }
+    .banner__box {
+        padding-right: 0;
+    }
+}
+@media screen and (max-width: 650px) {
+    .banner__box {
+        padding: 2rem 2rem;
+    }
+    .banner__heading.h1 {
+        font-size: 32px;
+        line-height: 40px;
+    }
+}
+@media screen and (max-width: 479px) {
+    .banner__box>*+.banner__buttons {
+        margin-top: 1.5rem;
+    }
+    .banner__box {
+        padding: 2rem 1.5rem;
+    }
+    .banner__heading.h1 {
+        font-size: 28px;
+        line-height: 34px;
+    }
+    .banner--medium:not(.banner--mobile-bottom):not(.banner--adapt) .banner__content {
+        min-height: 40rem;
+    }
+}
+
+    

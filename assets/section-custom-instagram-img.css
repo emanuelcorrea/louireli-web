@@ -1,0 +1,103 @@
+.slider-component-full-width {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.custom_instagram .title-wrapper--no-top-margin {
+    margin-bottom: 0;
+}
+
+.custom_instagram { overflow:  hidden; }
+
+.custom_instagram .main-title {
+    margin-bottom: 5px;
+     color: rgb(var(--color-foreground));
+}
+.color-transparent .custom_instagram .main-title {
+    color: #000;
+}
+.custom_instagram .media {
+    border-radius: 0;
+}
+/*.custom_instagram ul li.grid__item:nth-child(even) {
+    padding-top: 20px;
+}*/
+.custom_instagram .media img {
+    transition: all 1.5s;
+    -webkit-transition: all 1.5s;
+    -moz-transition: all 1.5s;
+    -ms-transition: all 1.5s;
+    -o-transition: all 1.5s;
+}
+.custom_instagram .media img:hover {
+    transform: scale(1.26);
+    -webkit-transform: scale(1.26);
+    -ms-transform: scale(1.26);
+    -o-transform: scale(1.26);
+    -moz-transform: scale(1.26);
+}
+.custom_instagram .sub-title {
+    margin-bottom: 40px;
+}
+.custom_instagram .image_wrapper .icon-instagram {
+    opacity: 0;
+    z-index: 9;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    fill: #fff;
+}
+.custom_instagram ul li:hover .image_wrapper .icon-instagram {
+    opacity: 1;
+}
+.custom_instagram .image_wrapper .collection-icon-bar__link:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    transition: all 0.5s ease;
+    -webkit-transition: all 0.5s ease;
+    background: rgb(0 0 0 / 41%);
+    border-radius: 0;
+    opacity: 0;
+}
+.custom_instagram  ul li:hover .image_wrapper .collection-icon-bar__link:after {
+    opacity: 1;
+}
+
+@media screen and (max-width: 989px) {
+  .custom_instagram .sub-title {
+      margin-bottom: 20px;
+  }
+
+  .custom_instagram slider-component.page-width { padding: 0 1.5rem; }
+  
+}
+/* @media screen and (max-width: 989px) and  (min-width: 381px){
+   .custom_instagram .grid {
+      display: block;
+  }
+  .custom_instagram .grid--5-col-desktop .grid__item {
+      width: 25%;
+      float: left;
+      padding: 10px;
+  }
+} */
+@media screen and (max-width: 749px) {
+  
+   .custom_instagram .grid--5-col-desktop .grid__item { width: 33.33%; }  
+  
+}
+@media screen and (max-width: 380px) {
+    .custom_instagram .grid--5-col-desktop .grid__item {
+        width: 50%;
+    }
+}

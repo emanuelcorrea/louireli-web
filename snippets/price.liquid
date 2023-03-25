@@ -1,15 +1,16 @@
 {% comment %}
-  Renders a list of product's price (regular, sale)
+    Renders a list of product's price (regular, sale)
 
-  Accepts:
-  - product: {Object} Product Liquid object (optional)
-  - use_variant: {Boolean} Renders selected or first variant price instead of overall product pricing (optional)
-  - show_badges: {Boolean} Renders 'Sale' and 'Sold Out' tags if the product matches the condition (optional)
-  - price_class: {String} Adds a price class to the price element (optional)
+    Accepts:
+    - product: {Object} Product Liquid object (optional)
+    - use_variant: {Boolean} Renders selected or first variant price instead of overall product pricing (optional)
+    - show_badges: {Boolean} Renders 'Sale' and 'Sold Out' tags if the product matches the condition (optional)
+    - price_class: {String} Adds a price class to the price element (optional)
 
-  Usage:
-  {% render 'price', product: product %}
+    Usage:
+    {% render 'price', product: product %}
 {% endcomment %}
+
 {%- liquid
   if use_variant
     assign target = product.selected_or_first_available_variant
@@ -30,14 +31,12 @@
   endif
 -%}
 
-<div class="
-    price
-    {%- if price_class %} {{ price_class }}{% endif -%}
-    {%- if available == false %} price--sold-out {% endif -%}
-    {%- if compare_at_price > price %} price--on-sale {% endif -%}
-    {%- if product.price_varies == false and product.compare_at_price_varies %} price--no-compare{% endif -%}
-    {%- if show_badges %} price--show-badge{% endif -%}
-  ">
+<div class="price
+  {%- if price_class %} {{ price_class }}{% endif -%}
+  {%- if available == false %} price--sold-out {% endif -%}
+  {%- if compare_at_price > price %} price--on-sale {% endif -%}
+  {%- if product.price_varies == false and product.compare_at_price_varies %} price--no-compare{% endif -%}
+  {%- if show_badges %} price--show-badge{% endif -%}">
   <div class="price__container">
     {%- comment -%}
       Explanation of description list:
@@ -46,7 +45,7 @@
     {%- endcomment -%}
     <div class="price__regular">
       <span class="visually-hidden visually-hidden--inline">{{ 'products.product.price.regular_price' | t }}</span>
-      <span class="price-item price-item--regular">
+      <span class="price-item price-item--sale price-item--last" style="font-size: {{ section.settings.price_main_size }}px; color:{{ section.settings.color_price_main }}">
         {{ money_price }}
       </span>
     </div>
@@ -54,7 +53,7 @@
       {%- unless product.price_varies == false and product.compare_at_price_varies %}
         <span class="visually-hidden visually-hidden--inline">{{ 'products.product.price.regular_price' | t }}</span>
         <span>
-          <s class="price-item price-item--regular">
+          <s class="price-item price-item--regular" style="font-size: {{ section.settings.price_comparison_size }}px; color:{{ section.settings.color_comparison_price }}">
             {% if settings.currency_code_enabled %}
               {{ compare_at_price | money_with_currency }}
             {% else %}
@@ -64,7 +63,7 @@
         </span>
       {%- endunless -%}
       <span class="visually-hidden visually-hidden--inline">{{ 'products.product.price.sale_price' | t }}</span>
-      <span class="price-item price-item--sale price-item--last">
+      <span class="price-item price-item--sale price-item--last" style="font-size: {{ section.settings.price_main_size }}px; color:{{ section.settings.color_price_main }}">
         {{ money_price }}
       </span>
     </div>
@@ -92,4 +91,116 @@
       {{ 'products.product.sold_out' | t }}
     </span>
   {%- endif -%}
-</div>
+
+{% if template == 'product' %}
+    {% if section.settings.labels_disable == blank and compare_at_price != nil %}
+      <span class="highlight-pagina-produto">
+        <span style="font-weight: 600; color: {{ section.settings.color_percent_product }}" data-discount-percentage-price >
+          {% if compare_at_price > 1 and price > 1 %}
+          {{ compare_at_price
+          | minus: price
+          | times: 100.0
+          | divided_by: compare_at_price
+          | round
+          | prepend: '-'
+          | append: '%' }}
+        {% endif %}
+        </span>
+      </span>
+    {% endif %}
+  </div>
+
+  <!--Parcelamento em 12x-->
+  {% liquid
+    assign taxa_decima_segunda_parcela = settings.taxa_decima_segunda_parcela | divided_by: 100 | plus: 1
+  %}
+  {% if settings.parcelamento_enable %}
+    {% unless template == 'product' %}
+      <br>
+    {% endunless %}
+    <div class="parcelado">
+      Ou <strong>12x</strong>{% if taxa_decima_segunda_parcela == 1 %} sem juros {%endif%} de <strong>{{ price | times: taxa_decima_segunda_parcela | divided_by: 12 | money }}</strong>
+    </div>
+    <!--Fim Parcelamento em 12x-->
+  {% endif %}
+
+  {% liquid
+    assign porcentagem = settings.desconto_pix | divided_by: 100
+    assign desconto_pix = 1 | minus: porcentagem
+  %}
+  <div class="pix_parcelamento">
+    {% if desconto_pix != 1 %}
+    <style>
+      .btn-pix {
+        border-radius: 10px;
+        padding: {{ section.settings.pix_button_padding }}px 10px;
+        border: 0;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        gap: 5px;
+        background-color: {{ section.settings.pix_button_color }};
+        color: {{ section.settings.pix_button_color_text }};        
+        margin-top: {{ section.settings.pix_button_mgtop }}px;
+        margin-bottom: {{ section.settings.pix_button_mgbottom }}px;
+      }
+      .btn-pix svg {
+        width: {{ section.settings.pix_button_icon_size }}px;
+        min-width: 20px;
+        max-width: 30px;
+        fill: {{ section.settings.pix_button_icon }};
+      }
+      .btn-pix div {
+        min-width: 145px;
+        display: block;
+        color: var(--color-pixText-product);
+        font-size: {{ section.settings.pix_button_text_size }}px;
+      }
+    </style>
+    <button class="btn-pix" >
+      <svg class="svg-pagina-produto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M242.4 292.5C247.8 287.1 257.1 287.1 262.5 292.5L339.5 369.5C353.7 383.7 372.6 391.5 392.6 391.5H407.7L310.6 488.6C280.3 518.1 231.1 518.1 200.8 488.6L103.3 391.2H112.6C132.6 391.2 151.5 383.4 165.7 369.2L242.4 292.5zM262.5 218.9C256.1 224.4 247.9 224.5 242.4 218.9L165.7 142.2C151.5 127.1 132.6 120.2 112.6 120.2H103.3L200.7 22.76C231.1-7.586 280.3-7.586 310.6 22.76L407.8 119.9H392.6C372.6 119.9 353.7 127.7 339.5 141.9L262.5 218.9zM112.6 142.7C126.4 142.7 139.1 148.3 149.7 158.1L226.4 234.8C233.6 241.1 243 245.6 252.5 245.6C261.9 245.6 271.3 241.1 278.5 234.8L355.5 157.8C365.3 148.1 378.8 142.5 392.6 142.5H430.3L488.6 200.8C518.9 231.1 518.9 280.3 488.6 310.6L430.3 368.9H392.6C378.8 368.9 365.3 363.3 355.5 353.5L278.5 276.5C264.6 262.6 240.3 262.6 226.4 276.6L149.7 353.2C139.1 363 126.4 368.6 112.6 368.6H80.78L22.76 310.6C-7.586 280.3-7.586 231.1 22.76 200.8L80.78 142.7H112.6z" fill="var(--color-pixIcon-product)"></path></svg>
+      <div> Até <b>{{settings.desconto_pix | round }}% OFF</b> no PIX </div>
+    </button>
+    {% endif %}
+  </div>
+
+  {% comment %} DESCONTO EM REAIS {% endcomment %}
+  {%- liquid
+    if use_variant
+      assign target = product.selected_or_first_available_variant
+    else
+      assign target = product
+    endif
+
+    assign compare_at_price = target.compare_at_price
+    assign discount = compare_at_price | minus: product.selected_or_first_available_variant.price | money
+  -%}
+
+  {% if section.settings.labels_disable == blank and compare_at_price != nil %}
+    <span class="price_sub_pix">
+    {% if section.settings.price_sub_pix_txt != blank %}
+      {{ section.settings.price_sub_pix_txt }}
+    {% endif %}
+      <span data-discount-price>
+        {{ discount }}
+      </span>
+    </span>
+  {% endif %}
+  {% comment %} FIM DESCONTO EM REAIS {% endcomment %}
+
+{% endif %}
+
+<!--Parcelamento em 12x fora de page produto-->
+{% unless template == 'product' %}
+  {% liquid
+    assign taxa_decima_segunda_parcela = settings.taxa_decima_segunda_parcela | divided_by: 100 | plus: 1
+  %}
+  {% if settings.parcelamento_enable %}  
+    <br>
+    <div class="parcelado" style="font-weight: normal">
+      Ou <strong>12x</strong>{% if taxa_decima_segunda_parcela == 1 %} sem juros {%endif%} de <strong>{{ price | times: taxa_decima_segunda_parcela | divided_by: 12 | money }}</strong>
+    </div>
+  {% endif %}
+{% endunless %}
+<!--Fim Parcelamento em 12x-->

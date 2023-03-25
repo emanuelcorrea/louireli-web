@@ -76,7 +76,7 @@ if (!customElements.get('pickup-availability-drawer')) {
         this.hide();
       });
 
-      this.addEventListener('keyup', (event) => {
+      this.addEventListener('keyup', () => {
         if(event.code.toUpperCase() === 'ESCAPE') this.hide();
       });
     }

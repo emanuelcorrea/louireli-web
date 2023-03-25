@@ -1,0 +1,30 @@
+<script>
+    var script_loaded = !1;
+
+    function loadJSscripts() {
+        if (!script_loaded) {
+            observer.disconnect(), script_loaded = !0, document.querySelectorAll("iframe.lazy").forEach(t => {
+                datasrc = t.dataset.src, null != datasrc && (t.src = datasrc)
+            });
+            var t = document.getElementsByTagName("script");
+            for (i = 0; i < t.length; i++) if (null !== t[i].getAttribute("data-src") && (t[i].setAttribute("src", t[i].getAttribute("data-src")), delete t[i].dataset.src), "text/lazyload" == t[i].getAttribute("type")) {
+                for (var e = document.createElement("script"), a = 0; a < t[i].attributes.length; a++) {
+                    var n = t[i].attributes[a];
+                    e.setAttribute(n.name, n.value)
+                }
+                e.type = "text/javascript", e.innerHTML = t[i].innerHTML, t[i].parentNode.removeChild(t[i]), t[i].parentNode.insertBefore(e, t[i])
+            }
+            var r = document.getElementsByTagName("link");
+            for (i = 0; i < r.length; i++) null !== r[i].getAttribute("data-href") && (r[i].setAttribute("href", r[i].getAttribute("data-href")), delete r[i].dataset.href);
+            document.dispatchEvent(new CustomEvent("asyncLazyLoad"))
+        }
+    }
+
+    var activityEvents = ["mousedown", "mousemove", "keydown", "scroll", "touchstart", "click", "keypress", "touchmove"];
+    activityEvents.forEach(function (t) {
+        window.addEventListener(t, loadJSscripts, !1)
+    }), window.addEventListener ? window.addEventListener("load", function () {
+    }, !1) : window.attachEvent ? window.attachEvent("onload", function () {
+    }) : window.onload = (t => {
+    });
+</script>

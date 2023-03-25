@@ -1,0 +1,59 @@
+.multibanner .multibanner_wrapper { display: -webkit-flex; display: -ms-flexbox; display: flex; -webkit-justify-content: space-between; -ms-justify-content: space-between; justify-content: space-between; }
+
+.multibanner_wrapper .multibanner_left { width: 66%; display: inline-block; float:left; line-height: 0; }
+.multibanner_wrapper .multibanner_right { width: 32%; display: inline-block; float:left; line-height: 0; position:relative; }
+
+.multibanner_left .top_banner { width: 100%; display: inline-block; margin-bottom: 3%; }
+.multibanner_left .top_banner .top_banner_left{ line-height: normal; width: 48.5%; float:left; position:relative; overflow:hidden;}
+.multibanner_left .top_banner .top_banner_right{ float: right; }
+
+.multibanner_left .bottom_banner { position:relative; overflow:hidden; }
+.bottom_banner .multibanner_content {  left: auto; right: 20px; text-align: right; }
+
+.top_banner_left .multibanner_content { position:absolute; right: 20px; left:auto; }
+.multibanner_content { position:absolute; width: 60%; left: 20px; top: 30px;}
+
+.multibanner_wrapper .multibanner_right .banner_right { overflow: hidden; }
+
+.multibanner_content h2 { margin: 0 0 10px; line-height: normal; }
+.multibanner_content p { margin: 0 0 10px; line-height: normal; }
+.multibanner_content ul { list-style: none; margin:0 0 20px; padding:0; }
+.multibanner_content ul li { margin-bottom: 10px; line-height: normal; }
+.multibanner_content ul li p, .multibanner_content ul li span{ margin-bottom: 10px; line-height: normal; }
+.multibanner_content ul li:last-child{ margin-bottom:0; }
+.multibanner_content .button--tertiary { line-height: normal; font-size: 14px; font-weight: 600; padding:5px 0 3px; border-bottom: 1px solid; text-decoration: none; letter-spacing:0;}
+
+.multibanner_wrapper .multibanner_left .images_ratio, .multibanner_wrapper .multibanner_right .images_ratio { transition: all 0.5s ease; -o-transition: all 0.5s ease; -moz-transition: all 0.5s ease;
+	-webkit-transition: all 0.5s ease; }
+.multibanner_wrapper .multibanner_left .images_ratio:hover img, .multibanner_wrapper .multibanner_right .images_ratio:hover img { -moz-transform:scale(1.06); -o-transform:scale(1.06);
+  transform:scale(1.06); -webkit-transform:scale(1.06); }
+
+@media screen and (min-width: 750px) {
+  .multibanner_wrapper .multibanner_left .mob-top_banner, .multibanner_wrapper .multibanner_right .mob-top_banner{ display: none; }
+}
+
+@media screen and (max-width: 1360px) {
+  .multibanner_content h2 { font-size: 22px; }  
+}
+
+@media screen and (max-width: 1024px) {
+  .multibanner_content h2 { font-size: 20px; }
+}
+
+@media screen and (max-width: 990px) {
+  .multibanner_content h2 { font-size: 18px; }
+  .multibanner_content p { font-size: 13px; }
+  .multibanner_content { width: 75%; top: 15px; }
+  .top_banner_left .multibanner_content { top: 15px; }
+  .multibanner_content h2, .multibanner_content p { margin:0 0 5px; }
+}
+
+@media screen and (max-width: 749px) {
+  .multibanner .multibanner_wrapper { -webkit-flex-wrap: wrap; -moz-flex-wrap: wrap; -ms-flex-wrap: wrap; flex-wrap: wrap; }
+  .multibanner_left .top_banner { margin-bottom: 30px; }
+  .multibanner_left .top_banner .top_banner_left { width: 100%; }  
+  .multibanner_left .top_banner .top_banner_right { margin-top: 30px; }
+  .multibanner_wrapper .multibanner_left { width: 100%; }
+  .multibanner_wrapper .multibanner_right { width: 100%; margin-top: 3rem; }  
+  .multibanner_wrapper .multibanner_left .desktop-top_banner, .multibanner_wrapper .multibanner_right .desktop-top_banner{ display: none; } 
+}

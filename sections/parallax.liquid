@@ -1,0 +1,231 @@
+{{ 'parallax-section.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.50 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.50 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 990px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="parallax-section  section-{{ section.id }}-padding">
+<div class="parallax-block parallax_{{ section.id }} section-{{ section.id }}-padding">
+  <div class="parallax parallax--content-align-{{ section.settings.desktop_content_alignment }}  parallax--content-align-mobile-{{ section.settings.mobile_content_alignment }}">
+          <div class="page-width parallax-block-inner parallax-content--{{ section.settings.desktop_content_position }}">
+           <div class="parallax-content">
+            {% if section.settings.title != blank %}
+            <h2 class="prallax__title" style="color: {{ section.settings.text_color }};">
+              {{section.settings.title}}
+            </h2>
+            {% endif %}
+            {% if section.settings.sub_title != blank %}
+              <div class="prallax__subtitle" style="color: {{ section.settings.text_color }};">
+                {{section.settings.sub_title}}
+              </div>
+            {% endif %}
+            <div class="banner__buttons">
+              {% if section.settings.button_label != blank %}
+                  <a{% if section.settings.button_link == blank %} role="link" aria-disabled="true"{% else %} href="{{ section.settings.button_link }}"{% endif %} class="button button--primary">{{ section.settings.button_label | escape }}{% render 'icon-button-arrow'%}</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+</div>
+
+<style type="text/css">
+
+  @media screen and (min-width: 990px) {
+      {% if section.settings.parallax_image != blank %}
+        .parallax_{{ section.id }} { background: url({{ section.settings.parallax_image | img_url: 'master' }}); background-repeat: no-repeat; background-size: cover; background-position: center;
+          background-attachment: fixed;}
+      {% endif %}
+  }
+
+  @media screen and (max-width: 989px) {
+      {% if section.settings.mobile_parallax_image != blank %}
+        .parallax_{{ section.id }} { background: url({{ section.settings.mobile_parallax_image | img_url: 'master' }}); background-repeat: no-repeat; background-size: cover; background-position: center;
+          background-attachment: fixed;}
+      {% endif %}
+  }
+
+</style>
+
+{% schema %}
+{
+  "name": "Parallax",
+  "name": "t:sections.parallax.name",
+  "class": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "parallax_image",
+      "label": "t:sections.parallax.settings.parallax_image.label"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_parallax_image",
+      "label": "t:sections.parallax.settings.mobile_parallax_image.label"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "t:sections.parallax.settings.title.label",
+      "default": "TÍTULO"
+    },
+    {
+      "type": "text",
+      "id": "sub_title",
+      "label": "t:sections.parallax.settings.sub_title.label"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "default": "Comprar agora",
+      "label": "t:sections.parallax.settings.button_label.label"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "t:sections.parallax.settings.button_link.label"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "default": "#000",
+      "label": "t:sections.parallax.settings.text_color.label"
+    },
+    {
+      "type": "select",
+      "id": "desktop_content_position",
+      "options": [
+        {
+          "value": "top-left",
+          "label": "t:sections.image-banner.settings.desktop_content_position.options__1.label"
+        },
+        {
+          "value": "top-center",
+          "label": "t:sections.image-banner.settings.desktop_content_position.options__2.label"
+        },
+        {
+          "value": "top-right",
+          "label": "t:sections.image-banner.settings.desktop_content_position.options__3.label"
+        },
+        {
+          "value": "middle-left",
+          "label": "t:sections.image-banner.settings.desktop_content_position.options__4.label"
+        },
+        {
+          "value": "middle-center",
+          "label": "t:sections.image-banner.settings.desktop_content_position.options__5.label"
+        },
+        {
+          "value": "middle-right",
+          "label": "t:sections.image-banner.settings.desktop_content_position.options__6.label"
+        },
+        {
+          "value": "bottom-left",
+          "label": "t:sections.image-banner.settings.desktop_content_position.options__7.label"
+        },
+        {
+          "value": "bottom-center",
+          "label": "t:sections.image-banner.settings.desktop_content_position.options__8.label"
+        },
+        {
+          "value": "bottom-right",
+          "label": "t:sections.image-banner.settings.desktop_content_position.options__9.label"
+        }
+      ],
+      "default": "middle-center",
+      "label": "t:sections.image-banner.settings.desktop_content_position.label"
+    },
+    {
+      "type": "select",
+      "id": "desktop_content_alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.image-banner.settings.desktop_content_alignment.options__1.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.image-banner.settings.desktop_content_alignment.options__2.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.image-banner.settings.desktop_content_alignment.options__3.label"
+        }
+      ],
+      "default": "center",
+      "label": "t:sections.image-banner.settings.desktop_content_alignment.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.image-banner.settings.header.content"
+    },
+    {
+      "type": "select",
+      "id": "mobile_content_alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.image-banner.settings.mobile_content_alignment.options__1.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.image-banner.settings.mobile_content_alignment.options__2.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.image-banner.settings.mobile_content_alignment.options__3.label"
+        }
+      ],
+      "default": "center",
+      "label": "t:sections.image-banner.settings.mobile_content_alignment.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 48
+    }
+  ],
+  "presets": [
+    {
+      "name": "Parallax"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

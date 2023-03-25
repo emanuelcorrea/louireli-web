@@ -1,0 +1,25 @@
+{% comment %}
+  Shopify Wishlist
+  Usage:
+    - Replace the snippet name ('product-card') with your existing product card snippet
+    - Pass the product object as a snippet variable named 'product'
+{% endcomment %}
+
+
+
+{%- assign lazy_load = true -%}
+{% render 'wishlist-card-product', 
+					card_product: product,
+                    media_aspect_ratio: settings.image_ratio,
+                    show_secondary_image: settings.show_secondary_image,
+                    show_vendor: settings.wish_show_vendor,
+                    show_rating: settings.show_rating,
+                    lazy_load: lazy_load,
+                    show_quick_add: settings.enable_quick_add,
+                    section_id: section.id %}
+
+{% schema %}
+  {
+    "templates": ["product"]
+  }
+{% endschema %}

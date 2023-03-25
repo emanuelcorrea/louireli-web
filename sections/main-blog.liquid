@@ -30,7 +30,7 @@
             show_image: section.settings.show_image,
             show_date: section.settings.show_date,
             show_author: section.settings.show_author,
-            show_excerpt: true
+            show_excerpt: true 
           -%}
         </div>
       {%- endfor -%}
@@ -65,7 +65,7 @@
           "label": "t:sections.main-blog.settings.layout.options__2.label"
         }
       ],
-      "default": "collage",
+      "default": "grid",
       "label": "t:sections.main-blog.settings.layout.label",
       "info": "t:sections.main-blog.settings.layout.info"
     },
@@ -96,14 +96,14 @@
           "label": "t:sections.main-blog.settings.image_height.options__4.label"
         }
       ],
-      "default": "medium",
+      "default": "adapt",
       "label": "t:sections.main-blog.settings.image_height.label",
       "info": "t:sections.main-blog.settings.image_height.info"
     },
     {
       "type": "checkbox",
       "id": "show_date",
-      "default": true,
+      "default": false,
       "label": "t:sections.main-blog.settings.show_date.label"
     },
     {

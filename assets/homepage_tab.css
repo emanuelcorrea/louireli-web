@@ -1,0 +1,90 @@
+.tabs { display: -webkit-box; display: -moz-box; display: -ms-flexbox; display: -webkit-flex; display: flex; justify-content: center; margin-bottom: 40px; padding: 5px 0 0;}
+.tabs li { margin: 0 10px; list-style: none;} 
+.tabs li a { 
+  padding: 10px 24px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  background: none;
+  color: rgb(var(--color-base-text));
+  list-style: none;
+  border: 1px solid transparent;
+}
+.tabs li a.active, .tabs li a:hover {
+    color: rgb(var(--color-base-text));
+    background: none;
+    border-color: var(--gradient-base-accent-1);
+}
+.tabs li a.active {
+    font-weight: 700;
+}
+
+.collection .pro_tabs .slider--desktop.grid--4-col-desktop .grid__item {
+    width: 25%;
+}
+
+@media screen and (max-width: 989px) {
+    .collection .pro_tabs .slider--desktop.grid--4-col-desktop .grid__item {
+        width: 33.33%;
+    }
+}
+@media screen and (max-width: 749px) {
+    .tabs li a {
+        padding: 8px 15px;
+        font-size: 15px;
+    }
+     .tabs li {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+    .tabs {
+        margin-bottom: 30px;
+    }
+}
+@media screen and (max-width: 575px) {
+    .collection .pro_tabs .slider--desktop.grid--4-col-desktop .grid__item {
+        width: 50%;
+    }
+    .tabs {
+        flex-wrap: wrap;
+    }
+    .tabs li a {
+        padding: 8px 12px;
+        font-size: 14px;
+        min-height: 40px;
+    }
+      .tabs li {
+        margin-left: 3px;
+        margin-right: 3px;
+    }
+}
+@media screen and (max-width: 479px) {
+    .tabs li a {
+        padding: 7px 7px 5px;
+        min-height: auto;
+        border-color: var(--gradient-base-accent-1);
+        border-radius: 0;
+        min-width: auto;
+    }
+      .tabs li a.active {
+        font-weight: 400;
+    }
+    .tabs li {
+       margin: 0 4px 4px;
+    }
+    .tabs li a.active {
+        background: var(--gradient-base-accent-1);
+    }
+    .tabs {
+        margin-bottom: 20px;
+    }
+    .home-page-tab .collection__title.title-wrapper {
+        margin-bottom: 1rem;
+    }
+}
+@media screen and (max-width: 380px) {
+    .tabs li a {
+        letter-spacing: normal;
+        min-width: auto;
+    }
+}

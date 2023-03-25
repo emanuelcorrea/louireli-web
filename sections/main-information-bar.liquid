@@ -1,0 +1,156 @@
+{{ 'component-information-bar.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+  @keyframes scroll {
+    0% {
+      transform: translateX({%if section.settings.animation_reverse%}-100%{% else %}100vw{%endif%});
+    }
+    100% {
+      transform: translateX({%if section.settings.animation_reverse%}100vw{% else %}-100%{%endif%});
+    };
+  }
+{% endstyle %}
+
+<div class="{% if  section.settings.animation_toggle %} div-card-list-info {%else%} dragscroll {%endif%}" style="border-top:{{section.settings.border_scale}}px {{section.settings.border_color}} solid; border-bottom:{{section.settings.border_scale}}px {{section.settings.border_color}} solid; padding: {{section.settings.border_height}}px 0; {% if section.settings.border_toggle %} border:none {%endif%}">
+  <ul class="card-list-info" style="background-color:{{section.settings.bg_color_list}}; {% if section.settings.animation_toggle and section.blocks.size > 3%} animation: scroll {{section.settings.animation_time}}s linear infinite{%endif%}; {%if section.blocks.size < 4%} min-width: 100% {%else%} width: fit-content; {%endif%}">
+    {% for item in section.blocks %}
+      <li class="card-info" style="{% if  section.settings.animation_toggle or section.blocks.size < 4 %} cursor:default {%else%} cursor:ew-resize {%endif%}; background-color:{{section.settings.bg_color_card}}">
+        <img src="{% if item.settings.card_img %} {{item.settings.card_img | img_url: 'master'}} {% else %} https://cdn-icons-png.flaticon.com/512/4021/4021708.png {%endif%}" alt="" />
+        <span style="color:{{section.settings.text_color}}; font-size:{{section.settings.text_scale}}px; font-weight:{{section.settings.text_weight}}">{{ item.settings.description }}</span>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dragscroll/0.0.8/dragscroll.min.js"></script>
+
+{% schema %}
+  {
+    "name": "Barra de informações",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "border_toggle",
+        "label": "Desativar borda",
+        "default": false
+      },
+      {
+        "type": "range",
+        "min": 1,
+        "max": 5,
+        "step": 1,
+        "unit": "px",
+        "id": "border_scale",
+        "label": "Largura da borda (se ativa)",
+        "default": 1
+      },
+      {
+        "type": "color",
+        "id": "border_color",
+        "label": "Cor da borda (se ativa)",
+        "default": "#edeaea"
+      },
+      {
+        "type": "range",
+        "min": 0,
+        "max": 15,
+        "step": 1,
+        "unit": "px",
+        "id": "border_height",
+        "label": "Distância entre a barra e demais seções",
+        "default": 0
+      }, {
+        "type": "color",
+        "id": "bg_color_list",
+        "label": "Cor de fundo da barra",
+        "default": "#fdd7d7"
+      }, {
+        "type": "color",
+        "id": "bg_color_card",
+        "label": "Cor de fundo da informação",
+        "default": "#fff9f9"
+      }, {
+        "type": "color",
+        "id": "text_color",
+        "label": "Cor do texto",
+        "default": "#474747"
+      }, {
+        "type": "range",
+        "min": 10,
+        "max": 16,
+        "step": 1,
+        "unit": "px",
+        "id": "text_scale",
+        "label": "Tamanho do texto",
+        "default": 14
+      }, {
+        "type": "radio",
+        "id": "text_weight",
+        "label": "Destaque do texto",
+        "options": [
+          {
+            "value": "bold",
+            "label": "Alto"
+          }, {
+            "value": "normal",
+            "label": "Normal"
+          }, {
+            "value": "lighter",
+            "label": "Baixo"
+          }
+        ]
+      }, {
+        "type": "checkbox",
+        "id": "animation_toggle",
+        "label": "Ativar animação",
+        "default": false
+      }, {
+        "type": "checkbox",
+        "id": "animation_reverse",
+        "label": "Inverter sentido da animação (se ativa)",
+        "default": false
+      }, {
+        "type": "range",
+        "min": 8,
+        "max": 100,
+        "step": 2,
+        "unit": "s",
+        "id": "animation_time",
+        "label": "Tempo da animação (se ativa)",
+        "default": 10
+      }
+    ],
+    "blocks": [
+      {
+        "type": "text",
+        "name": "informação",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "card_img",
+            "label": "Imagem da informação"
+          }, {
+            "type": "text",
+            "id": "description",
+            "label": "Digite o texto",
+            "default": "6X SEM JUROS"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Barra de Informações",
+        "blocks": [
+          {
+            "type": "text"
+          }, {
+            "type": "text"
+          }, {
+            "type": "text"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

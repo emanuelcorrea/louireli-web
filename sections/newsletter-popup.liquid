@@ -1,0 +1,162 @@
+{{ 'newsletter-popup.css' | asset_url | stylesheet_tag }}
+
+<div class="newsletter-popup">
+  <div class="popup_inside zenon_popup">
+    <img class="close_popup" loading="lazy" src="{{ 'newsletter_modal_close_button.png' | asset_url }}" alt="" />
+    <div class="left_img">
+      {% if section.settings.image != blank %}
+      	<img class="desktop_img" src="{{ section.settings.image | image_url: width: master }}" loading="lazy" alt="{{ section.settings.image.alt | escape }}">
+        {% else %}
+        {{ 'image' | placeholder_svg_tag: 'placeholder-svg placeholder' }}
+      {% endif %}
+
+      {% if section.settings.mobile_image != blank %}
+      	<img class="mobile_img" src="{{ section.settings.mobile_image | image_url: width: master }}" loading="lazy" alt="{{ section.settings.mobile_image.alt | escape }}">
+        {% else %}
+        <img class="mobile_img" src="{{ section.settings.image | image_url: width: master }}" loading="lazy" alt="{{ section.settings.image.alt | escape }}">
+      {% endif %}
+
+    </div>
+    <div class="newsletter_form">
+      <div class="footer_content_right left">
+        <div class="site-popup__newsletter
+                    {% if section.blocks.size == 1 %} site-footer__single-block--centered{% endif %}">
+          {%- assign formId = 'ContactFooter' -%}
+          {% if section.settings.title != blank %}
+          	<h2 class="title h2">{{ section.settings.title }}</h2>
+          {% endif %}
+          {% if section.settings.content != blank %}
+          	<p>{{ section.settings.content }}</p>
+          {% endif %}
+          {% form 'customer', class: 'newsletter-form' %}
+              <input type="hidden" name="contact[tags]" value="newsletter">
+              <div class="newsletter-form__field-wrapper">
+                <div class="field">
+                  <input
+                    id="NewsletterForm--{{ section.id }}"
+                    type="email"
+                    name="contact[email]"
+                    class="field__input"
+                    value="{{ form.email }}"
+                    aria-required="true"
+                    autocorrect="off"
+                    autocapitalize="off"
+                    autocomplete="email"
+                    {% if form.errors %}
+                      autofocus
+                      aria-invalid="true"
+                      aria-describedby="Newsletter-error--{{ section.id }}"
+                    {% elsif form.posted_successfully? %}
+                      aria-describedby="Newsletter-success--{{ section.id }}"
+                    {% endif %}
+                    placeholder="{{ 'newsletter.label' | t }}"
+                    required
+                  >
+                  <label class="field__label" for="NewsletterForm--{{ section.id }}">
+                    {{ 'newsletter.label' | t }}
+                  </label>
+                  <button type="submit" class="newsletter-form__button field__button button button--primary" name="commit" id="Assinar" aria-label="{{ 'newsletter.button_label' | t }}">Assinar</button>
+                </div>
+                {%- if form.errors -%}
+                  <small class="newsletter-form__message form__message" id="Newsletter-error--{{ section.id }}">{% render 'icon-error' %}{{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}</small>
+                {%- endif -%}
+              </div>
+              {%- if form.posted_successfully? -%}
+                <h3 class="newsletter-form__message newsletter-form__message--success form__message" id="Newsletter-success--{{ section.id }}" tabindex="-1" autofocus>{% render 'icon-success' %}{{ 'newsletter.success' | t }}</h3>
+              {%- endif -%}
+            {% endform %}
+        </div>
+  	</div>
+	</div>
+</div>
+
+
+
+
+{% if template contains "index" %}
+  <script type="text/javascript">
+    /* Newsletter popup */
+    $(function() {
+      var delay = 100;
+      function createCookie(name,value,days) {
+        if (days) {
+          var date = new Date();
+          date.setTime(date.getTime()+(days*24*60*60*1000));
+          var expires = "; expires="+date.toGMTString();
+        }
+        else var expires = "";
+        document.cookie = name+"="+value+expires+"; path=/";
+      }
+      function readCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0;i < ca.length;i++) {
+          var c = ca[i];
+          while (c.charAt(0)==' ') c = c.substring(1,c.length);
+          if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        }
+        return null;
+      }
+      function eraseCookie(name) {
+        createCookie(name,"",-1);
+      }
+
+
+      var covalue = "no";
+      if (readCookie('zenon-popup') !== null && readCookie('zenon-popup') !== undefined) {
+        //console.log("innn");
+        covalue = readCookie('zenon-popup');
+        $(".zenon_popup").hide();
+      }
+      if (covalue == "no"){
+        setTimeout(function(){
+          $(".zenon_popup").show();
+          $('body').addClass('popup-active');
+        }, 5000);
+      }
+      $(".close_popup").click(function(){
+        $(this).parent(".zenon_popup").hide();
+        $.cookie('zenon-popup', 'yes', {expires: 1, path:"/" });
+        $('body').removeClass('popup-active');
+      });
+    });
+  </script>
+
+{% endif %}
+
+{% schema %}
+  {
+    "name": "t:sections.newsletter__popup.name",
+    "settings": [
+  	{
+  		"type": "image_picker",
+  		"id": "image",
+        "label": "t:sections.newsletter__popup.settings.image.label"
+  	},
+    {
+  		"type": "image_picker",
+  		"id": "mobile_image",
+        "label": "t:sections.newsletter__popup.settings.mobile_image.label"
+  	},
+  	{
+  		"type": "text",
+  		"id": "title",
+  		"label": "t:sections.newsletter__popup.settings.title.label",
+        "default": "Texto padrão de desconto."
+  	},
+  	{
+  		"type": "textarea",
+  		"id": "content",
+        "label": "t:sections.newsletter__popup.settings.content.label",
+        "default": "Mantenha-se atualizado com nossos produtos, e obtenha ofertas especiais."
+  	}
+
+  	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

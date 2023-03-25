@@ -1,0 +1,11 @@
+@media screen and (min-width: 990px){
+    .product--stacked .product__media-item:first-child {
+        max-width: 100%;
+        width: 100%;
+    }
+}
+
+.product-form__input input[type=radio]:checked+label {
+    background-color: var(--gradient-base-accent-1);
+    color: rgb(var(--color-background));
+}

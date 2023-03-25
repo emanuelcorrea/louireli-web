@@ -17,10 +17,12 @@
 
 .newsletter-form__field-wrapper {
   width: 100%;
+  margin-top: 5px;
 }
 
 .newsletter-form__field-wrapper .field__input {
-  padding-right: 5rem;
+  height: 4.5rem;
+  border-radius: var(--buttons-radius-outset);
 }
 
 .newsletter-form__field-wrapper .field {
@@ -43,29 +45,76 @@
 }
 
 .newsletter-form__button {
-  width: 4.4rem;
-  margin: 0;
-  right: var(--inputs-border-width);
-  top: 0;
-  height: 100%;
-  z-index: 2;
+    width: auto;
+    margin: 15px 0 0;
+    height: auto;
+    z-index: 2;
+    font-size: 1.6rem;
+    line-height: 20px;
+    font-weight: 700;
+    padding: 10px 20px;
+    min-width: 22rem;
+    text-transform: uppercase;
+    position: static;
+    background-color: #FFFFFF;
+    color: #000;
+    display: block;
+    border-radius: var(--buttons-radius-outset);
+    font-family: var(--font-body-family);
 }
 
 .newsletter-form__button:focus-visible {
-  box-shadow: 0 0 0 .3rem rgb(var(--color-background)),0 0 0 .4rem rgba(var(--color-foreground));
-  background-color: rgb(var(--color-background));
+  box-shadow: none; outline:0;
+  /*box-shadow: 0 0 0 .3rem rgb(var(--color-background)),0 0 0 .4rem rgba(var(--color-foreground));
+  background-color: rgb(var(--color-background));*/
 }
 
 .newsletter-form__button:focus {
-  box-shadow: 0 0 0 .3rem rgb(var(--color-background)),0 0 0 .4rem rgba(var(--color-foreground));
-  background-color: rgb(var(--color-background));
+/*   box-shadow: 0 0 0 .3rem rgb(var(--color-background)),0 0 0 .4rem rgba(var(--color-foreground));
+  background-color: rgb(var(--color-background)); */
+  opacity:0.8;
 }
 
 .newsletter-form__button:not(:focus-visible):not(.focused) {
   box-shadow: inherit;
-  background-color: inherit;
 }
 
 .newsletter-form__button .icon {
   width: 1.5rem;
+}
+.newsletter-form__field-wrapper .field:after,
+.newsletter-form__field-wrapper .field:before{
+  border:0;
+  content: none;
+}
+
+@media screen and (max-width: 1400px) {
+    .newsletter-form__button {
+        min-width: 18rem;
+        font-size: 1.5rem;
+        padding: 9px 15px;
+    }
+}
+@media screen and (max-width: 989px) {
+    .newsletter-form__button {
+        margin: 15px auto 0;
+    }
+}
+
+.password .newsletter-form__button {
+    width: 6rem;
+    margin: 0;
+    right: var(--inputs-border-width);
+    top: 0;
+    height: 100%;
+    z-index: 2;
+    position: absolute;
+    background: transparent;
+    min-width: auto;
+    justify-content: center;
+    display: flex;
+}
+.password .newsletter-form__field-wrapper .field__input {
+    border: 1px solid #555;
+    padding-right: 5rem;
 }

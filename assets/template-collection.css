@@ -9,7 +9,7 @@
   .collection .slider.slider--tablet {
     margin-bottom: 1.5rem;
   }
-}
+} 
 
 .collection .loading-overlay {
   top: 0;
@@ -76,5 +76,5 @@
 }
 
 .collection__view-all a:not(.link) {
-  margin-top: 1rem;
+  margin-top: 2.5rem;
 }

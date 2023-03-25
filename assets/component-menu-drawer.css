@@ -38,7 +38,7 @@ menu-drawer > details[open] > summary::before {
   width: calc(100vw - 4rem);
   padding: 0;
   border-width: 0 var(--drawer-border-width) 0 0;
-  background-color: rgb(var(--color-background));
+  background-color: #f9f9f9;
   overflow-x: hidden;
   border-style: solid;
   border-color: rgba(var(--color-foreground), var(--drawer-border-opacity));
@@ -93,12 +93,12 @@ details[open].menu-opening > .menu-drawer__submenu {
   display: grid;
   grid-template-rows: 1fr auto;
   align-content: space-between;
-  overflow-y: auto;
+/*   overflow-y: auto; */
   height: 100%;
 }
 
 .menu-drawer__navigation {
-  padding: 5.6rem 0;
+  padding: 0 0 3rem;
 }
 
 .menu-drawer__inner-submenu {
@@ -215,9 +215,7 @@ details[open].menu-opening > .menu-drawer__submenu {
 }
 
 .menu-drawer__utility-links {
-  padding: 2rem;
-  background-color: rgba(var(--color-foreground), 0.03);
-  position: relative;
+  padding: 15px 30px 0;
 }
 
 .menu-drawer__account {
@@ -225,20 +223,9 @@ details[open].menu-opening > .menu-drawer__submenu {
   align-items: center;
   text-decoration: none;
   padding: 1.2rem;
+  margin-left: -1.2rem;
   font-size: 1.4rem;
   color: rgb(var(--color-foreground));
-  margin-bottom: 2rem;
-}
-
-.menu-drawer__utility-links:has(ul:empty) .menu-drawer__account,
-.menu-drawer__utility-links:has(.menu-drawer__localization) .menu-drawer__account {
-  margin-bottom: 0;
-}
-
-@media screen and (min-width: 750px) {
-  .menu-drawer__utility-links:has(ul:nth-child(2):empty) {
-    display: none;
-  }
 }
 
 .menu-drawer__account .icon-account {
@@ -253,6 +240,8 @@ details[open].menu-opening > .menu-drawer__submenu {
 
 .menu-drawer .list-social {
   justify-content: flex-start;
+  margin-left: -1.25rem;
+  margin-top: 0;
 }
 
 .menu-drawer .list-social:empty {
@@ -261,4 +250,16 @@ details[open].menu-opening > .menu-drawer__submenu {
 
 .menu-drawer .list-social__link {
   padding: 1.3rem 1.25rem;
+  background: transparent;
+}
+
+@media screen and (max-width: 989px) {
+    .header__icon--menu {
+        margin: 0 10px;
+    }
+}
+@media screen and (max-width: 479px) {
+    .menu-drawer__menu-item {
+        font-size: 1.6rem;
+    }
 }

@@ -84,3 +84,7 @@
 .rich-text__blocks.right .rich-text__buttons {
   justify-content: flex-end;
 }
+
+.rich-text__heading {
+    color: #000;
+}

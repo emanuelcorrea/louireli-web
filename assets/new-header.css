@@ -1,0 +1,71 @@
+@media screen and (min-width: 990px) {
+  .header__heading-link { padding: 0; margin-left: 0;}
+  /* Menu Left and Logo Left */
+
+  .header--left-center { grid-template-areas: 'heading navigation icons'; grid-template-columns: auto 1fr auto; column-gap: 2rem;}
+  .header--left-center .header__inline-menu { text-align: center;}
+  .header--left-center:not(.header--middle-left) .header__inline-menu { margin-top: 0;}
+
+  /* Menu Left and Logo Center */
+
+  .header--logo-center-menu-left { grid-template-areas: "navigation heading icons"; grid-template-columns: 2fr 1fr 2fr; column-gap: 2rem;}
+  .header--logo-center-menu-left .header__heading { justify-self: center;}
+  .header--logo-center-menu-left:not(.header--middle-left) .header__inline-menu { margin-top: 0;}
+
+  .header--center-split { display: -webkit-box; display: -moz-box; display: -ms-flexbox; display: -webkit-flex; display: flex;}
+
+  .header--center-split:not(.header--middle-left) .header__inline-menu { margin-top: 0;}
+  /* .header--center-split .header-item--split-left, .header--center-split .header-item--split-right { -webkit-flex: 0 1 40%; -moz-flex: 0 1 40%; -ms-flex: 0 1 40%; flex: 0 1 40%;} */
+  .header--center-split .header-item--split-left { text-align: right; padding-right: 60px;}
+  .header--center-split .header__heading { text-align: center; /*-webkit-flex: 0 1 20%; -moz-flex: 0 1 20%; -ms-flex: 0 1 20%; flex: 0 1 20%; */}
+  .header--center-split .header-item--split-right { justify-content: end; padding-left: 60px; -webkit-box-align: center; -webkit-flex-align: center; -ms-flex-align: center; -webkit-align-items: center; align-items: center;}
+  .header--center-split .header-item--split-right .header-item--split-right { flex: 1;}
+
+  .mega-menu__content { text-align: left;}
+
+  /* Header menu */
+  .header--center-split, .header--left-center, .header--middle-left, .header--logo-center-menu-left { padding-top: 20px; padding-bottom: 20px;}
+  .shopify-section-header-sticky .header--center-split {
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+  .header--center-split .list-menu__item, .header--left-center .list-menu__item, .header--middle-left .list-menu__item, .header--logo-center-menu-left .list-menu__item { padding-top: 3rem; padding-bottom: 3rem;}
+  .header--center-split .mega-menu__content, .header--left-center .mega-menu__content, .header--middle-left .mega-menu__content, .header--logo-center-menu-left .mega-menu__content { top: 83%; z-index: 1;}
+  .header--top-left .mega-menu__content, .header--top-center .mega-menu__content { top: 85%; z-index: 1;}  
+  .shopify-section-header-sticky .mega-menu__content {
+      top: 96%;
+  }
+  .shopify-section-header-sticky .header {
+      padding-top: 5px;
+      padding-bottom: 5px;
+  }
+  .shopify-section-header-sticky .header__heading-link .header__heading-logo {
+      max-width: 130px;
+      max-height: 65px;
+  }
+  .header--top-center .header__menu-item,.header--top-left .header__menu-item {
+      padding-top: 1.5rem;
+      padding-bottom: 1.5rem;
+  }
+  @media screen and (max-width: 1170px) {
+    .header--center-split .header-item--split-right { padding-left: 35px;}
+    .header__menu-item .icon-caret { right: -5px;}
+    .header--center-split .header-item--split-left { padding-right: 35px;}
+    .header--center-split .list-menu__item, .header--left-center .list-menu__item, .header--middle-left .list-menu__item, .header--logo-center-menu-left .list-menu__item { padding-left: 15px; padding-right: 15px;}
+  } 
+  @media screen and (max-width: 1199px) {
+      .header--center-split .header-item--split-left {
+          padding-right: 15px;
+      }
+      .header--center-split .header-item--split-right {
+          padding-left: 15px;
+      }
+  }
+  @media screen and (max-width: 1024px) {
+    .header--center-split .list-menu__item, .header--left-center .list-menu__item, .header--middle-left .list-menu__item, .header--logo-center-menu-left .list-menu__item { padding-left: 12px; padding-right: 12px;}
+    .header--center-split .header-item--split-right { padding-left: 20px;}
+    .header--center-split .header-item--split-left { padding-right: 15;}
+  }
+}
+
+.header .cart-count-bubble > span { color: #fff; font-size: 12px; font-weight: bold;}

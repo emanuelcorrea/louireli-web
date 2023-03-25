@@ -1,0 +1,33 @@
+.button, .button-label, .shopify-challenge__button, .customer button {
+  line-height: initial;
+  padding-top: 4px;
+}
+.newsletter-form__field-wrapper .newsletter-form__button {
+    padding-top: 13px;
+    padding-bottom: 10px;
+}
+.shopify-payment-button__button {
+    line-height: initial;
+}
+.button .button-arrow {
+    margin-top: -4px;
+}
+.shopify-payment-button__button--unbranded {
+    padding-top: 1.3rem;
+    padding-bottom: 0.7rem;
+}
+.mobile-facets__footer .mobile-facets__clear-wrapper .mobile-facets__clear {
+    padding-top: 12px;
+    padding-bottom: 8px;
+}
+
+@media screen and (max-width: 989px){
+    .footer .footer-block.grid__item .icon-caret {
+        top: 0px;
+    }
+}
+@media screen and (max-width: 479px){
+    .mobile-facets__footer .mobile-facets__clear-wrapper .mobile-facets__clear {
+        font-size: 1.4rem;
+    }
+}

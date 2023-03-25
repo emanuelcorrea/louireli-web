@@ -6,7 +6,7 @@
   background-color: rgb(var(--color-background));
   border-left: 0;
   border-radius: 0;
-  border-right: 0;
+  border-right: 0;  
   left: 0;
   overflow-y: auto;
   padding-bottom: 2.4rem;
@@ -14,6 +14,7 @@
   position: absolute;
   right: 0;
   top: 100%;
+  z-index: 3;
 }
 
 .shopify-section-header-sticky .mega-menu__content {
@@ -32,7 +33,6 @@
 .mega-menu[open] .mega-menu__content {
   opacity: 1;
   transform: translateY(0);
-
 }
 
 .mega-menu__list {
@@ -42,22 +42,34 @@
   list-style: none;
 }
 
-.mega-menu__link {
-  color: rgba(var(--color-foreground), 0.75);
+.mega-menu__link,p.mega_iwt_content {
+  color: var(--color-foreground);
   display: block;
-  font-size: 1.3rem;
-  line-height: calc(1 + 0.3 / var(--font-body-scale));
+  font-size: 1.4rem;
+  line-height: calc(1 + .3 / var(--font-body-scale));
   padding-bottom: 0.6rem;
   padding-top: 0.6rem;
   text-decoration: none;
   transition: text-decoration var(--duration-short) ease;
   word-wrap: break-word;
 }
-
-.mega-menu__link--level-2 {
-  font-size: 1.4rem;
+p.mega_iwt_content {
+    margin-top: 0px;
 }
-
+.mega-menu__link--level-2,h5.mega_iwt_title {
+  font-size: 18px;
+  line-height: 22px;
+  text-transform: capitalize;
+  color: var(--color-foreground);
+  font-family: var(--font-heading-family);
+}
+.color-transparent .mega-menu__link--level-2, .color-transparent h5.mega_iwt_title, 
+.color-transparent p.mega_iwt_content {
+   color: #000;
+}
+h5.mega_iwt_title {
+    margin: 20px 0 0;
+}
 .mega-menu__link--level-2:not(:only-child) {
   margin-bottom: 0.8rem;
 }
@@ -76,10 +88,12 @@
 
 .mega-menu__link:hover,
 .mega-menu__link--active {
-  color: rgb(var(--color-foreground));
-  text-decoration: underline;
+  color: var(--color-foreground);
 }
-
+.color-transparent .mega-menu__link:hover,
+.color-transparent .mega-menu__link--active {
+  color: var(--gradient-base-accent-1);
+}
 .mega-menu__link--active:hover {
   text-decoration-thickness: 0.2rem;
 }
@@ -91,3 +105,10 @@
 .mega-menu__list--condensed .mega-menu__link {
   font-weight: normal;
 }
+.mega_product .card__heading,.mega_product .price__regular .price-item--regular,.mega_product .card-information>.price {
+    color: rgb(var(--color-foreground));
+}
+.mega_product .underline-links-hover:hover a {
+    color: rgb(var(--color-foreground));
+}
+

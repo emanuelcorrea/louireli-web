@@ -1,0 +1,429 @@
+{%- liquid
+    assign price = product.selected_or_first_available_variant.price
+-%}
+
+<style>
+    :root {
+        --color-primary-parcelamento: {{ settings.color_primary_parcelamento }};
+        --color-secondary-parcelamento: {{ settings.color_secondary_parcelamento }};
+        --color-terciary-parcelamento: {{ settings.color_terciary_parcelamento }};
+        --color-active-parcelamento: var(--color-terciary-parcelamento);
+        --color-title-floating-buynow-button: {{ settings.color_text_button_buynow_floating }};
+    }
+
+    #modal-open-button {
+        width: fit-content;
+        display: block;
+        font-size:{{settings.parcelamento_titulo_escala}}px;
+        color: {{settings.parcelamento_titulo_cor}};
+        font-weight: {{settings.parcelamento_titulo_destaque}};
+        margin: {{settings.parcelamento_titulo_margin}}px 0;
+        {% if settings.parcelamento_titulo_subl %}
+        text-decoration: underline;
+        {% else %}
+        text-decoration: none;
+        {% endif %}
+        {% if settings.parcelamento_titulo_sombra %}
+        text-shadow: 2px 1px 1px rgba(0,0,0,0.4);
+        {% endif %}
+        {% if settings.parcelamento_botao %}
+        padding: 4px 12px 2px;
+        border-radius: 5px;
+        background-color: {{settings.parcelamento_botao_bg}};
+        {% endif %}   
+    }
+</style>
+
+{{ 'parcelamento.css' | asset_url | stylesheet_tag }}
+
+<a onclick="toggleModal()" href="#" id="modal-open-button">{{settings.parcelamento_titulo}}</a>
+
+<div class="backdrop-modal-parcel" id="backdrop-modal-parcel" onclick="toggleModal()">
+    <div class="modal-parcel" id="modal-parcel">
+        <div class="modal-parcel-content">
+
+            <!--Botao de fechar modal-->
+            <div onclick="toggleModal()" class="modal-close-button" id="modal-close-button">
+                <svg width="20" height="20" viewBox="0 0 12 12" fill="none"
+                     xmlns="https://www.w3.org/2000/svg"
+                     class="IconClose">
+                    <path d="M9 3L3 9" stroke="var(--color-primary-parcelamento)" stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round">
+                    </path>
+                    <path d="M3 3L9 9" stroke="var(--color-primary-parcelamento)" stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round">
+                    </path>
+                </svg>
+            </div>
+
+            <div class="modal-parcel-title">
+                Formas de pagamento
+            </div>
+
+            <input name="payment" type="radio" id="payment-type-1" checked>
+            <input name="payment" type="radio" id="payment-type-2">
+            <input name="payment" type="radio" id="payment-type-3">
+
+            <div class="modal-parcel-payments">
+
+                <!--Botão Cartão-->
+                <label class="modal-parcel-payment" for="payment-type-1" id="label-type-1">
+                    <div>
+                        <svg class="payment-icon" width="40" height="25" viewBox="0 0 40 25" fill="none"
+                             xmlns="https://www.w3.org/2000/svg">
+                            <path d="M7.327 8.092h4.253v2.87H7.327v-2.87z" fill="var(--color-active-parcelamento)">
+                            </path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M2.792 0h34.416C38.75 0 40 1.143 40 2.552v19.896C40 23.858 38.75 25 37.208 25H2.792C1.25 25 0 23.857 0 22.448V2.552C0 1.142 1.25 0 2.792 0zm11.58 5.539H4.536v7.975h9.838V5.539zM4.45 19.46h5.518V16.91H4.449v2.552zm8.528 0h5.518V16.91h-5.518v2.552zm8.528 0h5.518V16.91h-5.518v2.552zm8.528 0h5.518V16.91h-5.518v2.552z"
+                                  fill="var(--color-active-parcelamento)">
+                            </path>
+                        </svg>
+                    </div>
+                    <div>
+                        Cartão de crédito
+                    </div>
+                </label>
+
+                <!--Botão PIX-->
+                <label class="modal-parcel-payment" for="payment-type-2" id="label-type-2">
+                    <div>
+                        <svg width="22" viewBox="0 0 22 22" fill="none" xmlns="https://www.w3.org/2000/svg">
+                            <g>
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                      d="M4.51548 5.1526C4.54582 5.08862 4.58126 5.05531 4.61352 5.02498L4.61353 5.02498C4.62098 5.01797 4.62827 5.01112 4.63528 5.00409L5.77372 3.8643L5.77385 3.86417C6.72274 2.91434 7.67153 1.9646 8.61835 1.01354C9.11044 0.520208 9.68883 0.187017 10.3741 0.0630388C11.4794 -0.137134 12.4533 0.139234 13.288 0.894726C13.3789 0.976438 13.4643 1.06361 13.5497 1.15079C13.5818 1.18348 13.6138 1.21618 13.6461 1.24858C14.9015 2.50457 16.1556 3.76185 17.4098 5.01913L17.4115 5.02087C17.4193 5.02872 17.4275 5.03637 17.4358 5.04418C17.47 5.07617 17.5069 5.11072 17.5339 5.17197C17.5025 5.17197 17.4731 5.17213 17.445 5.17228H17.4449C17.3925 5.17256 17.3447 5.17281 17.2968 5.17197C16.3037 5.14485 15.4766 5.50646 14.781 6.21158C14.0613 6.94225 13.3358 7.66652 12.6104 8.39069L12.6102 8.39084L12.6102 8.39087C12.3048 8.69573 11.9994 9.00057 11.6945 9.30587L11.6629 9.33791C11.6317 9.36971 11.6008 9.40115 11.567 9.43114C11.3287 9.64552 10.9976 9.65198 10.7529 9.44535C10.7178 9.41518 10.685 9.38188 10.6528 9.3491L10.6527 9.34908L10.6253 9.32137L9.56114 8.25606L9.55937 8.25429C8.85027 7.54455 8.14117 6.8348 7.43322 6.12506C6.9772 5.66789 6.43874 5.36569 5.80753 5.2288C5.55762 5.17456 5.30514 5.1526 5.05008 5.15389C4.87875 5.1526 4.70742 5.1526 4.51548 5.1526ZM0.00386455 10.7084C0.0464263 10.6634 0.054063 10.6061 0.061631 10.5493L0.0644092 10.5289C0.162311 9.83667 0.439271 9.22582 0.926204 8.72733C1.48614 8.15392 2.05352 7.58683 2.6207 7.01994L2.62075 7.01989L2.621 7.01964C2.90449 6.7363 3.18793 6.453 3.47037 6.16898C3.52061 6.11862 3.56569 6.0915 3.64041 6.11733C3.6767 6.12977 3.71795 6.12802 3.7589 6.12629H3.75891C3.77319 6.12568 3.78744 6.12508 3.80143 6.12508C3.92471 6.12508 4.04785 6.12585 4.17095 6.12662H4.17104H4.17109C4.43771 6.1283 4.7041 6.12997 4.9711 6.12378C5.7131 6.1057 6.3237 6.37174 6.84412 6.90123C7.5331 7.603 8.22933 8.29806 8.92547 8.99303L8.92559 8.99315L8.92561 8.99317C9.2876 9.35455 9.64957 9.71591 10.0105 10.0782C10.2849 10.3532 10.6095 10.5173 10.9972 10.5547C11.4223 10.596 11.8011 10.4837 12.1347 10.2215C12.2158 10.1583 12.2893 10.0847 12.3614 10.0123L12.3614 10.0123L12.8154 9.55832L12.8154 9.5583C13.7216 8.65219 14.6274 7.7465 15.5303 6.83795C15.8859 6.48022 16.3058 6.25551 16.8018 6.16898C16.9391 6.14439 17.0788 6.14322 17.2175 6.14204L17.2385 6.14186C17.4402 6.141 17.6425 6.14129 17.8447 6.14158H17.845L18.1479 6.14186C18.1615 6.14186 18.1753 6.14285 18.189 6.14383C18.2197 6.14603 18.2501 6.14821 18.2768 6.13928C18.4635 6.07471 18.573 6.17932 18.6928 6.30071C19.4592 7.07419 20.2295 7.84379 20.9997 8.61339L20.9998 8.61354L21 8.61368C21.4895 9.10184 21.8141 9.68041 21.9365 10.3623C22.1362 11.4755 21.8682 12.4699 21.0876 13.2887C20.5355 13.8683 19.9669 14.4327 19.3986 14.9968L19.3984 14.9971C19.1247 15.2687 18.8512 15.5403 18.5795 15.8135C18.5241 15.869 18.4713 15.8974 18.394 15.8729C18.343 15.8562 18.2903 15.8572 18.238 15.8582C18.2323 15.8583 18.2266 15.8584 18.2209 15.8585C18.2142 15.8586 18.2075 15.8587 18.2008 15.8587L17.8647 15.8584C17.641 15.8581 17.4175 15.8578 17.1934 15.8587C16.5429 15.8612 15.9928 15.6236 15.5329 15.1639C15.0741 14.7039 14.615 14.2443 14.156 13.7849L14.154 13.7829C13.5415 13.1698 12.9292 12.5568 12.3176 11.943C11.9814 11.6059 11.5808 11.4394 11.1054 11.4536C10.6868 11.4652 10.3235 11.6098 10.0259 11.9068C9.70389 12.2284 9.38185 12.55 9.06109 12.8728C8.78428 13.1504 8.50713 13.4275 8.22995 13.7047C7.74479 14.1899 7.25954 14.6752 6.77585 15.1626C6.30051 15.6417 5.72856 15.878 5.05612 15.8767H3.8375C3.82567 15.8767 3.81346 15.8758 3.80118 15.8749C3.77469 15.873 3.74791 15.871 3.72414 15.878C3.56441 15.9258 3.47037 15.8393 3.36603 15.7347C2.58925 14.9495 1.80732 14.1682 1.02539 13.3868C0.53202 12.8948 0.215127 12.3085 0.083732 11.6227C0.0744763 11.5736 0.0672157 11.523 0.0600389 11.4731L0.0515274 11.4148C0.05176 11.3992 0.052707 11.3834 0.0536549 11.3676C0.0579556 11.2958 0.0622765 11.2238 0 11.1656C0.00386455 11.0119 0.00386455 10.8608 0.00386455 10.7084ZM4.71962 16.8482C4.65361 16.8481 4.58581 16.8479 4.5153 16.8479C4.54641 16.9134 4.58419 16.9488 4.61858 16.981C4.62691 16.9888 4.63504 16.9964 4.64283 17.0042C5.65482 18.0187 6.66939 19.0346 7.68267 20.0491L7.68423 20.0507C7.78203 20.1487 7.87943 20.2473 7.97685 20.3459C8.22587 20.5979 8.47504 20.85 8.73153 21.0942C9.31507 21.6495 10.0171 21.9504 10.8184 21.9943C11.7974 22.0473 12.654 21.7309 13.3522 21.0386C14.4014 19.9977 15.4438 18.9515 16.4863 17.9052C16.8121 17.5781 17.138 17.251 17.4641 16.9241C17.4687 16.9195 17.4741 16.9152 17.4797 16.9107C17.5022 16.8926 17.527 16.8726 17.5105 16.826C17.463 16.826 17.4153 16.8258 17.3673 16.8257C17.2709 16.8254 17.1736 16.8251 17.0764 16.826C16.9025 16.8273 16.7311 16.8053 16.5611 16.773C15.8861 16.6452 15.3167 16.3236 14.8337 15.838C14.1357 15.1374 13.4365 14.438 12.7374 13.7385C12.3875 13.3884 12.0377 13.0384 11.6879 12.6882C11.6828 12.6829 11.6777 12.6777 11.6726 12.6724C11.6364 12.6348 11.5999 12.5969 11.5604 12.5629C11.4071 12.4325 11.2319 12.386 11.0322 12.4235C10.8802 12.4532 10.7669 12.5358 10.6612 12.6417C9.6062 13.7007 8.54989 14.7584 7.49229 15.8148C7.38924 15.9181 7.28361 16.0201 7.17153 16.1131C6.56609 16.6116 5.86532 16.8415 5.08725 16.8479C4.96691 16.8488 4.84657 16.8485 4.71962 16.8482Z"
+                                      fill="var(--color-active-parcelamento)">
+                                </path>
+                            </g>
+                            <defs>
+                                <clipPath id="clip0">
+                                    <rect width="22" height="22" fill="white">
+                                    </rect>
+                                </clipPath>
+                            </defs>
+                        </svg>
+                    </div>
+                    <div>
+                        PIX
+                    </div>
+                </label>
+
+                <!--Botão Boleto-->
+                <label class="modal-parcel-payment" for="payment-type-3" id="label-type-3">
+                    <div>
+                        <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
+                             xmlns="https://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M0 3.66602H1.1V18.3327H0V3.66602ZM2.2 3.66602H4.4V18.3327H2.2V3.66602ZM6.6 3.66602H7.7V18.3327H6.6V3.66602ZM8.8 3.66602H12.1V18.3327H8.8V3.66602ZM13.2 3.66602H14.3V18.3327H13.2V3.66602ZM16.5 3.66602H17.6V18.3327H16.5V3.66602ZM18.7 3.66602H19.8V18.3327H18.7V3.66602ZM20.9 3.66602H22V18.3327H20.9V3.66602Z"
+                                  fill="var(--color-active-parcelamento)">
+                            </path>
+                        </svg>
+                    </div>
+                    <div>
+                        Boleto
+                    </div>
+                </label>
+
+            </div>
+
+
+            <!--Conteudo - cartao de credito-->
+            <div class="modal-parcel-method card-method">
+
+                <ul class="modal-parcel-list">
+                    <li class="modal-parcel-list-item">
+                        <span>À vista</span>
+                        <span>Total: <span id="total-a-vista">{{ price | money }}</span></span>
+                    </li>
+                    <li class="modal-parcel-list-item">
+                        {% liquid
+                            assign taxa_segunda_parcela = settings.taxa_segunda_parcela | divided_by: 100 | plus: 1
+                        %}
+                        <span>2x{% if taxa_segunda_parcela == 1 %} sem juros {% endif %} de <span
+                                    id="taxa-segunda-parcela">{{ price | times: taxa_segunda_parcela | divided_by: 2 | money }}</span></span>
+                        <span>Total: <span
+                                    id="total-segunda-parcela">{{ price | times: taxa_segunda_parcela | money }}</span></span>
+                    </li>
+                    <li class="modal-parcel-list-item">
+                        {% liquid
+                            assign taxa_terceira_parcela = settings.taxa_terceira_parcela | divided_by: 100 | plus: 1
+                        %}
+                        <span>3x{% if taxa_terceira_parcela == 1 %} sem juros {% endif %} de <span
+                                    id="taxa-terceira-parcela">{{ price | times: taxa_terceira_parcela | divided_by: 3 | money }}</span></span>
+                        <span>Total: <span
+                                    id="total-terceira-parcela">{{ price | times: taxa_terceira_parcela | money }}</span></span>
+                    </li>
+                    <li class="modal-parcel-list-item">
+                        {% liquid
+                            assign taxa_quarta_parcela = settings.taxa_quarta_parcela | divided_by: 100 | plus: 1
+                        %}
+                        <span>4x{% if taxa_quarta_parcela == 1 %} sem juros {% endif %} de <span
+                                    id="taxa-quarta-parcela">{{ price | times: taxa_quarta_parcela | divided_by: 4 | money }}</span></span>
+                        <span>Total: <span
+                                    id="total-quarta-parcela">{{ price | times: taxa_quarta_parcela | money }}</span></span>
+                    </li>
+                    <li class="modal-parcel-list-item">
+                        {% liquid
+                            assign taxa_quinta_parcela = settings.taxa_quinta_parcela | divided_by: 100 | plus: 1
+                        %}
+                        <span>5x{% if taxa_quinta_parcela == 1 %} sem juros {% endif %} de <span
+                                    id="taxa-quinta-parcela">{{ price | times: taxa_quinta_parcela | divided_by: 5 | money }}</span></span>
+                        <span>Total: <span
+                                    id="total-quinta-parcela">{{ price | times: taxa_quinta_parcela | money }}</span></span>
+                    </li>
+                    <li class="modal-parcel-list-item">
+                        {% liquid
+                            assign taxa_sexta_parcela = settings.taxa_sexta_parcela | divided_by: 100 | plus: 1
+                        %}
+                        <span>6x{% if taxa_sexta_parcela == 1 %} sem juros {% endif %} de <span
+                                    id="taxa-sexta-parcela">{{ price | times: taxa_sexta_parcela | divided_by: 6 | money }}</span></span>
+                        <span>Total: <span
+                                    id="total-sexta-parcela">{{ price | times: taxa_sexta_parcela | money }}</span></span>
+                    </li>
+                    <li class="modal-parcel-list-item">
+                        {% liquid
+                            assign taxa_setima_parcela = settings.taxa_setima_parcela | divided_by: 100 | plus: 1
+                        %}
+                        <span>7x{% if taxa_setima_parcela == 1 %} sem juros {% endif %} de <span
+                                    id="taxa-setima-parcela">{{ price | times: taxa_setima_parcela | divided_by: 7 | money }}</span></span>
+                        <span>Total: <span
+                                    id="total-setima-parcela">{{ price | times: taxa_setima_parcela | money }}</span></span>
+                    </li>
+                    <li class="modal-parcel-list-item">
+                        {% liquid
+                            assign taxa_oitava_parcela = settings.taxa_oitava_parcela | divided_by: 100 | plus: 1
+                        %}
+                        <span>8x{% if taxa_oitava_parcela == 1 %} sem juros {% endif %} de <span
+                                    id="taxa-oitava-parcela">{{ price | times: taxa_oitava_parcela | divided_by: 8 | money }}</span></span>
+                        <span>Total: <span
+                                    id="total-oitava-parcela">{{ price | times: taxa_oitava_parcela | money }}</span></span>
+                    </li>
+                    <li class="modal-parcel-list-item">
+                        {% liquid
+                            assign taxa_nona_parcela = settings.taxa_nona_parcela | divided_by: 100 | plus: 1
+                        %}
+                        <span>9x{% if taxa_nona_parcela == 1 %} sem juros {% endif %} de <span
+                                    id="taxa-nona-parcela">{{ price | times: taxa_nona_parcela | divided_by: 9 | money }}</span></span>
+                        <span>Total: <span id="total-nona-parcela">{{ price | times: taxa_nona_parcela | money }}</span></span>
+                    </li>
+                    <li class="modal-parcel-list-item">
+                        {% liquid
+                            assign taxa_decima_parcela = settings.taxa_decima_parcela | divided_by: 100 | plus: 1
+                        %}
+                        <span>10x{% if taxa_decima_parcela == 1 %} sem juros {% endif %} de <span
+                                    id="taxa-decima-parcela">{{ price | times: taxa_decima_parcela | divided_by: 10 | money }}</span></span>
+                        <span>Total: <span
+                                    id="total-decima-parcela">{{ price | times: taxa_decima_parcela | money }}</span></span>
+                    </li>
+                    <li class="modal-parcel-list-item">
+                        {% liquid
+                            assign taxa_decima_primeira_parcela = settings.taxa_decima_primeira_parcela | divided_by: 100 | plus: 1
+                        %}
+                        <span>11x{% if taxa_decima_primeira_parcela == 1 %} sem juros {% endif %} de <span
+                                    id="taxa-decima-primeira-parcela">{{ price | times: taxa_decima_primeira_parcela | divided_by: 11 | money }}</span></span>
+                        <span>Total: <span
+                                    id="total-decima-primeira-parcela">{{ price | times: taxa_decima_primeira_parcela | money }}</span></span>
+                    </li>
+                    <li class="modal-parcel-list-item">
+                        {% liquid
+                            assign taxa_decima_segunda_parcela = settings.taxa_decima_segunda_parcela | divided_by: 100 | plus: 1
+                        %}
+                        <span>12x{% if taxa_decima_segunda_parcela == 1 %} sem juros {% endif %} de <span
+                                    id="taxa-decima-segunda-parcela">{{ price | times: taxa_decima_segunda_parcela | divided_by: 12 | money }}</span></span>
+                        <span>Total: <span
+                                    id="total-decima-segunda-parcela">{{ price | times: taxa_decima_segunda_parcela | money }}</span></span>
+                    </li>
+                </ul>
+
+                <div class="modal-parcel-cards-wrapper">
+                    <div>
+                        Aceitamos:
+                    </div>
+                    <div class="modal-parcel-cards">
+                        {% if settings.bandeiras_credit_card %}
+                            <img height="35px" src="{{ settings.bandeiras_credit_card | img_url: 'master' }}"
+                                 alt="bandeiras de aceitas">
+                        {% else %}
+                            <img height="35px" src="{{ 'bandeiras-cartoes-credito.png' | asset_url }}"
+                                 alt="bandeiras de aceitas">
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!--Conteudo - PIX-->
+            <div class="modal-parcel-method pix-method">
+                <div class="modal-parcel-informations">
+                    <div class="modal-parcel-pricing">
+                        {% liquid
+                            assign porcentagem = settings.desconto_pix_parcelamento | divided_by: 100
+                            assign desconto_pix_parcelamento = 1 | minus: porcentagem
+                        %}
+                        <div class="modal-parcel-price-cash">
+                            <span id="total-pix">R$ {{ price | times: desconto_pix_parcelamento | money_without_currency }}</span>
+                        </div>
+                        <div class="modal-parcel-price-description">
+                            À vista no PIX {% if desconto_pix_parcelamento != 1 %}com <strong>{{ settings.desconto_pix_parcelamento | round }}%
+                                OFF{% endif %}</strong>
+                        </div>
+                    </div>
+
+                    <div class="modal-parcel-extra">
+                        <svg width="24" height="24" viewBox="0 0 36 36" fill="none"
+                             xmlns="https://www.w3.org/2000/svg">
+                            <g>
+                                <path d="M5.14282 27.6426H7.71489V29.5712H5.14282V27.6426Z"
+                                      fill="var(--color-primary-parcelamento)">
+                                </path>
+                                <path d="M28.9286 21.8574C27.53 21.8574 26.1628 22.2722 24.9999 23.0492C23.837 23.8262 22.9307 24.9306 22.3955 26.2227C21.8602 27.5149 21.7202 28.9367 21.9931 30.3084C22.2659 31.6801 22.9394 32.9401 23.9284 33.9291C24.9173 34.918 26.1773 35.5915 27.549 35.8644C28.9208 36.1372 30.3426 35.9972 31.6347 35.462C32.9268 34.9268 34.0312 34.0204 34.8083 32.8575C35.5853 31.6946 36 30.3274 36 28.9288C35.9978 27.0541 35.2521 25.2567 33.9264 23.931C32.6007 22.6054 30.8034 21.8596 28.9286 21.8574ZM33.552 27.143L28.0974 32.5976C27.9768 32.7181 27.8133 32.7858 27.6429 32.7858C27.4724 32.7858 27.3089 32.7181 27.1884 32.5976L24.4614 29.87C24.3443 29.7487 24.2795 29.5863 24.281 29.4178C24.2824 29.2492 24.35 29.088 24.4692 28.9688C24.5884 28.8496 24.7497 28.782 24.9182 28.7805C25.0868 28.7791 25.2491 28.8439 25.3704 28.961L27.6429 31.2341L32.643 26.234C32.7643 26.1169 32.9267 26.0521 33.0952 26.0536C33.2638 26.055 33.425 26.1226 33.5442 26.2418C33.6634 26.361 33.731 26.5222 33.7325 26.6908C33.7339 26.8594 33.6691 27.0217 33.552 27.143Z"
+                                      fill="var(--color-primary-parcelamento)">
+                                </path>
+                                <path d="M12.8572 16.0723H15.4292V18.0008H12.8572V16.0723Z"
+                                      fill="var(--color-primary-parcelamento)">
+                                </path>
+                                <path d="M20.5714 16.0723H23.1428V18.0008H20.5714V16.0723Z"
+                                      fill="var(--color-primary-parcelamento)">
+                                </path>
+                                <path d="M5.14282 21.8574H7.71489V23.786H5.14282V21.8574Z"
+                                      fill="var(--color-primary-parcelamento)">
+                                </path>
+                                <path d="M12.8572 21.8574H15.4292V23.786H12.8572V21.8574Z"
+                                      fill="var(--color-primary-parcelamento)">
+                                </path>
+                                <path d="M5.14282 16.0723H7.71489V18.0008H5.14282V16.0723Z"
+                                      fill="var(--color-primary-parcelamento)">
+                                </path>
+                                <path d="M7.7143 6.42857C8.05498 6.42755 8.38142 6.29177 8.62232 6.05087C8.86322 5.80997 8.999 5.48354 9.00002 5.14286V1.28571C9.00002 0.944722 8.86456 0.617695 8.62344 0.376577C8.38232 0.135459 8.0553 0 7.7143 0C7.37331 0 7.04628 0.135459 6.80517 0.376577C6.56405 0.617695 6.42859 0.944722 6.42859 1.28571V5.14286C6.42961 5.48354 6.56539 5.80997 6.80629 6.05087C7.04719 6.29177 7.37362 6.42755 7.7143 6.42857Z"
+                                      fill="var(--color-primary-parcelamento)">
+                                </path>
+                                <path d="M17.9999 6.42857C18.3406 6.42755 18.6671 6.29177 18.908 6.05087C19.1489 5.80997 19.2846 5.48354 19.2857 5.14286V1.28571C19.2857 0.944722 19.1502 0.617695 18.9091 0.376577C18.668 0.135459 18.3409 0 17.9999 0C17.659 0 17.3319 0.135459 17.0908 0.376577C16.8497 0.617695 16.7142 0.944722 16.7142 1.28571V5.14286C16.7153 5.48354 16.851 5.80997 17.0919 6.05087C17.3328 6.29177 17.6593 6.42755 17.9999 6.42857Z"
+                                      fill="var(--color-primary-parcelamento)">
+                                </path>
+                                <path d="M28.2857 6.42857C28.6264 6.42755 28.9528 6.29177 29.1937 6.05087C29.4346 5.80997 29.5704 5.48354 29.5714 5.14286V1.28571C29.5714 0.944722 29.436 0.617695 29.1949 0.376577C28.9537 0.135459 28.6267 0 28.2857 0C27.9447 0 27.6177 0.135459 27.3766 0.376577C27.1355 0.617695 27 0.944722 27 1.28571V5.14286C27.001 5.48354 27.1368 5.80997 27.3777 6.05087C27.6186 6.29177 27.945 6.42755 28.2857 6.42857Z"
+                                      fill="var(--color-primary-parcelamento)">
+                                </path>
+                                <path d="M28.2858 16.0723H30.8572V18.0008H28.2858V16.0723Z"
+                                      fill="var(--color-primary-parcelamento)">
+                                </path>
+                                <path d="M34.0714 3.85742H30.8571V5.14314C30.8571 5.82512 30.5862 6.47917 30.104 6.96141C29.6218 7.44365 28.9677 7.71456 28.2857 7.71456C27.6037 7.71456 26.9497 7.44365 26.4674 6.96141C25.9852 6.47917 25.7143 5.82512 25.7143 5.14314V3.85742H20.5714V5.14314C20.5714 5.82512 20.3005 6.47917 19.8183 6.96141C19.336 7.44365 18.682 7.71456 18 7.71456C17.318 7.71456 16.664 7.44365 16.1817 6.96141C15.6995 6.47917 15.4286 5.82512 15.4286 5.14314V3.85742H10.2857V5.14314C10.2857 5.82512 10.0148 6.47917 9.53256 6.96141C9.05032 7.44365 8.39627 7.71456 7.71429 7.71456C7.0323 7.71456 6.37825 7.44365 5.89601 6.96141C5.41377 6.47917 5.14286 5.82512 5.14286 5.14314V3.85742H1.92857C1.41755 3.85895 0.927899 4.06263 0.566552 4.42397C0.205205 4.78532 0.0015262 5.27497 0 5.78599V10.286H36V5.78599C35.9985 5.27497 35.7948 4.78532 35.4334 4.42397C35.0721 4.06263 34.5824 3.85895 34.0714 3.85742Z"
+                                      fill="var(--color-primary-parcelamento)">
+                                </path>
+                                <path d="M12.8572 27.6426H15.4292V29.5712H12.8572V27.6426Z"
+                                      fill="var(--color-primary-parcelamento)">
+                                </path>
+                                <path d="M0 11.5723V31.5008C0.0015262 32.0119 0.205205 32.5015 0.566552 32.8629C0.927899 33.2242 1.41755 33.4279 1.92857 33.4294H21.8976C21.3109 32.5034 20.9123 31.471 20.7246 30.3909C20.5369 29.3109 20.5637 28.2045 20.8036 27.1349C21.0435 26.0652 21.4917 25.0533 22.1227 24.1569C22.7536 23.2605 23.555 22.4971 24.481 21.9104C25.4069 21.3236 26.4394 20.925 27.5194 20.7373C28.5994 20.5496 29.7059 20.5765 30.7755 20.8164C31.8451 21.0562 32.8571 21.5045 33.7535 22.1354C34.6499 22.7664 35.4133 23.5677 36 24.4937V11.5723H0ZM9 29.5723C9 29.9133 8.86454 30.2403 8.62342 30.4814C8.3823 30.7225 8.05528 30.858 7.71429 30.858H5.14286C4.80186 30.858 4.47484 30.7225 4.23372 30.4814C3.9926 30.2403 3.85714 29.9133 3.85714 29.5723V27.6437C3.85714 27.3027 3.9926 26.9757 4.23372 26.7346C4.47484 26.4934 4.80186 26.358 5.14286 26.358H7.71429C8.05528 26.358 8.3823 26.4934 8.62342 26.7346C8.86454 26.9757 9 27.3027 9 27.6437V29.5723ZM9 23.7866C9 24.1275 8.86454 24.4546 8.62342 24.6957C8.3823 24.9368 8.05528 25.0723 7.71429 25.0723H5.14286C4.80186 25.0723 4.47484 24.9368 4.23372 24.6957C3.9926 24.4546 3.85714 24.1275 3.85714 23.7866V21.858C3.85714 21.517 3.9926 21.19 4.23372 20.9488C4.47484 20.7077 4.80186 20.5723 5.14286 20.5723H7.71429C8.05528 20.5723 8.3823 20.7077 8.62342 20.9488C8.86454 21.19 9 21.517 9 21.858V23.7866ZM9 18.0008C9 18.3418 8.86454 18.6689 8.62342 18.91C8.3823 19.1511 8.05528 19.2866 7.71429 19.2866H5.14286C4.80186 19.2866 4.47484 19.1511 4.23372 18.91C3.9926 18.6689 3.85714 18.3418 3.85714 18.0008V16.0723C3.85714 15.7313 3.9926 15.4042 4.23372 15.1631C4.47484 14.922 4.80186 14.7866 5.14286 14.7866H7.71429C8.05528 14.7866 8.3823 14.922 8.62342 15.1631C8.86454 15.4042 9 15.7313 9 16.0723V18.0008ZM16.7143 29.5723C16.7143 29.9133 16.5788 30.2403 16.3377 30.4814C16.0966 30.7225 15.7696 30.858 15.4286 30.858H12.8571C12.5162 30.858 12.1891 30.7225 11.948 30.4814C11.7069 30.2403 11.5714 29.9133 11.5714 29.5723V27.6437C11.5714 27.3027 11.7069 26.9757 11.948 26.7346C12.1891 26.4934 12.5162 26.358 12.8571 26.358H15.4286C15.7696 26.358 16.0966 26.4934 16.3377 26.7346C16.5788 26.9757 16.7143 27.3027 16.7143 27.6437V29.5723ZM16.7143 23.7866C16.7143 24.1275 16.5788 24.4546 16.3377 24.6957C16.0966 24.9368 15.7696 25.0723 15.4286 25.0723H12.8571C12.5162 25.0723 12.1891 24.9368 11.948 24.6957C11.7069 24.4546 11.5714 24.1275 11.5714 23.7866V21.858C11.5714 21.517 11.7069 21.19 11.948 20.9488C12.1891 20.7077 12.5162 20.5723 12.8571 20.5723H15.4286C15.7696 20.5723 16.0966 20.7077 16.3377 20.9488C16.5788 21.19 16.7143 21.517 16.7143 21.858V23.7866ZM16.7143 18.0008C16.7143 18.3418 16.5788 18.6689 16.3377 18.91C16.0966 19.1511 15.7696 19.2866 15.4286 19.2866H12.8571C12.5162 19.2866 12.1891 19.1511 11.948 18.91C11.7069 18.6689 11.5714 18.3418 11.5714 18.0008V16.0723C11.5714 15.7313 11.7069 15.4042 11.948 15.1631C12.1891 14.922 12.5162 14.7866 12.8571 14.7866H15.4286C15.7696 14.7866 16.0966 14.922 16.3377 15.1631C16.5788 15.4042 16.7143 15.7313 16.7143 16.0723V18.0008ZM23.1429 21.858H20.5714V23.7866C20.7419 23.7866 20.9054 23.8543 21.026 23.9748C21.1466 24.0954 21.2143 24.2589 21.2143 24.4294C21.2143 24.5999 21.1466 24.7634 21.026 24.884C20.9054 25.0045 20.7419 25.0723 20.5714 25.0723C20.2304 25.0723 19.9034 24.9368 19.6623 24.6957C19.4212 24.4546 19.2857 24.1275 19.2857 23.7866V21.858C19.2857 21.517 19.4212 21.19 19.6623 20.9488C19.9034 20.7077 20.2304 20.5723 20.5714 20.5723H23.1429C23.3134 20.5723 23.4769 20.64 23.5974 20.7606C23.718 20.8811 23.7857 21.0446 23.7857 21.2151C23.7857 21.3856 23.718 21.5491 23.5974 21.6697C23.4769 21.7902 23.3134 21.858 23.1429 21.858ZM24.4286 18.0008C24.4286 18.3418 24.2931 18.6689 24.052 18.91C23.8109 19.1511 23.4838 19.2866 23.1429 19.2866H20.5714C20.2304 19.2866 19.9034 19.1511 19.6623 18.91C19.4212 18.6689 19.2857 18.3418 19.2857 18.0008V16.0723C19.2857 15.7313 19.4212 15.4042 19.6623 15.1631C19.9034 14.922 20.2304 14.7866 20.5714 14.7866H23.1429C23.4838 14.7866 23.8109 14.922 24.052 15.1631C24.2931 15.4042 24.4286 15.7313 24.4286 16.0723V18.0008ZM32.1429 18.0008C32.1429 18.3418 32.0074 18.6689 31.7663 18.91C31.5252 19.1511 31.1981 19.2866 30.8571 19.2866H28.2857C27.9447 19.2866 27.6177 19.1511 27.3766 18.91C27.1355 18.6689 27 18.3418 27 18.0008V16.0723C27 15.7313 27.1355 15.4042 27.3766 15.1631C27.6177 14.922 27.9447 14.7866 28.2857 14.7866H30.8571C31.1981 14.7866 31.5252 14.922 31.7663 15.1631C32.0074 15.4042 32.1429 15.7313 32.1429 16.0723V18.0008Z"
+                                      fill="var(--color-primary-parcelamento)">
+                                </path>
+                            </g>
+                            <defs>
+                                <clipPath id="clip0">
+                                    <rect width="36" height="36" fill="white">
+
+                                    </rect>
+                                </clipPath>
+                            </defs>
+                        </svg>
+                        <div class="modal-parcel-extra-text">
+                            {{ settings.desconto_pix_text_parcelamento }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Conteudo - Boleto-->
+            <div class="modal-parcel-method boleto-method">
+                <div class="modal-parcel-informations">
+                    <div class="modal-parcel-pricing">
+                        {% liquid
+                            assign porcentagem = settings.desconto_boleto | divided_by: 100
+                            assign desconto_boleto = 1 | minus: porcentagem
+                        %}
+                        <div class="modal-parcel-price-cash">
+                                <span id="total-boleto"> <span
+                                            id="total-a-vista">R$ {{ price | times: desconto_boleto | money_without_currency }}</span>
+                        </div>
+                        <div class="modal-parcel-price-description">
+                            À vista no Boleto {% if desconto_boleto != 1 %}com
+                                <strong>{{ settings.desconto_boleto | round }}% OFF</strong>{% endif %}
+                        </div>
+                    </div>
+
+                    <div class="modal-parcel-extra">
+                        <svg width="24" height="24" viewBox="0 0 36 36" fill="none"
+                             xmlns="https://www.w3.org/2000/svg">
+                            <g>
+                                <path d="M5.14282 27.6426H7.71489V29.5712H5.14282V27.6426Z"
+                                      fill="var(--color-primary-parcelamento)">
+                                </path>
+                                <path d="M28.9286 21.8574C27.53 21.8574 26.1628 22.2722 24.9999 23.0492C23.837 23.8262 22.9307 24.9306 22.3955 26.2227C21.8602 27.5149 21.7202 28.9367 21.9931 30.3084C22.2659 31.6801 22.9394 32.9401 23.9284 33.9291C24.9173 34.918 26.1773 35.5915 27.549 35.8644C28.9208 36.1372 30.3426 35.9972 31.6347 35.462C32.9268 34.9268 34.0312 34.0204 34.8083 32.8575C35.5853 31.6946 36 30.3274 36 28.9288C35.9978 27.0541 35.2521 25.2567 33.9264 23.931C32.6007 22.6054 30.8034 21.8596 28.9286 21.8574ZM33.552 27.143L28.0974 32.5976C27.9768 32.7181 27.8133 32.7858 27.6429 32.7858C27.4724 32.7858 27.3089 32.7181 27.1884 32.5976L24.4614 29.87C24.3443 29.7487 24.2795 29.5863 24.281 29.4178C24.2824 29.2492 24.35 29.088 24.4692 28.9688C24.5884 28.8496 24.7497 28.782 24.9182 28.7805C25.0868 28.7791 25.2491 28.8439 25.3704 28.961L27.6429 31.2341L32.643 26.234C32.7643 26.1169 32.9267 26.0521 33.0952 26.0536C33.2638 26.055 33.425 26.1226 33.5442 26.2418C33.6634 26.361 33.731 26.5222 33.7325 26.6908C33.7339 26.8594 33.6691 27.0217 33.552 27.143Z"
+                                      fill="var(--color-primary-parcelamento)">
+                                </path>
+                                <path d="M12.8572 16.0723H15.4292V18.0008H12.8572V16.0723Z"
+                                      fill="var(--color-primary-parcelamento)">
+                                </path>
+                                <path d="M20.5714 16.0723H23.1428V18.0008H20.5714V16.0723Z"
+                                      fill="var(--color-primary-parcelamento)">
+                                </path>
+                                <path d="M5.14282 21.8574H7.71489V23.786H5.14282V21.8574Z"
+                                      fill="var(--color-primary-parcelamento)">
+                                </path>
+                                <path d="M12.8572 21.8574H15.4292V23.786H12.8572V21.8574Z"
+                                      fill="var(--color-primary-parcelamento)">
+                                </path>
+                                <path d="M5.14282 16.0723H7.71489V18.0008H5.14282V16.0723Z"
+                                      fill="var(--color-primary-parcelamento)">
+                                </path>
+                                <path d="M7.7143 6.42857C8.05498 6.42755 8.38142 6.29177 8.62232 6.05087C8.86322 5.80997 8.999 5.48354 9.00002 5.14286V1.28571C9.00002 0.944722 8.86456 0.617695 8.62344 0.376577C8.38232 0.135459 8.0553 0 7.7143 0C7.37331 0 7.04628 0.135459 6.80517 0.376577C6.56405 0.617695 6.42859 0.944722 6.42859 1.28571V5.14286C6.42961 5.48354 6.56539 5.80997 6.80629 6.05087C7.04719 6.29177 7.37362 6.42755 7.7143 6.42857Z"
+                                      fill="var(--color-primary-parcelamento)">
+                                </path>
+                                <path d="M17.9999 6.42857C18.3406 6.42755 18.6671 6.29177 18.908 6.05087C19.1489 5.80997 19.2846 5.48354 19.2857 5.14286V1.28571C19.2857 0.944722 19.1502 0.617695 18.9091 0.376577C18.668 0.135459 18.3409 0 17.9999 0C17.659 0 17.3319 0.135459 17.0908 0.376577C16.8497 0.617695 16.7142 0.944722 16.7142 1.28571V5.14286C16.7153 5.48354 16.851 5.80997 17.0919 6.05087C17.3328 6.29177 17.6593 6.42755 17.9999 6.42857Z"
+                                      fill="var(--color-primary-parcelamento)">
+                                </path>
+                                <path d="M28.2857 6.42857C28.6264 6.42755 28.9528 6.29177 29.1937 6.05087C29.4346 5.80997 29.5704 5.48354 29.5714 5.14286V1.28571C29.5714 0.944722 29.436 0.617695 29.1949 0.376577C28.9537 0.135459 28.6267 0 28.2857 0C27.9447 0 27.6177 0.135459 27.3766 0.376577C27.1355 0.617695 27 0.944722 27 1.28571V5.14286C27.001 5.48354 27.1368 5.80997 27.3777 6.05087C27.6186 6.29177 27.945 6.42755 28.2857 6.42857Z"
+                                      fill="var(--color-primary-parcelamento)">
+                                </path>
+                                <path d="M28.2858 16.0723H30.8572V18.0008H28.2858V16.0723Z"
+                                      fill="var(--color-primary-parcelamento)">
+                                </path>
+                                <path d="M34.0714 3.85742H30.8571V5.14314C30.8571 5.82512 30.5862 6.47917 30.104 6.96141C29.6218 7.44365 28.9677 7.71456 28.2857 7.71456C27.6037 7.71456 26.9497 7.44365 26.4674 6.96141C25.9852 6.47917 25.7143 5.82512 25.7143 5.14314V3.85742H20.5714V5.14314C20.5714 5.82512 20.3005 6.47917 19.8183 6.96141C19.336 7.44365 18.682 7.71456 18 7.71456C17.318 7.71456 16.664 7.44365 16.1817 6.96141C15.6995 6.47917 15.4286 5.82512 15.4286 5.14314V3.85742H10.2857V5.14314C10.2857 5.82512 10.0148 6.47917 9.53256 6.96141C9.05032 7.44365 8.39627 7.71456 7.71429 7.71456C7.0323 7.71456 6.37825 7.44365 5.89601 6.96141C5.41377 6.47917 5.14286 5.82512 5.14286 5.14314V3.85742H1.92857C1.41755 3.85895 0.927899 4.06263 0.566552 4.42397C0.205205 4.78532 0.0015262 5.27497 0 5.78599V10.286H36V5.78599C35.9985 5.27497 35.7948 4.78532 35.4334 4.42397C35.0721 4.06263 34.5824 3.85895 34.0714 3.85742Z"
+                                      fill="var(--color-primary-parcelamento)">
+                                </path>
+                                <path d="M12.8572 27.6426H15.4292V29.5712H12.8572V27.6426Z"
+                                      fill="var(--color-primary-parcelamento)">
+                                </path>
+                                <path d="M0 11.5723V31.5008C0.0015262 32.0119 0.205205 32.5015 0.566552 32.8629C0.927899 33.2242 1.41755 33.4279 1.92857 33.4294H21.8976C21.3109 32.5034 20.9123 31.471 20.7246 30.3909C20.5369 29.3109 20.5637 28.2045 20.8036 27.1349C21.0435 26.0652 21.4917 25.0533 22.1227 24.1569C22.7536 23.2605 23.555 22.4971 24.481 21.9104C25.4069 21.3236 26.4394 20.925 27.5194 20.7373C28.5994 20.5496 29.7059 20.5765 30.7755 20.8164C31.8451 21.0562 32.8571 21.5045 33.7535 22.1354C34.6499 22.7664 35.4133 23.5677 36 24.4937V11.5723H0ZM9 29.5723C9 29.9133 8.86454 30.2403 8.62342 30.4814C8.3823 30.7225 8.05528 30.858 7.71429 30.858H5.14286C4.80186 30.858 4.47484 30.7225 4.23372 30.4814C3.9926 30.2403 3.85714 29.9133 3.85714 29.5723V27.6437C3.85714 27.3027 3.9926 26.9757 4.23372 26.7346C4.47484 26.4934 4.80186 26.358 5.14286 26.358H7.71429C8.05528 26.358 8.3823 26.4934 8.62342 26.7346C8.86454 26.9757 9 27.3027 9 27.6437V29.5723ZM9 23.7866C9 24.1275 8.86454 24.4546 8.62342 24.6957C8.3823 24.9368 8.05528 25.0723 7.71429 25.0723H5.14286C4.80186 25.0723 4.47484 24.9368 4.23372 24.6957C3.9926 24.4546 3.85714 24.1275 3.85714 23.7866V21.858C3.85714 21.517 3.9926 21.19 4.23372 20.9488C4.47484 20.7077 4.80186 20.5723 5.14286 20.5723H7.71429C8.05528 20.5723 8.3823 20.7077 8.62342 20.9488C8.86454 21.19 9 21.517 9 21.858V23.7866ZM9 18.0008C9 18.3418 8.86454 18.6689 8.62342 18.91C8.3823 19.1511 8.05528 19.2866 7.71429 19.2866H5.14286C4.80186 19.2866 4.47484 19.1511 4.23372 18.91C3.9926 18.6689 3.85714 18.3418 3.85714 18.0008V16.0723C3.85714 15.7313 3.9926 15.4042 4.23372 15.1631C4.47484 14.922 4.80186 14.7866 5.14286 14.7866H7.71429C8.05528 14.7866 8.3823 14.922 8.62342 15.1631C8.86454 15.4042 9 15.7313 9 16.0723V18.0008ZM16.7143 29.5723C16.7143 29.9133 16.5788 30.2403 16.3377 30.4814C16.0966 30.7225 15.7696 30.858 15.4286 30.858H12.8571C12.5162 30.858 12.1891 30.7225 11.948 30.4814C11.7069 30.2403 11.5714 29.9133 11.5714 29.5723V27.6437C11.5714 27.3027 11.7069 26.9757 11.948 26.7346C12.1891 26.4934 12.5162 26.358 12.8571 26.358H15.4286C15.7696 26.358 16.0966 26.4934 16.3377 26.7346C16.5788 26.9757 16.7143 27.3027 16.7143 27.6437V29.5723ZM16.7143 23.7866C16.7143 24.1275 16.5788 24.4546 16.3377 24.6957C16.0966 24.9368 15.7696 25.0723 15.4286 25.0723H12.8571C12.5162 25.0723 12.1891 24.9368 11.948 24.6957C11.7069 24.4546 11.5714 24.1275 11.5714 23.7866V21.858C11.5714 21.517 11.7069 21.19 11.948 20.9488C12.1891 20.7077 12.5162 20.5723 12.8571 20.5723H15.4286C15.7696 20.5723 16.0966 20.7077 16.3377 20.9488C16.5788 21.19 16.7143 21.517 16.7143 21.858V23.7866ZM16.7143 18.0008C16.7143 18.3418 16.5788 18.6689 16.3377 18.91C16.0966 19.1511 15.7696 19.2866 15.4286 19.2866H12.8571C12.5162 19.2866 12.1891 19.1511 11.948 18.91C11.7069 18.6689 11.5714 18.3418 11.5714 18.0008V16.0723C11.5714 15.7313 11.7069 15.4042 11.948 15.1631C12.1891 14.922 12.5162 14.7866 12.8571 14.7866H15.4286C15.7696 14.7866 16.0966 14.922 16.3377 15.1631C16.5788 15.4042 16.7143 15.7313 16.7143 16.0723V18.0008ZM23.1429 21.858H20.5714V23.7866C20.7419 23.7866 20.9054 23.8543 21.026 23.9748C21.1466 24.0954 21.2143 24.2589 21.2143 24.4294C21.2143 24.5999 21.1466 24.7634 21.026 24.884C20.9054 25.0045 20.7419 25.0723 20.5714 25.0723C20.2304 25.0723 19.9034 24.9368 19.6623 24.6957C19.4212 24.4546 19.2857 24.1275 19.2857 23.7866V21.858C19.2857 21.517 19.4212 21.19 19.6623 20.9488C19.9034 20.7077 20.2304 20.5723 20.5714 20.5723H23.1429C23.3134 20.5723 23.4769 20.64 23.5974 20.7606C23.718 20.8811 23.7857 21.0446 23.7857 21.2151C23.7857 21.3856 23.718 21.5491 23.5974 21.6697C23.4769 21.7902 23.3134 21.858 23.1429 21.858ZM24.4286 18.0008C24.4286 18.3418 24.2931 18.6689 24.052 18.91C23.8109 19.1511 23.4838 19.2866 23.1429 19.2866H20.5714C20.2304 19.2866 19.9034 19.1511 19.6623 18.91C19.4212 18.6689 19.2857 18.3418 19.2857 18.0008V16.0723C19.2857 15.7313 19.4212 15.4042 19.6623 15.1631C19.9034 14.922 20.2304 14.7866 20.5714 14.7866H23.1429C23.4838 14.7866 23.8109 14.922 24.052 15.1631C24.2931 15.4042 24.4286 15.7313 24.4286 16.0723V18.0008ZM32.1429 18.0008C32.1429 18.3418 32.0074 18.6689 31.7663 18.91C31.5252 19.1511 31.1981 19.2866 30.8571 19.2866H28.2857C27.9447 19.2866 27.6177 19.1511 27.3766 18.91C27.1355 18.6689 27 18.3418 27 18.0008V16.0723C27 15.7313 27.1355 15.4042 27.3766 15.1631C27.6177 14.922 27.9447 14.7866 28.2857 14.7866H30.8571C31.1981 14.7866 31.5252 14.922 31.7663 15.1631C32.0074 15.4042 32.1429 15.7313 32.1429 16.0723V18.0008Z"
+                                      fill="var(--color-primary-parcelamento)">
+                                </path>
+                            </g>
+                            <defs>
+                                <clipPath id="clip0">
+                                    <rect width="36" height="36" fill="white">
+
+                                    </rect>
+                                </clipPath>
+                            </defs>
+                        </svg>
+                        <div class="modal-parcel-extra-text">
+                            {{ settings.desconto_boleto_text }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $('#backdrop-modal-parcel').appendTo($('body'))
+
+    function toggleModal() {
+        document.querySelector("body").classList.toggle("active-modal")
+    }
+
+    document.getElementById("modal-parcel").onclick = function (e) {
+        e.stopPropagation()
+    }
+</script>
+

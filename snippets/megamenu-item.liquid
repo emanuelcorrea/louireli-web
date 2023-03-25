@@ -1,0 +1,96 @@
+
+{% if mega_type == "linklist" %}
+<li>
+  <a href="{{ mega_btnurl }}" class="mega-menu__link mega-menu__link--level-2 link">{{ mega_title | escape }}</a>
+  {% for linkli1 in mega_linklist.links %}
+  <ul class="list-unstyled" role="list">
+    <li>
+      <a href="{{ linkli1.url }}" class="mega-menu__link link{% if linkli1.current %} mega-menu__link--active{% endif %}"{% if linkli1.current %} aria-current="page"{% endif %}>
+        {{ linkli1.title | escape }}
+      </a>
+    </li>
+  </ul>
+  {% endfor %}
+</li>
+{% endif %}
+
+{% if mega_type == "collection" %}
+<li>
+  {% assign megacol = collections[mega_collection] %}
+  <div class="mega_collection">
+    <div class="mega_col_image">
+      {%- if megacol.image != blank -%}
+      <div class="image_wepper">
+        <a href="{{ megacol.url }}" class="collection-icon-bar__link">
+          <div class="media media--adapt" style="padding-bottom: {{ 1 | divided_by: megacol.image.aspect_ratio | times: 100}}%;">
+            <img class="custom-icon-card__image"
+                 srcset="{%- if megacol.image.width >= 275 -%}{{ megacol.image | image_url: width: 275 }} 275w,{%- endif -%}
+                         {%- if megacol.image.width >= 550 -%}{{ megacol.image | image_url: width: 550 }} 550w,{%- endif -%}
+                         {%- if megacol.image.width >= 710 -%}{{ megacol.image | image_url: width: 710 }} 710w,{%- endif -%}
+                         {%- if megacol.image.width >= 1420 -%}{{ megacol.image | image_url: width: 1420 }} 1420w,{%- endif -%}
+                         {{ megacol.image | image_url }} {{ megacol.image.width }}w"
+                 src="{{ megacol.image | image_url: width: 550 }}"
+                 sizes="710px"
+                 alt="{{ megacol.image.alt }}"
+                 height="{{ megacol.image.height }}"
+                 width="{{ megacol.image.width }}"
+                 loading="lazy">
+          </div>
+        </a>
+      </div>
+      {% endif %}
+    </div>
+    <div class="mega_col_title">
+      <a class="{{megacol.url}}">{{megacol.title}}</a>
+    </div>
+  </div>
+</li>
+{% endif %}
+
+{% if mega_type == "product" %}
+<li>
+  <div class="mega_product">
+    {% assign prod = all_products[mega_product] %}
+    {% render 'mega-card-product',
+    card_product: prod,
+    lazy_load: lazy_load,
+    section_id: block.id %}
+  </div>
+</li>
+{% endif %}
+
+
+{% if mega_type == "show_image_with_text" %}
+    {% assign megaimg = mega_image %}
+{% if mega_content != blank or megaimg != blank %}
+<li>
+  <div class="mega_image_with_text">
+    {%- if megaimg != blank -%}
+    <div class="image_wepper">
+      <a href="{{ megacol.url }}" class="collection-icon-bar__link">
+        <div class="media media--adapt" style="padding-bottom: {{ 1 | divided_by: megaimg.aspect_ratio | times: 100}}%;">
+          <img class="custom-icon-card__image"
+               srcset="{%- if megaimg.width >= 275 -%}{{ megaimg | image_url: width: 275 }} 275w,{%- endif -%}
+                       {%- if megaimg.width >= 550 -%}{{ megaimg | image_url: width: 550 }} 550w,{%- endif -%}
+                       {%- if megaimg.width >= 710 -%}{{ megaimg | image_url: width: 710 }} 710w,{%- endif -%}
+                       {%- if megaimg.width >= 1420 -%}{{ megaimg | image_url: width: 1420 }} 1420w,{%- endif -%}
+                       {{ megaimg | image_url }} {{ megaimg.width }}w"
+               src="{{ megaimg | image_url: width: 550 }}"
+               sizes="710px"
+               alt="{{ megaimg.alt }}"
+               height="{{ megaimg.height }}"
+               width="{{ megaimg.width }}"
+               loading="lazy">
+        </div>
+      </a>
+    </div>
+    {% else %}
+        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+    {% endif %}
+    <h5 class="mega_iwt_title">{{mega_title}}</h5>
+    <p class="mega_iwt_content">{{mega_content}}</p>
+    <div class="mega_iwt_btn"><a class="button button--small" href="{{mega_btnurl}}">{{mega_btntitle}}</a></div>
+  </div>
+</li>
+{% endif %}
+{% endif %}

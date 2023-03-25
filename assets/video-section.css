@@ -1,11 +1,6 @@
 .video-section__media {
-  --ratio-percent: 56.25%;
   position: relative;
-  padding-bottom: calc(var(--ratio-percent) - var(--media-border-width));
-}
-
-.video-section__media.global-media-settings--full-width {
-  padding-bottom: var(--ratio-percent);
+  padding-bottom: 56.25%;
 }
 
 .video-section__media.deferred-media {
@@ -26,17 +21,78 @@
 }
 
 .video-section__poster,
-.video-section__media iframe,
-.video-section__media video {
+.video-section__media iframe {
   position: absolute;
   width: 100%;
   height: 100%;
 }
-
-.video-section__media video {
-  background: #000000;
+.video-section .video-text {
+    position: absolute;
+    top: 52%;
+    height: auto;
+    max-width: 35%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+}
+.video-section .video-text .video-title {
+    text-transform: uppercase;
+    font-size: 30px;
+    line-height: 45px;
+    margin: 0;
+}
+.deferred-media__poster-button.video-btn {
+    top: 44%;
 }
 
-.video-section__media.media-fit-cover video {
-  object-fit: cover;
+@media screen and (max-width: 1400px) {
+    .video-section .video-text {
+        max-width: 50%;
+    }
+}
+@media screen and (max-width: 1269px) {
+    .video-section .video-text {
+        max-width: 50%;
+        top: 55%;
+    }
+    .video-section .video-text .video-title {
+        font-size: 26px;
+        line-height: 40px;
+    }
+}
+@media screen and (max-width: 1024px) {
+  .video-section .video-text .video-title {
+      font-size: 22px;
+      line-height: 30px;
+  }
+}
+@media screen and (max-width: 989px) {
+    .deferred-media__poster-button.video-btn {
+        top: 40%;
+    }
+    .video-section .video-text .video-title {
+        font-size: 20px;
+        line-height: 26px;
+    }
+}
+@media screen and (max-width: 749px) {
+    .deferred-media__poster-button.video-btn {
+        top: 35%;
+    }
+    .video-section .video-text {
+        max-width: 58%;
+        top: 50%;
+    }
+    .video-section .video-text .video-title {
+        font-size: 18px;
+        line-height: 25px;
+    }
+}
+@media screen and (max-width: 479px) {
+    .video-section .video-text .video-title {
+        display: none;
+    }
+    .deferred-media__poster-button.video-btn {
+        top: 50%;
+    }
 }

@@ -1,0 +1,234 @@
+{%- style -%}
+  .selos-seguranca {
+    background-color: {{ section.settings.selo_seguranca_bg_principal_cor }};
+  }
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  .selos-seguranca__title {
+    display: flex;
+    align-items: center;
+    line-height: normal;
+    gap: 10px;
+    margin-right: 50px;
+    min-width: 310px;
+  }
+  .selos-seguranca__title h2 {
+    color: {{ section.settings.selo_seguranca_txt_principal_cor }};
+    font-size: {{ section.settings.selo_seguranca_txt_principal_tamanho_desktop }}px;
+  }
+  .selos-seguranca__wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0 50px;
+  }
+  .selos-seguranca__title svg {
+    width: {{ section.settings.selo_seguranca_principal_size }}px;
+    fill: {{ section.settings.selo_seguranca_icone_principal_cor }};
+  }
+  .selos-seguranca__blocks {
+    display: flex;
+    gap: 30px;
+    justify-content: flex-start;
+  }
+  .selos-seguranca__block {
+    width: clamp(40px, 100px, 100%);
+  }
+  .selos-seguranca__block-img {
+    object-fit: contain;
+    aspect-ratio: 1 / 1;
+    max-width: 100%;
+  }
+
+  @media screen and (max-width: 768px) {
+    .selos-seguranca__wrapper {
+      flex-direction: column;
+      padding: 0;
+    }
+    .selos-seguranca__title {
+      margin-right: 0;
+      margin-bottom: 20px;
+      justify-content: center;
+      max-width: 100%;
+      min-width: initial;
+      padding: 0 20px;
+    }
+    .selos-seguranca__title h2 {
+      font-size: {{ section.settings.selo_seguranca_txt_principal_tamanho_mobile }}px;
+      text-align: center;
+    }
+    .selos-seguranca__blocks {
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .selos-seguranca__block {
+      width: clamp(40px, 50px, 100%);
+    }
+  }
+
+
+{%- endstyle -%}
+<div class="selos-seguranca">
+  <div class="page-width section-{{ section.id }}-padding">
+    <div class="selos-seguranca__wrapper">
+      <div class="selos-seguranca__title">
+        {% if section.settings.selo_seguranca_principal_icone == blank %}
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" version="1.1" id="Icons" viewBox="0 0 32 32" xml:space="preserve">
+          <g>
+            <path d="M23,14.1V8.9C23,5.1,19.9,2,16,2S9,5.1,9,8.9v5.2c-2.3,0.5-4,2.5-4,4.9v5c0,2.8,2.2,5,5,5h12c2.8,0,5-2.2,5-5v-5   C27,16.6,25.3,14.6,23,14.1z M17,23.8V25c0,0.6-0.4,1-1,1s-1-0.4-1-1v-1.2c-1.2-0.4-2-1.5-2-2.8c0-1.7,1.3-3,3-3s3,1.3,3,3   C19,22.3,18.2,23.4,17,23.8z M21,14H11V8.9C11,6.2,13.2,4,16,4s5,2.2,5,4.9V14z"/>
+          </g>
+        </svg>
+        {% else %}
+        <img src="{{ section.settings.selo_seguranca_principal_icone | img_url: 'master' }}" style="width: {{ section.settings.selo_seguranca_principal_size }}px">
+        {% endif %}
+        <h2>{{ section.settings.selo_seguranca_txt_principal }}</h2>
+      </div>
+      <div class="selos-seguranca__blocks">
+        {% if section.blocks.size < 1 %}
+          <div class="selos-seguranca__block">
+            <img src="{{ 'selo_seguranca_1.png' | asset_url }}" loading="lazy" alt="" class="selos-seguranca__block-img">
+          </div>
+          <div class="selos-seguranca__block">
+            <img src="{{ 'selo_seguranca_2.png' | asset_url }}" loading="lazy" alt="" class="selos-seguranca__block-img">
+          </div>
+          <div class="selos-seguranca__block">
+            <img src="{{ 'selo_seguranca_3.png' | asset_url }}" loading="lazy" alt="" class="selos-seguranca__block-img">
+          </div>
+          <div class="selos-seguranca__block">
+            <img src="{{ 'selo_seguranca_4.png' | asset_url }}" loading="lazy" alt="" class="selos-seguranca__block-img">
+          </div>
+          <div class="selos-seguranca__block">
+            <img src="{{ 'selo_seguranca_5.png' | asset_url }}" loading="lazy" alt="" class="selos-seguranca__block-img">
+          </div>
+          <div class="selos-seguranca__block">
+            <img src="{{ 'selo_seguranca_6.png' | asset_url }}" loading="lazy" alt="" class="selos-seguranca__block-img">
+          </div>
+          <div class="selos-seguranca__block">
+            <img src="{{ 'selo_seguranca_7.png' | asset_url }}" loading="lazy" alt="" class="selos-seguranca__block-img">
+          </div>
+          <div class="selos-seguranca__block">
+            <img src="{{ 'selo_seguranca_8.png' | asset_url }}" loading="lazy" alt="" class="selos-seguranca__block-img">
+          </div>
+        {% else %}
+          {% for block in section.blocks %}
+            <div class="selos-seguranca__block">
+              {{ section.settings.selo_seguranca_link }}
+              <a href="{{ block.settings.selo_seguranca_link }}">
+                <img src="{{ block.settings.selo_seguranca_img | img_url: 'master' }}" loading="lazy" alt="" class="selos-seguranca__block-img">
+              </a>
+            </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Selos de Segurança",
+  "settings": [
+    {
+      "type": "color",
+      "id": "selo_seguranca_bg_principal_cor",
+      "label": "Cor do fundo"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    },
+    {
+      "type": "text",
+      "id": "selo_seguranca_txt_principal",
+      "label": "Texto principal",
+      "default": "Selos de segurança"
+    },
+    {
+      "type": "color",
+      "id": "selo_seguranca_txt_principal_cor",
+      "label": "Cor do texto"
+    },
+    {
+      "type": "range",
+      "id": "selo_seguranca_txt_principal_tamanho_desktop",
+      "min": 8,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho do texto em desktop",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "selo_seguranca_txt_principal_tamanho_mobile",
+      "min": 8,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho do texto em mobile",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "selo_seguranca_principal_size",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho do ícone principal",
+      "default": 40
+    },
+    {
+      "type": "image_picker",
+      "id": "selo_seguranca_principal_icone",
+      "label": "Ícone personalizado",
+      "info": "Tamanho recomendado: 40px"
+    },
+    {
+      "type": "color",
+      "id": "selo_seguranca_icone_principal_cor",
+      "label": "Cor do ícone principal"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "selos-seguranca",
+      "name": "Selo de Segurança",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "selo_seguranca_img",
+          "label": "Imagem do selo",
+          "info": "Tamanho recomendado: 80px"
+        },
+        {
+          "type": "url",
+          "id": "selo_seguranca_link",
+          "label": "URL do link"
+        }
+      ]
+    }
+  ]
+}
+
+{% endschema %}

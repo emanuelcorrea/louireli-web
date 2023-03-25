@@ -21,10 +21,6 @@
   height: 19.4rem;
 }
 
-.image-with-text__media--medium {
-  height: 29.6rem;
-}
-
 .image-with-text__media--large {
   height: 43.5rem;
 }
@@ -32,10 +28,6 @@
 @media screen and (min-width: 750px) {
   .image-with-text__media--small {
     height: 31.4rem;
-  }
-
-  .image-with-text__media--medium {
-    height: 46rem;
   }
 
   .image-with-text__media--large {
@@ -83,7 +75,7 @@
   height: 100%;
   justify-content: center;
   align-self: center;
-  padding: 4rem calc(4rem / var(--font-body-scale)) 5rem;
+  padding: 2rem calc(2rem / var(--font-body-scale)) 4rem;
   position: relative;
   z-index: 1;
 }
@@ -283,17 +275,23 @@
     var(--text-boxes-shadow-vertical-offset)
     var(--text-boxes-shadow-blur-radius)
     rgba(var(--color-shadow), var(--text-boxes-shadow-opacity));
-  word-break: break-word;
 }
 
+@media screen and (min-width: 1200px) {
+  .image-with-text__content {
+    padding: 7rem;
+  }
+}
 @media screen and (min-width: 990px) {
   .image-with-text__content {
-    padding: 6rem 7rem 7rem;
+    padding: 3rem;
   }
 }
 
 .image-with-text__content > * + * {
   margin-top: 2rem;
+  font-size: 14px;
+  line-height: 30px;
 }
 
 .image-with-text__content > .image-with-text__text:empty ~ a {
@@ -316,33 +314,21 @@
 }
 
 .image-with-text__content .image-with-text__text + .button {
-  margin-top: 3rem;
+  margin-top: 4rem;
 }
 
 .image-with-text__heading {
+  word-break: break-word;
   margin-bottom: 0;
+  color: rgb(var(--color-foreground));
 }
-
+.color-background-1 .image-with-text__heading {
+    color: #000;
+}
 .image-with-text__text p {
+  word-break: break-word;
   margin-top: 0;
   margin-bottom: 1rem;
-}
-
-@media screen and (max-width: 749px) {
-  .collapse-padding .image-with-text__grid .image-with-text__content {
-    padding-left: 0;
-    padding-right: 0;
-  }
-}
-
-@media screen and (min-width: 750px) {
-  .collapse-padding .image-with-text__grid:not(.image-with-text__grid--reverse) .image-with-text__content:not(.image-with-text__content--desktop-center) {
-    padding-right: 0;
-  }
-
-  .collapse-padding .image-with-text__grid--reverse .image-with-text__content:not(.image-with-text__content--desktop-center) {
-    padding-left: 0;
-  }
 }
 
 /* check for flexbox gap in older Safari versions */
@@ -352,18 +338,80 @@
   }
 }
 
-/*
-  Multirow
-  note: consider removing from this stylesheet if multirow-specific styles increase signficantly
-*/
-.multirow__inner {
-  display: flex;
-  flex-direction: column;
-  row-gap: var(--grid-mobile-vertical-spacing);
+@media screen and (min-width: 1270px) {
+  .one.image-with-text .image-with-text__content {
+      padding: 7rem 25% 7rem 0;
+  }
+}
+@media screen and (min-width: 990px) {
+  .one.image-with-text .image-with-text__content {
+      padding: 7rem 10% 7rem 0;
+  }
+}
+.one.image-with-text .image-with-text__content:not(.color-background-1) {
+    padding: 5rem;
+}
+.image-with-text:not(.collapse-corners,.image-with-text--overlap) .image-with-text__media-item {
+    width: 46.25%;
+}
+.image-with-text__text.rte {
+    margin-top: 3rem;
 }
 
-@media screen and (min-width: 750px) {
-  .multirow__inner {
-    row-gap: var(--grid-desktop-vertical-spacing);
+.two.image-with-text .image-with-text__content {
+    padding-left: 0;
+    padding-right: 8rem;
+}
+.three.image-with-text .image-with-text__content {
+    padding-left: 10rem;
+    padding-right: 4rem;
+}
+
+@media screen and (max-width: 1260px) {
+    .three.image-with-text .image-with-text__content {
+        padding-left: 5rem;
+        padding-right: 2rem;
+    }
+    .two.image-with-text .image-with-text__content {
+        padding-right: 5rem;
+    }
+}
+@media screen and (max-width: 989px) {
+  .one.image-with-text .image-with-text__content {
+      padding-left: 0;
   }
+  .image-with-text__text.rte {
+      margin-top: 1rem;
+  }
+  .image-with-text__content .image-with-text__text+.button {
+      margin-top: 2rem;
+  }
+  .one.image-with-text .image-with-text__content:not(.color-background-1) {
+      padding: 3rem;
+  }
+}
+@media screen and (max-width: 749px) {
+    .one.image-with-text .image-with-text__content {
+        padding: 30px 0 10px;
+    }
+    .image-with-text__text.rte {
+        margin-top: 1rem;
+        line-height: 24px;
+    }
+   .image-with-text__content .image-with-text__text+.button {
+        margin-top: 2rem;
+    }
+    .image-with-text__content {
+        padding: 3rem 0 0;
+    }
+    .two.image-with-text .image-with-text__content {
+        padding-right: 0;
+    }
+     .three.image-with-text .image-with-text__content {
+          padding-left: 0;
+          padding-right: 0;
+      }
+      .one.image-with-text .image-with-text__content:not(.color-background-1) {
+        padding: 2rem;
+    }
 }

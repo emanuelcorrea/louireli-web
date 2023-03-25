@@ -1,0 +1,227 @@
+/*Backdrop*/
+.backdrop-modal-parcel {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: #33333399;
+    top: 0;
+    left: 0;
+    z-index: 999;
+}
+
+/*body.active-modal .product-template__container {
+    z-index: 11;
+    position: relative;
+}*/
+
+#modal-open-button:hover {
+    text-decoration: underline;
+}
+
+body.active-modal .backdrop-modal-parcel {
+    display: flex;
+}
+
+.active-modal {
+    overflow: hidden;
+}
+
+/*Modal*/
+@media screen and (min-width: 0px) and (max-width: 280px) {
+
+.modal-parcel {
+    position: relative;
+    padding: 20px;
+    background: #ffffff;
+    max-width: 430px;
+    min-width:  290px ;
+    
+    cursor: initial;
+    font-family: 'Poppins', sans-serif;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+}
+@media screen and (min-width: 285px) {
+
+    .modal-parcel {
+        position: relative;
+        padding: 20px;
+        background: #ffffff;
+        max-width: 430px;
+        min-width:  340px ;
+        
+        cursor: initial;
+        font-family: 'Poppins', sans-serif;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+}
+    
+
+.modal-parcel-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-parcel-title {
+    font-size: 20px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: rgb(66, 70, 77);
+}
+
+.modal-close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+
+}
+
+.modal-parcel-payments {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.modal-parcel-payment {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--color-terciary-parcelamento);
+    font-size: 11px;
+    padding: 4px;
+    gap: 4px;
+    border-radius: 4px;
+    flex-basis: 30%;
+    border: 1px solid transparent;
+    transition: all .4s;
+}
+
+.modal-parcel-payment:hover {
+    cursor: pointer;
+}
+
+.modal-parcel-cards {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+
+.modal-parcel-method {
+    display: none;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.modal-parcel-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    color: var(--color-secondary-parcelamento);
+    overflow-y: overlay;
+}
+
+.modal-parcel-list-item {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px;
+    font-size: 12px;
+    border-radius: 4px;
+}
+
+.modal-parcel-cards-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 10px;
+    font-size: 12px;
+}
+
+.modal-parcel-list li {
+    background: #fff;
+}
+
+.modal-parcel-list li:nth-child(odd) {
+    background: rgb(242, 243, 244);
+}
+
+.modal-parcel-informations {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.modal-parcel-pricing {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--color-primary-parcelamento)
+}
+
+.modal-parcel-price-cash {
+    color: var(--color-primary-parcelamento);
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.modal-parcel-price-description {
+    font-size: 12px;
+    color: var(--color-secondary-parcelamento);
+}
+
+.modal-parcel-extra {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: rgb(86, 92, 105);;
+    font-size: 11px;
+}
+
+.modal-parcel-extra-text {
+    flex-basis: 65%;
+    width: min-content;
+}
+
+.modal-parcel-content input {
+    display: none;
+}
+
+/*Quando input está marcado o estilo muda, exibindo o conteúdo de acordo com o id*/
+#payment-type-1:checked ~ .modal-parcel-payments #label-type-1,
+#payment-type-2:checked ~ .modal-parcel-payments #label-type-2,
+#payment-type-3:checked ~ .modal-parcel-payments #label-type-3 {
+    color: var(--color-primary-parcelamento);
+    border-color: currentColor;
+    --color-active-parcelamento: var(--color-primary-parcelamento);
+}
+
+/*Qunado determinado input esta marcado, uma determinada div recebe display flex*/
+#payment-type-1:checked ~ .card-method {
+    display: flex !important;
+}
+
+#payment-type-2:checked ~ .pix-method {
+    display: flex !important;
+}
+
+#payment-type-3:checked ~ .boleto-method {
+    display: flex !important;
+}

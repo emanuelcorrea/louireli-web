@@ -1,0 +1,476 @@
+{{ 'multibanner.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.50 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.50 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="multibanner">
+  <div class="{% if section.settings.layout == 'grid' %}page-width {% else %}full-width {% endif %}section-{{ section.id }}-padding isolate">
+    <div class="multibanner_wrapper">
+
+      <div class="multibanner_left">
+        {% for block in section.blocks %}
+          {% if block.type == 'images_left' %}
+        		<div class="top_banner topbanner-{{ block.id }}">
+                  <div class="top_banner_left {{ block.settings.text_alignment }}">
+                    {% if block.settings.imagetop1 != blank %}
+                      <div class="images_ratio desktop-top_banner" style="padding-top:{{ 1 | divided_by: block.settings.imagetop1.aspect_ratio | times: 100}}%;" data-image-loading-animation>
+                        <img src="{{ block.settings.imagetop1 | img_url: '460x258' }}" loading="lazy" alt="{{ block.settings.imagetop1.alt }}">
+                      </div>
+                    {% else %}
+                    	{{ 'image' | placeholder_svg_tag: 'placeholder placeholder-svg' }}
+                    {% endif %}
+
+                    <div class="mob-top_banner">
+                      {% if block.settings.mob_imagetop1 != blank %}
+                        <div class="images_ratio" style="padding-top:{{ 1 | divided_by: block.settings.mob_imagetop1.aspect_ratio | times: 100}}%;" data-image-loading-animation>
+                          <img src="{{ block.settings.mob_imagetop1 | img_url: 'master' }}" loading="lazy" alt="{{ block.settings.mob_imagetop1.alt }}">
+                        </div>
+                      {% else %}
+                        <div class="images_ratio" style="padding-top:{{ 1 | divided_by: block.settings.imagetop1.aspect_ratio | times: 100}}%;" data-image-loading-animation>
+                          <img src="{{ block.settings.imagetop1 | img_url: '460x258' }}" loading="lazy" alt="{{ block.settings.imagetop1.alt }}">
+                        </div>
+                      {% endif %}
+                    </div>
+
+
+                    {% if block.settings.title1 != blank %}
+                      <div class="multibanner_content">
+                        <h2>{{ block.settings.title1 | escape }}</h2>
+                        {{ block.settings.subtitle1 }}
+                        {% if block.settings.button1 != blank and  block.settings.url1 != blank %}
+                        	<a href="{{ block.settings.url1 }}" class="button--tertiary">{{ block.settings.button1 }}</a>
+                        {% endif %}
+                      </div>
+                    {% endif %}
+
+                  </div>
+
+                  <div class="top_banner_left top_banner_right {{ block.settings.text_alignment }}">
+                    {% if block.settings.imagetop2 != blank %}
+                      <div class="images_ratio desktop-top_banner" style="padding-top:{{ 1 | divided_by: block.settings.imagetop2.aspect_ratio | times: 100}}%;" data-image-loading-animation>
+                        <img src="{{ block.settings.imagetop2 | img_url: '460x258' }}" loading="lazy" alt="{{ block.settings.imagetop2.alt }}">
+                      </div>
+                    {% else %}
+                    	{{ 'image' | placeholder_svg_tag: 'placeholder-svg placeholder' }}
+                    {% endif %}
+
+
+                    <div class="mob-top_banner">
+                      {% if block.settings.mob_imagetop2 != blank %}
+                        <div class="images_ratio" style="padding-top:{{ 1 | divided_by: block.settings.mob_imagetop2.aspect_ratio | times: 100}}%;" data-image-loading-animation>
+                          <img src="{{ block.settings.mob_imagetop2 | img_url: 'master' }}" loading="lazy" alt="{{ block.settings.mob_imagetop2.alt }}">
+                        </div>
+                      {% else %}
+                        <div class="images_ratio" style="padding-top:{{ 1 | divided_by: block.settings.imagetop2.aspect_ratio | times: 100}}%;" data-image-loading-animation>
+                          <img src="{{ block.settings.imagetop2 | img_url: '460x258' }}" loading="lazy" alt="{{ block.settings.imagetop2.alt }}">
+                        </div>
+                      {% endif %}
+                    </div>
+
+                    {% if block.settings.title1 != blank %}
+                      <div class="multibanner_content">
+                        <h2>{{ block.settings.title2 | escape }}</h2>
+                        {{ block.settings.subtitle2 }}
+                        {% if block.settings.button2 != blank and  block.settings.url2 != blank %}
+                        	<a href="{{ block.settings.url2 }}" class="button--tertiary">{{ block.settings.button2 }}</a>
+                        {% endif %}
+                      </div>
+                    {% endif %}
+
+                  </div>
+
+        		</div>
+
+            {% if block.settings.image_bottom != blank %}
+              <div class="bottom_banner bottom_banner-{{ block.id }}">
+                {% if block.settings.image_bottom != blank %}
+                    <div class="images_ratio desktop-top_banner" style="padding-top:{{ 1 | divided_by: block.settings.image_bottom.aspect_ratio | times: 100}}%;" data-image-loading-animation>
+                      <img src="{{ block.settings.image_bottom | img_url: '950x257' }}" loading="lazy" alt="{{ block.settings.image_bottom.alt }}">
+                    </div>
+                {% else %}
+                	{{ 'image' | placeholder_svg_tag: 'placeholder-svg placeholder' }}
+                {% endif %}
+
+                <div class="mob-top_banner">
+                  {% if block.settings.mob_image_bottom != blank %}
+                    <div class="images_ratio" style="padding-top:{{ 1 | divided_by: block.settings.mob_image_bottom.aspect_ratio | times: 100}}%;" data-image-loading-animation>
+                      <img src="{{ block.settings.mob_image_bottom | img_url: 'master' }}" loading="lazy" alt="{{ block.settings.mob_image_bottom.alt }}">
+                    </div>
+                  {% else %}
+                    <div class="images_ratio" style="padding-top:{{ 1 | divided_by: block.settings.image_bottom.aspect_ratio | times: 100}}%;" data-image-loading-animation>
+                      <img src="{{ block.settings.image_bottom | img_url: '950x257' }}" loading="lazy" alt="{{ block.settings.image_bottom.alt }}">
+                    </div>
+                  {% endif %}
+                </div>
+
+                {% if block.settings.title1 != blank %}
+                  <div class="multibanner_content">
+                    <h2>{{ block.settings.title2 | escape }}</h2>
+                    {{ block.settings.subtitle2 }}
+                    {% if block.settings.button2 != blank and  block.settings.url2 != blank %}
+                    	<a href="{{ block.settings.url2 }}" class="button--tertiary">{{ block.settings.button2 }}</a>
+                    {% endif %}
+                  </div>
+                {% endif %}
+
+              </div>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      <div class="multibanner_right">
+        {% for block in section.blocks %}
+          {% if block.type == 'image_right' %}
+            <div class="banner_right multibanner_right-{{ block.id }}">
+              {% if block.settings.image_right != blank %}
+                <div class="images_ratio desktop-top_banner" style="padding-top:{{ 1 | divided_by: block.settings.image_right.aspect_ratio | times: 100}}%;" data-image-loading-animation>
+                  <img src="{{ block.settings.image_right | img_url: '460x545' }}" loading="lazy" alt="{{ block.settings.image_right.alt }}">
+                </div>
+                {% else %}
+                	{{ 'image' | placeholder_svg_tag: 'placeholder-svg placeholder' }}
+                {% endif %}
+
+              	<div class="mob-top_banner">
+                  {% if block.settings.mob_image_right != blank %}
+                    <div class="images_ratio" style="padding-top:{{ 1 | divided_by: block.settings.mob_image_right.aspect_ratio | times: 100}}%;" data-image-loading-animation>
+                      <img src="{{ block.settings.mob_image_right | img_url: 'master' }}" loading="lazy" alt="{{ block.settings.mob_image_right.alt }}">
+                    </div>
+                  {% else %}
+                    <div class="images_ratio" style="padding-top:{{ 1 | divided_by: block.settings.image_right.aspect_ratio | times: 100}}%;" data-image-loading-animation>
+                      <img src="{{ block.settings.image_right | img_url: '460x545' }}" loading="lazy" alt="{{ block.settings.image_right.alt }}">
+                    </div>
+                  {% endif %}
+                </div>
+
+                {% if block.settings.title_right != blank %}
+                  <div class="multibanner_content {{ block.settings.text_alignment }}">
+                    <h2>{{ block.settings.title_right | escape }}</h2>
+                    {{ block.settings.subtitle_right }}
+                    {% if block.settings.button_right != blank and  block.settings.url_right != blank %}
+                    	<a href="{{ block.settings.url_right }}" class="button--tertiary">{{ block.settings.button_right }}</a>
+                    {% endif %}
+                  </div>
+                {% endif %}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style type="text/css">
+  {% for block in section.blocks %}
+
+    {% if block.settings.color1 != blank %}
+  	  .topbanner-{{ block.id }} .top_banner_left > .multibanner_content h2, .topbanner-{{ block.id }} .top_banner_left > .multibanner_content p,
+       .topbanner-{{ block.id }} .top_banner_left > .multibanner_content .button--tertiary{ color: {{ block.settings.color1 }}; }
+    {% endif %}
+
+  	{% if block.settings.color2 != blank %}
+  	  .topbanner-{{ block.id }} .top_banner_right .multibanner_content h2, .topbanner-{{ block.id }} .top_banner_right .multibanner_content p,
+  		.topbanner-{{ block.id }} .top_banner_right .multibanner_content .button--tertiary{ color: {{ block.settings.color2 }}; }
+    {% endif %}
+
+  	{% if block.settings.color_bottom != blank %}
+  	  .bottom_banner-{{ block.id }} .multibanner_content h2, .bottom_banner-{{ block.id }}  .multibanner_content p,
+  		.bottom_banner-{{ block.id }}  .multibanner_content .button--tertiary { color: {{ block.settings.color_bottom }}; }
+    {% endif %}
+
+  	{% if block.settings.color_right != blank %}
+  	  .multibanner_right-{{ block.id }}  .multibanner_content h2, .multibanner_right-{{ block.id }}  .multibanner_content p,
+  		.multibanner_right-{{ block.id }}  .multibanner_content .button--tertiary { color: {{ block.settings.color_right }}; }
+    {% endif %}
+  {% endfor %}
+</style>
+
+{% schema %}
+  {
+    "name": "t:sections.multibanner.label",
+    "class": "section_multibanner",
+    "settings": [
+		{
+          "type": "select",
+          "id": "layout",
+          "options": [
+            {
+              "value": "full_bleed",
+              "label": "t:sections.all.layout.options__1.label"
+            },
+            {
+              "value": "grid",
+              "label": "t:sections.all.layout.options__2.label"
+            }
+          ],
+          "default": "full_bleed",
+          "label": "t:sections.all.layout.label"
+        },
+		{
+          "type": "header",
+          "content": "t:sections.all.padding.section_padding_heading"
+        },
+        {
+          "type": "range",
+          "id": "padding_top",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "px",
+          "label": "t:sections.all.padding.padding_top",
+          "default": 50
+        },
+        {
+          "type": "range",
+          "id": "padding_bottom",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "px",
+          "label": "t:sections.all.padding.padding_bottom",
+          "default": 50
+        }
+	],
+	"blocks": [
+		{
+			"type": "images_left",
+			"name": "t:sections.multibanner.blocks.images_left.name",
+			"limit": 1,
+			"settings": [
+                {
+                    "type": "header",
+                    "content": "t:sections.multibanner.blocks.images_left.settings.header.content1"
+                },
+				{
+					"type": "image_picker",
+					"id": "imagetop1",
+					"label": "t:sections.multibanner.blocks.images_left.settings.imagetop1.label"
+				},
+				{
+					"type": "image_picker",
+					"id": "mob_imagetop1",
+					"label": "t:sections.multibanner.blocks.images_left.settings.mob_imagetop1.label"
+				},
+				{
+					"type": "text",
+					"id": "title1",
+					"label": "t:sections.multibanner.blocks.images_left.settings.title1.label",
+					"default": "Título"
+				},
+				{
+					"type": "html",
+					"id": "subtitle1",
+					"label": "t:sections.multibanner.blocks.images_left.settings.subtitle1.label",
+					"default": "<p>Subtítulo</p>"
+				},
+				{
+					"type": "text",
+					"id": "button1",
+					"label": "t:sections.multibanner.blocks.images_left.settings.button1.label",
+					"default": "Botão"
+				},
+				{
+					"type": "url",
+					"id": "url1",
+					"label": "t:sections.multibanner.blocks.images_left.settings.url1.label"
+				},
+				{
+					"type": "color",
+					"id": "color1",
+					"label": "t:sections.multibanner.blocks.images_left.settings.color1.label"
+				},
+				{
+					"type": "image_picker",
+					"id": "imagetop2",
+					"label": "t:sections.multibanner.blocks.images_left.settings.imagetop2.label"
+				},
+				{
+					"type": "image_picker",
+					"id": "mob_imagetop2",
+					"label": "t:sections.multibanner.blocks.images_left.settings.mob_imagetop2.label"
+				},
+				{
+					"type": "text",
+					"id": "title2",
+					"label": "t:sections.multibanner.blocks.images_left.settings.title2.label",
+					"default": "Título"
+				},
+				{
+					"type": "html",
+					"id": "subtitle2",
+					"label": "t:sections.multibanner.blocks.images_left.settings.subtitle2.label",
+					"default": "<p>Subtítulo</p>"
+				},
+				{
+					"type": "text",
+					"id": "button2",
+					"label": "t:sections.multibanner.blocks.images_left.settings.button2.label",
+					"default": "Botão"
+				},
+				{
+					"type": "url",
+					"id": "url2",
+					"label": "t:sections.multibanner.blocks.images_left.settings.url2.label"
+				},
+				{
+					"type": "color",
+					"id": "color2",
+					"label": "t:sections.multibanner.blocks.images_left.settings.color2.label"
+				},
+				{
+                    "type": "select",
+                    "id": "text_alignment",
+                    "label": "t:sections.all.text_alignment.label",
+                    "options": [
+                        {
+                            "label": "t:sections.all.text_alignment.options__1.label",
+                            "value": "left"
+                        },
+                        {
+                            "label": "t:sections.all.text_alignment.options__2.label",
+                            "value": "center"
+                        },
+                        {
+                            "label": "t:sections.all.text_alignment.options__3.label",
+                            "value": "right"
+                        }
+                    ]
+                },
+				{
+                    "type": "header",
+                    "content": "t:sections.multibanner.blocks.images_left.settings.header.content2"
+                },
+				{
+					"type": "image_picker",
+					"id": "image_bottom",
+					"label": "t:sections.multibanner.blocks.images_left.settings.image_bottom.label"
+				},
+				{
+					"type": "image_picker",
+					"id": "mob_image_bottom",
+					"label": "t:sections.multibanner.blocks.images_left.settings.mob_image_bottom.label"
+				},
+				{
+					"type": "text",
+					"id": "title_bottom",
+					"label": "t:sections.multibanner.blocks.images_left.settings.title_bottom.label",
+					"default": "Título"
+				},
+				{
+					"type": "html",
+					"id": "subtitle_bottom",
+					"label": "t:sections.multibanner.blocks.images_left.settings.subtitle_bottom.label",
+					"default": "<p>Subtítulo</p>"
+				},
+				{
+					"type": "text",
+					"id": "button_bottom",
+					"label": "t:sections.multibanner.blocks.images_left.settings.button_bottom.label",
+					"default": "Botão"
+				},
+				{
+					"type": "url",
+					"id": "url_bottom",
+					"label": "t:sections.multibanner.blocks.images_left.settings.url_bottom.label"
+				},
+				{
+					"type": "color",
+					"id": "color_bottom",
+					"label": "t:sections.multibanner.blocks.images_left.settings.color_bottom.label"
+				}
+			]
+		},
+		{
+			"type": "image_right",
+			"name": "t:sections.multibanner.blocks.image_right.name",
+			"limit": 1,
+			"settings": [
+				{
+                    "type": "header",
+					"content": "t:sections.multibanner.blocks.image_right.settings.header.content1"
+                },
+				{
+					"type": "image_picker",
+					"id": "image_right",
+					"label": "t:sections.multibanner.blocks.image_right.settings.image_right.label"
+				},
+				{
+					"type": "image_picker",
+					"id": "mob_image_right",
+					"label": "t:sections.multibanner.blocks.image_right.settings.mob_image_right.label"
+				},
+				{
+					"type": "text",
+					"id": "title_right",
+					"label": "t:sections.multibanner.blocks.image_right.settings.title_right.label",
+					"default": "Título"
+				},
+				{
+					"type": "html",
+					"id": "subtitle_right",
+					"label": "t:sections.multibanner.blocks.image_right.settings.subtitle_right.label",
+					"default": "<p>Subtítulo</p>"
+				},
+				{
+					"type": "text",
+					"id": "button_right",
+					"label": "t:sections.multibanner.blocks.image_right.settings.button_right.label",
+					"default": "Botão"
+				},
+				{
+					"type": "url",
+					"id": "url_right",
+					"label": "t:sections.multibanner.blocks.image_right.settings.url_right.label"
+				},
+				{
+					"type": "color",
+					"id": "color_right",
+					"label": "t:sections.multibanner.blocks.image_right.settings.color_right.label"
+				},
+				{
+                    "type": "select",
+                    "id": "text_alignment",
+                    "label": "t:sections.all.text_alignment.label",
+                    "options": [
+                        {
+                            "label": "t:sections.all.text_alignment.options__1.label",
+                            "value": "left"
+                        },
+                        {
+                            "label": "t:sections.all.text_alignment.options__2.label",
+                            "value": "center"
+                        },
+                        {
+                            "label": "t:sections.all.text_alignment.options__3.label",
+                            "value": "right"
+                        }
+                    ]
+                }
+			]
+		}
+	],
+	"presets": [
+		{
+			"category": "t:sections.multibanner.presets.category",
+			"name": "t:sections.multibanner.presets.name"
+		}
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

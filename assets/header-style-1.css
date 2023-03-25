@@ -1,0 +1,231 @@
+#shopify-section-header_1 .header-wrapper-inner {
+    grid-template-areas:
+        'heading header-search-full-width icons';
+    grid-template-columns: 1fr 3fr auto;
+  	padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+.header-search-full-width .search.search-modal__form {
+    max-width: 70rem;
+}
+.header-search-full-width .search__button:not(:focus-visible):not(.focused) {
+    font-weight: 400;
+    font-size: 14px;
+    padding: 10px 25px;
+    margin: 3px;
+    width: auto;
+    height: 34px;
+    background-color: var(--color-foreground);
+    border-radius: var(--inputs-radius);
+    color: var(--color-foreground);
+}
+.color-transparent .header-search-full-width .search__button:not(:focus-visible):not(.focused) {
+    background-color: var(--gradient-base-accent-1);
+    color: rgb(var(--color-button-text));
+}
+.header-search-full-width .icon {
+    height: 1.5rem;
+    width: 1.5rem;
+    margin-right: 5px;
+}
+#shopify-section-header_1 .header__inline-menu > ul > li > .header__menu-item, 
+#shopify-section-header_1 .header__inline-menu > ul > li > header-menu > details > .header__menu-item {
+    padding: 1.8rem 2rem;
+    color: #fff;
+}
+.header-top-menu {
+    background: var(--gradient-base-accent-1);
+}
+.header-search-full-width .search.search-modal__form .search__input.field__input {
+    padding-right: 13rem;
+}
+#shopify-section-header_1 .header__icon.wishlist {
+    margin: 0 20px 0 0;
+}
+#shopify-section-header_1.shopify-section-header-sticky .header-wrapper-inner {
+    display: none;
+}
+#shopify-section-header_1.shopify-section-header-sticky {
+    z-index: 3;
+}
+@media screen and (min-width: 990px) {
+    #shopify-section-header_1 .header__search {
+        display: none;
+    }
+  	#shopify-section-header_1 .header__inline-menu {
+        display: inline-block;
+    }
+}
+@media screen and (max-width: 1199px) {
+    .header-search-full-width .search.search-modal__form {
+        max-width: 60rem;
+    }
+}
+@media screen and (max-width: 1024px) {
+    .header-search-full-width .search.search-modal__form {
+        max-width: 55rem;
+    }
+}
+@media screen and (max-width: 989px) {
+    .header-search-full-width{
+        display:none;
+    }
+  	#shopify-section-header_1 .header-wrapper-inner {
+        grid-template-areas: "header-drawer heading icons";
+        grid-template-columns: auto auto 1fr;
+      	padding-top: 1rem;
+    	padding-bottom: 1rem;
+    }
+  	#shopify-section-header_1 .header__search {
+        display: block;
+        margin-right: 15px;
+    }
+}
+
+
+/************ vertical menu css ************/
+#category-box {
+    position: relative;
+    width: 30rem;
+    display: inline-block;
+}
+.header-sidecategory {
+    position: absolute;
+    z-index: 9;
+    left: 0;
+    top: 100%;
+    display: none;
+}
+#category-box .category-title {
+    font-weight: 600;
+    font-size: 20px;
+    color: #fff;
+    padding: 12px 25px;
+    display: inline-block;
+    min-width: 30rem;
+    background-color: #024256;
+    cursor: pointer;
+    text-transform: capitalize;
+    font-family: var(--font-heading-family);
+}
+#header-vertical-menu {
+    width: 30rem;
+    background: var(--gradient-background);
+    margin: 2px 0 0px;
+    padding: 10px 0;
+    border: 1px solid rgba(var(--color-foreground),var(--popup-border-opacity));
+    border-top: 0;
+}
+#header-vertical-menu li {
+    list-style: none;
+}
+#header-vertical-menu > li > .list-menu__item, 
+#header-vertical-menu li summary.list-menu__item {
+    padding: 5px 25px;
+    line-height: 30px;
+}
+#shopify-section-header_1 .header__inline-menu {
+    margin-left: 20px;
+}
+#category-box .category-title .icon {
+    width: 14px;
+    height: 10px;
+    float: right;
+    position: absolute;
+    right: 2rem;
+    top: calc(50% - 0.2rem);
+}
+#category-box .category-title.active .icon {
+    transform: rotate(180deg);
+}
+#header-vertical-menu li .list-menu__item .icon-caret {
+    position: absolute;
+    right: 2rem;
+}
+#header-vertical-menu details[open]>.header__menu-item .icon-caret {
+    transform: rotate(270deg);
+}
+#header-vertical-menu .header__submenu.list-menu.list-menu--disclosure {
+    position: absolute;
+    left: 100%;
+    right: auto;
+    top: 0px;
+}
+#header-vertical-menu .mobile-menu-toggle {
+    display: none;
+}
+#category-box .category-title .icon-vertical-menu {
+    position: static;
+    float: left;
+    fill: #fff;
+    width: 18px;
+    height: 36px;
+    margin-right: 10px;
+    display: block;
+}
+#header-vertical-menu .header__submenu.list-menu.list-menu--disclosure>li {
+    width: 210px;
+}
+#header-vertical-menu header-menu>details {
+    position: relative;
+}
+
+@media screen and (max-width: 1199px) {
+    #header-vertical-menu .header__submenu.list-menu.list-menu--disclosure>li {
+        width: 180px;
+    }
+    #header-vertical-menu>li>.list-menu__item, #header-vertical-menu li summary.list-menu__item,
+    .header__submenu.list-menu.list-menu--disclosure .header__menu-item{
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+@media screen and (max-width: 1060px) {
+    #header-vertical-menu .header__submenu.list-menu.list-menu--disclosure>li {
+        width: 170px;
+    }
+}
+@media screen and (max-width: 1024px) {
+ 	 #category-box,#header-vertical-menu {
+        width: 27rem;
+    }
+    #category-box .category-title {
+        min-width: 27rem;
+    }
+}
+@media screen and (max-width: 989px) {
+ 	#header-vertical-menu .mobile-menu-toggle {
+        display: block;
+    }
+  	#header-vertical-menu .desktop-menu-toggle {
+        display: none;
+    }
+    #header-vertical-menu .header__submenu.list-menu.list-menu--disclosure {
+        left: auto;
+        min-width: auto;
+        display: inherit;
+    }
+  	#header-vertical-menu details[open]>.header__menu-item .icon-caret {
+        transform: rotate(180deg);
+    }
+  	#header-vertical-menu .mobile-menu-toggle summary.list-menu__item {
+        padding-left: 30px;
+    }
+  	#header-vertical-menu .mobile-menu-toggle .header__submenu .header__menu-item {
+        padding-left: 35px;
+    }
+  	#header-vertical-menu .mobile-menu-toggle .header__submenu {
+        padding: 0;
+        margin: 0;
+    }
+    #header-vertical-menu .header__submenu.list-menu.list-menu--disclosure>li {
+        width: auto;
+    }
+}
+@media screen and (max-width: 749px) {
+    .search-modal__close-button {
+        position: static;
+    }
+}
+
+/************* end vertical menu css ********/

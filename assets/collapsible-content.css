@@ -97,10 +97,14 @@
   background: rgba(var(--color-foreground), 0.04);
 }
 
-.collapsible-content summary:hover .accordion__title {
+/* .collapsible-content summary:hover .accordion__title {
   text-decoration: underline;
   text-underline-offset: 0.3rem;
-}
+} */
+
+.collapsible-content .accordion .icon { position: absolute; width: 1.6rem; height: 1.6rem; right: 1.5rem; top: calc(50% - 0.8rem); }
+.collapsible-content .accordion .icon-minus, .accordion details[open]>summary .icon-plus { display: none; }
+.accordion details[open]>summary .icon-minus { display: block; }
 
 /* check for flexbox gap in older Safari versions */
 @supports not (inset: 10px) {

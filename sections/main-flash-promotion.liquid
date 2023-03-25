@@ -1,0 +1,428 @@
+{{ 'component-flash-promotion.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+  .section-flash-promotion {
+    background-color: {{ section.settings.promotion_bg_color}}
+    ;
+  }
+  .section-flash-promotion h1 {
+    color: {{ section.settings.promotion_title_color}}
+    ;
+    font-size: calc(2vw + {{section.settings.promotion_title_scale}}px);
+    font-weight: {{ section.settings.promotion_title_weight}}
+    ;
+  }
+  .countdown-flash-promotion h2 {
+    color: {{ section.settings.countdown_title_color}}
+    ;
+    font-size: calc(1vw + {{section.settings.countdown_title_scale}}px);
+    font-weight: {{ section.settings.countdown_title_weight}}
+    ;
+  }
+  .flash-promotion-counter {
+    font-size: calc(1vw + 20px);
+    color: {{ section.settings.countdown_temp_text_color}}
+    ;
+    background-color: {{ section.settings.countdown_temp_bg_color }}
+    ;
+  }
+  .active-dragscroll {
+    background-color: {{ section.settings.promotion_bg_color}}
+    ;
+  }
+  .active-dragscroll::-webkit-scrollbar-thumb {
+    background: {{ section.settings.scroll_color}}
+    ;
+    border: 0 none{{ section.settings.scroll_color}};
+    border-radius: 50px;
+  }
+  .active-dragscroll::-webkit-scrollbar-track {
+    background: {{ section.settings.scroll_bg_color}}
+    ;
+    border: 0 none{{ section.settings.scroll_bg_color}};
+    border-radius: 50px;
+  }
+  .active-dragscroll::-webkit-scrollbar {
+    {% if section.settings.product_scroll_toggle %}
+      height: 8px;
+    {% else %}
+      height: 0;
+    {% endif %}
+  }
+  .active-dragscroll ul {
+    background-color: {{ section.settings.promotion_bg_color}}
+    ;
+    {% if section.settings.product_scroll_toggle %}
+      flex-wrap: nowrap;
+      gap: 0 calc(1vw + 5px);
+    {% else %}
+      flex-wrap: wrap;
+      gap: calc(1vw + 5px) 0;
+    {% endif %};
+  }
+  .product-flash-promotion {
+    background-color: {{ section.settings.product_card_bg_color}}
+    ;
+    box-shadow: {% if section.settings.product_border_toggle %}
+      none{% else %}
+      0px 0px 12px 1px rgba(255, 215, 0, 0.7){% endif %};
+    {% if section.settings.product_scroll_toggle %}
+      min-width: {% case section.settings.product_by_line %}
+        {% when 1 %}
+        86{% when 2 %}42.5{% when 3 %}28{% when 4 %}20.5{% when 5 %}16.5{% when 6 %}13.5{% when 7 %}11.5{% when 8 %}10{% endcase %}vw;
+    {% else %}
+      width: {% case section.settings.product_by_line %}
+        {% when 1 %}
+        86{% when 2 %}42.5{% when 3 %}28{% when 4 %}20.5{% when 5 %}16.5{% when 6 %}13.5{% when 7 %}11.5{% when 8 %}10{% endcase %}vw;
+    {% endif %};
+  }
+  .label-percentual {
+    background-color: {{ section.settings.product_icon_bg_color}}
+    ;
+  }
+  .label-percentual h5 {
+    color: {{ section.settings.product_icon_text_color}}
+    ;
+    font-size: calc(0.5vw + {{section.settings.product_icon_text_scale}}px);
+  }
+  .product-flash-promotion a h3 {
+    color: {{ section.settings.product_card_text_color}}
+    ;
+    font-size: calc(1vw + {%case section.settings.product_by_line%} {%when 1%}15{%when 2%}10{%when 3%}6{%when 4%}5{%when 5%}4{%when 6%}3{%when 7%}2{%when 8%}1{%endcase%}px);
+  }
+  .span-max-price {
+    color: {{ section.settings.product_card_price_max_color}}
+    ;
+    font-size: calc(0.75vw + {%case section.settings.product_by_line%} {%when 1%}15{%when 2%}10{%when 3%}6{%when 4%}5{%when 5%}4{%when 6%}3{%when 7%}2{%when 8%}1{%endcase%}px);
+  }
+  .span-price {
+    color: {{ section.settings.product_card_sale_color}}
+    ;
+    font-size: calc(1.2vw + {%case section.settings.product_by_line%} {%when 1%}15{%when 2%}10{%when 3%}6{%when 4%}5{%when 5%}4{%when 6%}3{%when 7%}2{%when 8%}1{%endcase%}px);
+  }
+  @media(max-width: 550px) {
+    .product-flash-promotion {
+      min-width: {% case section.settings.product_by_line_mobile %}
+        {% when 1 %}
+        83{% when 2 %}40{% when 3 %}26{% endcase %}vw !important;
+    }
+    .product-flash-promotion a h3 {
+      font-size: calc(1vw + {%case section.settings.product_by_line_mobile%} {% when 1%}15{%when 2%}10{%when 3%}6{%when 4%}5{%endcase%}px) !important;
+    }
+    .span-max-price {
+      font-size: calc(0.75vw + {%case section.settings.product_by_line_mobile%} {%when 1%}15{%when 2%}10{%when 3%}6{%when 4%}5{%endcase%}px) !important;
+    }
+    .span-price {
+      font-size: calc(1.2vw + {%case section.settings.product_by_line_mobile%} {%when 1%}15{%when 2%}10{%when 3%}6{%when 4%}5{%endcase%}px) !important;
+    }
+    .label-percentual h5 {
+      font-size: calc(1vw + {{section.settings.product_icon_text_scale_mobile}}px) !important;
+    }
+  }
+  @media(min-width: 1441px) {
+    .product-flash-promotion {
+      {% if section.settings.product_scroll_toggle %}
+        min-width: 14vw;
+      {% else %}
+        width: {% case section.settings.product_by_line %}
+          {% when 1 %}
+          94.25{% when 2 %}46.5{% when 3 %}30.6{% when 4 %}22.75{% when 5 %}18{% when 6 %}14.82{% when 7 %}12.55{% when 8 %}10.86{% endcase %}%;
+      {% endif %};
+    }
+  }
+{% endstyle %}
+
+{% assign collection_handle = section.settings.selected_collection %}
+{% assign collection = collections[collection_handle] %}
+<div class="div-section-flash-promotion" style="padding: {{section.settings.border_height}}px 0">
+  <section class="section-flash-promotion" style="border-top:{{section.settings.border_scale}}px {{section.settings.border_color}} solid; border-bottom:{{section.settings.border_scale}}px {{section.settings.border_color}} solid; {% if section.settings.border_toggle %} border:none {%endif%}; gap: {{section.settings.gap_blocks_flash-promotion}}px">
+    <h1>{{ section.settings.promotion_description }}</h1>
+    {% if section.settings.countdown_toggle %}
+      <div class="countdown-flash-promotion">
+        <h2>{{ section.settings.countdown_description }}</h2>
+        <div class="countdown-flash-promotion-counter">
+          <span class="flash-promotion-counter" id="flash-counter-hour"></span>
+          <span class="flash-promotion-counter" id="flash-counter-min"></span>
+          <span class="flash-promotion-counter" id="flash-counter-sec"></span>
+        </div>
+      </div>
+    {% endif %}
+    <div class="active-dragscroll">
+      <ul class="list-teste">
+        {% for product in collection.products %}
+          <li ondragstart="event.preventDefault()" class="product-flash-promotion">
+            <a class="product-container-link" href="{{product.url}}">
+              {% assign percentual = product.compare_at_price_max | minus: product.price | times: 1.0 | divided_by: product.compare_at_price_max | times: 100 | ceil %}
+              <span class="label-percentual">
+                <img src="{% if section.settings.product_icon %} {{section.settings.product_icon | img_url: 'master'}} {% else %} https://cdn-icons-png.flaticon.com/512/44/44196.png {%endif%}">
+                <h5>-{{ percentual }}%</h5>
+              </span>
+              <img
+                style="width: 80%"
+                src="{{ product.featured_image | img_url: "medium" }}"
+                alt="">
+              <h3>{{ product.title }}</h3>
+              <div class="flash-promotion-container-price">
+                <span class="span-price">
+                  {{ product.price | money }}</span>
+                <span class="span-max-price">
+                  {{ product.compare_at_price_max | money }}</span>
+              </div>
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </section>
+</div>
+
+<script defer src="{{"section-flash-promotion.js" | asset_url }}"></script>
+
+<script>
+  (function(_0x192aba,_0x5a2fdc){const _0x412dd5=_0x55cc,_0x2a8b52=_0x192aba();while(!![]){try{const _0x141577=-parseInt(_0x412dd5(0x9f))/0x1*(-parseInt(_0x412dd5(0xa0))/0x2)+parseInt(_0x412dd5(0xac))/0x3*(-parseInt(_0x412dd5(0xa2))/0x4)+-parseInt(_0x412dd5(0xa8))/0x5*(parseInt(_0x412dd5(0xa5))/0x6)+-parseInt(_0x412dd5(0x9b))/0x7*(-parseInt(_0x412dd5(0xab))/0x8)+-parseInt(_0x412dd5(0xa1))/0x9+parseInt(_0x412dd5(0xad))/0xa*(-parseInt(_0x412dd5(0xa3))/0xb)+parseInt(_0x412dd5(0xa7))/0xc;if(_0x141577===_0x5a2fdc)break;else _0x2a8b52['push'](_0x2a8b52['shift']());}catch(_0x23c868){_0x2a8b52['push'](_0x2a8b52['shift']());}}}(_0x5624,0xf34f9));function _0x5624(){const _0x29bc81=['innerHTML','5mHnqGc','42678VMJGCk','16410510pzODLC','28vvnrtS','14003275mgdalj','getTime','3462RFpOix','floor','60157572kSccaD','14585oCfcQJ','flash-counter-min','flash-counter-sec','8sbcdmS','155292QvmSLc','10VKOEhf','7130529xHmbkW','getElementById','flash-counter-hour'];_0x5624=function(){return _0x29bc81;};return _0x5624();}function _0x55cc(_0x5e22f7,_0x1b3453){const _0x5624a0=_0x5624();return _0x55cc=function(_0x55ccbd,_0x59681b){_0x55ccbd=_0x55ccbd-0x9b;let _0x57c7f6=_0x5624a0[_0x55ccbd];return _0x57c7f6;},_0x55cc(_0x5e22f7,_0x1b3453);}function countdownPromotion(_0x26c36c){const _0x1bb703=new Date(parseInt(_0x26c36c['split']('/')[0x2]),parseInt(_0x26c36c['split']('/')[0x1])-0x1,parseInt(_0x26c36c['split']('/')[0x0]));setInterval(function(){const _0x153fe8=_0x55cc,_0xfadeb2=new Date()[_0x153fe8(0xa4)](),_0x46a6c5=_0x1bb703-_0xfadeb2,_0x333d89=Math['floor'](_0x46a6c5/(0x3e8*0x3c*0x3c)),_0x48f3ee=Math[_0x153fe8(0xa6)](_0x46a6c5%(0x3e8*0x3c*0x3c)/(0x3e8*0x3c)),_0x1168da=Math[_0x153fe8(0xa6)](_0x46a6c5%(0x3e8*0x3c)/0x3e8);if(_0x46a6c5>0x0){const _0x34812e=document[_0x153fe8(0x9c)](_0x153fe8(0x9d));_0x34812e[_0x153fe8(0x9e)]=_0x333d89+'H';const _0xd76b5c=document[_0x153fe8(0x9c)](_0x153fe8(0xa9));_0xd76b5c['innerHTML']=_0x48f3ee+'M';const _0x59aefa=document[_0x153fe8(0x9c)](_0x153fe8(0xaa));_0x59aefa['innerHTML']=_0x1168da+'S';}else{const _0x44bf4e=document[_0x153fe8(0x9c)]('flash-counter-hour');_0x44bf4e[_0x153fe8(0x9e)]='0H';const _0x1285ca=document['getElementById'](_0x153fe8(0xa9));_0x1285ca['innerHTML']='0M';const _0x19f9e9=document[_0x153fe8(0x9c)](_0x153fe8(0xaa));_0x19f9e9[_0x153fe8(0x9e)]='0S';}});}
+  countdownPromotion("{{ section.settings.promotion_date }}")
+</script>
+
+{% schema %}
+  {
+    "name": "Ofertas Relâmpago",
+    "settings": [
+      {
+        "type": "color",
+        "id": "promotion_bg_color",
+        "label": "Cor de fundo da seção",
+        "default": "#faf2f2"
+      },
+      {
+        "type": "checkbox",
+        "id": "border_toggle",
+        "label": "Desativar borda da seção",
+        "default": false
+      },
+      {
+        "type": "range",
+        "min": 1,
+        "max": 5,
+        "step": 1,
+        "unit": "px",
+        "id": "border_scale",
+        "label": "Largura da borda da seção (se ativa)",
+        "default": 1
+      },
+      {
+        "type": "color",
+        "id": "border_color",
+        "label": "Cor da borda da seção (se ativa)",
+        "default": "#edeaea"
+      }, {
+        "type": "range",
+        "min": 0,
+        "max": 50,
+        "step": 2,
+        "unit": "px",
+        "id": "border_height",
+        "label": "Distância entre as seções",
+        "default": 0
+      }, {
+        "type": "range",
+        "min": 0,
+        "max": 50,
+        "step": 2,
+        "unit": "px",
+        "id": "gap_blocks_flash-promotion",
+        "label": "Distância entre os blocos",
+        "default": 0
+      }, {
+        "type": "text",
+        "id": "promotion_description",
+        "label": "Título da promoção",
+        "default": "Oferta Relâmpago"
+      }, {
+        "type": "color",
+        "id": "promotion_title_color",
+        "label": "Cor do título da promoção",
+        "default": "#474747"
+      }, {
+        "type": "range",
+        "min": 10,
+        "max": 25,
+        "step": 1,
+        "unit": "em",
+        "id": "promotion_title_scale",
+        "label": "Tamanho do título da promoção",
+        "default": 15
+      }, {
+        "type": "radio",
+        "id": "promotion_title_weight",
+        "label": "Destaque do título da promoção",
+        "options": [
+          {
+            "value": "normal",
+            "label": "Normal"
+          }, {
+            "value": "bold",
+            "label": "Alto"
+          }, {
+            "value": "lighter",
+            "label": "Baixo"
+          }
+        ]
+      }, {
+        "type": "checkbox",
+        "id": "countdown_toggle",
+        "label": "Ativar temporizador da promoção",
+        "default": true
+      }, {
+        "type": "text",
+        "id": "promotion_date",
+        "label": "Data do fim da promoção (formato: dd/mm/aaaa)",
+        "default": "01/01/2023"
+      }, {
+        "type": "text",
+        "id": "countdown_description",
+        "label": "Título do temporizador (se ativo)",
+        "default": "Promoção termina em:"
+      }, {
+        "type": "color",
+        "id": "countdown_title_color",
+        "label": "Cor do título do temporizador",
+        "default": "#474747"
+      }, {
+        "type": "range",
+        "min": 10,
+        "max": 18,
+        "step": 1,
+        "unit": "em",
+        "id": "countdown_title_scale",
+        "label": "Tamanho do título do temporizador",
+        "default": 15
+      }, {
+        "type": "radio",
+        "id": "countdown_title_weight",
+        "label": "Destaque do título do temporizador",
+        "options": [
+          {
+            "value": "normal",
+            "label": "Normal"
+          }, {
+            "value": "bold",
+            "label": "Alto"
+          }, {
+            "value": "lighter",
+            "label": "Baixo"
+          }
+        ]
+      }, {
+        "type": "color",
+        "id": "countdown_temp_bg_color",
+        "label": "Cor de fundo do contador",
+        "default": "#ba55d3"
+      }, {
+        "type": "color",
+        "id": "countdown_temp_text_color",
+        "label": "Cor do contador",
+        "default": "#ffffff"
+      }, {
+        "type": "collection",
+        "id": "selected_collection",
+        "label": "Selecione a coleção de produtos"
+      }, {
+        "type": "checkbox",
+        "id": "product_scroll_toggle",
+        "label": "Ativar rolagem dos produtos",
+        "default": true
+      }, {
+        "type": "range",
+        "min": 1,
+        "max": 8,
+        "step": 1,
+        "unit": "uni",
+        "id": "product_by_line",
+        "label": "Numero de produtos por linha (desktop)",
+        "default": 4
+      }, {
+        "type": "range",
+        "min": 1,
+        "max": 3,
+        "step": 1,
+        "unit": "uni",
+        "id": "product_by_line_mobile",
+        "label": "Numero de produtos por linha (mobile)",
+        "default": 2
+      }, {
+        "type": "image_picker",
+        "id": "product_icon",
+        "label": "Ícone do selo de desconto"
+      }, {
+        "type": "color",
+        "id": "product_icon_text_color",
+        "label": "Cor do percentual de desconto",
+        "default": "#E22120"
+      }, {
+        "type": "range",
+        "min": 2,
+        "max": 20,
+        "step": 1,
+        "unit": "em",
+        "id": "product_icon_text_scale",
+        "label": "Tamanho do percentual de desconto (desktop)",
+        "default": 10
+      }, {
+        "type": "range",
+        "min": 2,
+        "max": 18,
+        "step": 1,
+        "unit": "em",
+        "id": "product_icon_text_scale_mobile",
+        "label": "Tamanho do percentual de desconto (mobile)",
+        "default": 8
+      }, {
+        "type": "color",
+        "id": "product_icon_bg_color",
+        "label": "Cor de fundo do selo de desconto",
+        "default": "#ffff00"
+      }, {
+        "type": "checkbox",
+        "id": "product_border_toggle",
+        "label": "Desativar borda do produto",
+        "default": false
+      }, {
+        "type": "color",
+        "id": "product_card_bg_color",
+        "label": "Cor de fundo do produto",
+        "default": "#ffffff"
+      }, {
+        "type": "color",
+        "id": "product_card_text_color",
+        "label": "Cor do título do produto",
+        "default": "#000000"
+      }, {
+        "type": "color",
+        "id": "product_card_sale_color",
+        "label": "Cor do valor com desconto",
+        "default": "#000000"
+      }, {
+        "type": "color",
+        "id": "product_card_price_max_color",
+        "label": "Cor do valor sem desconto",
+        "default": "#808080"
+      }, {
+        "type": "color",
+        "id": "scroll_color",
+        "label": "Cor da barra de rolagem",
+        "default": "#ffb6c1"
+      }, {
+        "type": "color",
+        "id": "scroll_bg_color",
+        "label": "Cor de fundo da barra de rolagem",
+        "default": "#eee9e9"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Ofertas Relâmpago"
+
+      }
+    ]
+  }
+{% endschema %}

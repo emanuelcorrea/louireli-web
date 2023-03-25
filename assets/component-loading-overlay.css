@@ -22,6 +22,11 @@
   display: inline-block;
 }
 
+.loading-overlay__spinner-buy-button {
+  width: 1.8rem;
+  display: inline-block;
+}
+
 .spinner {
   animation: rotator 1.4s linear infinite;
 }

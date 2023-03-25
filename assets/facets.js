@@ -83,6 +83,7 @@ class FacetFiltersForm extends HTMLElement {
     const containerDesktop = document.getElementById('ProductCountDesktop');
     container.innerHTML = count;
     container.classList.remove('loading');
+    initButtons();
     if (containerDesktop) {
       containerDesktop.innerHTML = count;
       containerDesktop.classList.remove('loading');
@@ -184,8 +185,6 @@ class FacetFiltersForm extends HTMLElement {
       sortFilterForms.forEach((form) => {
         if (!isMobile) {
           if (form.id === 'FacetSortForm' || form.id === 'FacetFiltersForm' || form.id === 'FacetSortDrawerForm') {
-            const noJsElements = document.querySelectorAll('.no-js-list');
-            noJsElements.forEach((el) => el.remove());
             forms.push(this.createSearchParams(form));
           }
         } else if (form.id === 'FacetFiltersFormMobile') {

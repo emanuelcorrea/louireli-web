@@ -1,12 +1,14 @@
 .list-social {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-end;
+  justify-content: flex-start;
+  margin-top: 20px;
 }
 
-@media only screen and (max-width: 749px) {
+@media only screen and (max-width: 989px) {
   .list-social {
     justify-content: center;
+    margin-top: 20px;
   }
 }
 
@@ -18,10 +20,15 @@
 .list-social__link {
   align-items: center;
   display: flex;
-  padding: 1.3rem;
-  color: rgb(var(--color-foreground));
+  padding: 1.1rem;
+  color: var(--gradient-base-accent-1);
+  background-color: #fff;
+  border-radius: 50%;
 }
 
 .list-social__link:hover .icon {
   transform: scale(1.07);
+}
+li.list-social__item {
+    margin-right: 10px;
 }
